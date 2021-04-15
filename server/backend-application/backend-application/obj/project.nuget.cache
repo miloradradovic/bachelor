@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "78wwROWEyCbCDj5AnvudC1yvbkOYm7jwS9xkZoM5avLgkiCyiuKANuhd1Ezc3kJ8MYSl5/wNSsZUfNe2WIbzcw==",
+  "success": true,
+  "projectFilePath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\backend-application\\backend-application\\backend-application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Milorad\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Milorad\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Milorad\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\Milorad\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\Milorad\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\Milorad\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}
