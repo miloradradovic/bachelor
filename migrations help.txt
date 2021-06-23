@@ -1,0 +1,3 @@
+pozicioniraj se u model
+dotnet ef --startup-project ../WebApplication migrations add initial
+dotnet ef --startup-project ../WebApplication database update
