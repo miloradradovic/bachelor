@@ -4,6 +4,225 @@
     "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\handymen-backend\\handymen-backend.csproj": {}
   },
   "projects": {
+    "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
+        "projectName": "BusinessLogicLayer",
+        "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
+        "packagesPath": "C:\\Users\\Milorad\\.nuget\\packages\\",
+        "outputPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\BusinessLogicLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Milorad\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Contracts\\Contracts.csproj": {
+                "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Contracts\\Contracts.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.7, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[5.0.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Contracts\\Contracts.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Contracts\\Contracts.csproj",
+        "projectName": "Contracts",
+        "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Contracts\\Contracts.csproj",
+        "packagesPath": "C:\\Users\\Milorad\\.nuget\\packages\\",
+        "outputPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Contracts\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Milorad\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Model\\Model.csproj": {
+                "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Model\\Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.7, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[5.0.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\DataAccessLayer\\DataAccessLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\DataAccessLayer\\DataAccessLayer.csproj",
+        "projectName": "DataAccessLayer",
+        "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\DataAccessLayer\\DataAccessLayer.csproj",
+        "packagesPath": "C:\\Users\\Milorad\\.nuget\\packages\\",
+        "outputPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\DataAccessLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Milorad\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Contracts\\Contracts.csproj": {
+                "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Contracts\\Contracts.csproj"
+              },
+              "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Model\\Model.csproj": {
+                "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Model\\Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.7, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[5.0.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\handymen-backend\\handymen-backend.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -12,6 +231,94 @@
         "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\handymen-backend\\handymen-backend.csproj",
         "packagesPath": "C:\\Users\\Milorad\\.nuget\\packages\\",
         "outputPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\handymen-backend\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Milorad\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
+                "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\BusinessLogicLayer\\BusinessLogicLayer.csproj"
+              },
+              "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Contracts\\Contracts.csproj": {
+                "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Contracts\\Contracts.csproj"
+              },
+              "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\DataAccessLayer\\DataAccessLayer.csproj": {
+                "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\DataAccessLayer\\DataAccessLayer.csproj"
+              },
+              "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Model\\Model.csproj": {
+                "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Model\\Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.7, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[5.0.7, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.6.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Model\\Model.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Model\\Model.csproj",
+        "projectName": "Model",
+        "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Model\\Model.csproj",
+        "packagesPath": "C:\\Users\\Milorad\\.nuget\\packages\\",
+        "outputPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Model\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Milorad\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -38,9 +345,19 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "Swashbuckle.AspNetCore": {
+            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.6.3, )"
+              "version": "[5.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.7, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[5.0.7, )"
             }
           },
           "imports": [
@@ -54,9 +371,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
