@@ -6,7 +6,7 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Services.services
+namespace BusinessLogicLayer.services
 {
     
     public interface IAuthService

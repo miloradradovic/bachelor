@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Services
+namespace BusinessLogicLayer
 {
     public class Class1
     {

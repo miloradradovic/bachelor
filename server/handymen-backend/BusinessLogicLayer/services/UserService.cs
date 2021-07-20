@@ -2,7 +2,7 @@
 using DataAccessLayer.repositories;
 using Model.models;
 
-namespace Services.services
+namespace BusinessLogicLayer.services
 {
     
     public interface IUserService
