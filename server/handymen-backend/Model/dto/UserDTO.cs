@@ -1,4 +1,5 @@
-﻿using Model.models;
+﻿using System.Collections.Generic;
+using Model.models;
 
 namespace Model.dto
 {
@@ -8,6 +9,8 @@ namespace Model.dto
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
+
+        public List<Something> Somethings { get; set; }
         
         public UserDTO() {}
 
@@ -24,6 +27,15 @@ namespace Model.dto
             FirstName = firstName;
             LastName = lastName;
             Age = age;
+        }
+
+        public UserDTO(int id, string firstName, string lastName, int age, List<Something> somethings)
+        {
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Age = age;
+            Somethings = somethings;
         }
 
         public User toEntity()

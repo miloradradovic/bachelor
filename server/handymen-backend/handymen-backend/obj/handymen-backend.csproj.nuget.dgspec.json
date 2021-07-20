@@ -28,6 +28,9 @@
             "projectReferences": {
               "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Contracts\\Contracts.csproj": {
                 "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Contracts\\Contracts.csproj"
+              },
+              "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\DataAccessLayer\\DataAccessLayer.csproj": {
+                "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\DataAccessLayer\\DataAccessLayer.csproj"
               }
             }
           }
@@ -55,6 +58,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[5.0.7, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.11.1, )"
             }
           },
           "imports": [
@@ -127,6 +134,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[5.0.7, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.11.1, )"
             }
           },
           "imports": [
@@ -202,6 +213,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[5.0.7, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.11.1, )"
             }
           },
           "imports": [
@@ -287,6 +302,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.11.1, )"
             }
           },
           "imports": [
@@ -358,6 +377,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[5.0.7, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.11.1, )"
             }
           },
           "imports": [

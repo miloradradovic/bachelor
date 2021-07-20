@@ -44,3 +44,7 @@ D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\hand
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\obj\Debug\net5.0\ref\handymen-backend.dll
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\obj\Debug\net5.0\handymen-backend.pdb
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\obj\Debug\net5.0\handymen-backend.genruntimeconfig.cache
+D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll

@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{F3EC0374-CE77-4CB2-BCC4-DDE9C40B0284}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{6886980A-CA6B-4869-9098-254A81CEC4A1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{54053365-893C-48A5-8C02-B14431197E44}"
 EndProject
 Global
@@ -28,10 +26,6 @@ Global
 		{F3EC0374-CE77-4CB2-BCC4-DDE9C40B0284}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3EC0374-CE77-4CB2-BCC4-DDE9C40B0284}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3EC0374-CE77-4CB2-BCC4-DDE9C40B0284}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6886980A-CA6B-4869-9098-254A81CEC4A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6886980A-CA6B-4869-9098-254A81CEC4A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6886980A-CA6B-4869-9098-254A81CEC4A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6886980A-CA6B-4869-9098-254A81CEC4A1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{54053365-893C-48A5-8C02-B14431197E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{54053365-893C-48A5-8C02-B14431197E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54053365-893C-48A5-8C02-B14431197E44}.Release|Any CPU.ActiveCfg = Release|Any CPU

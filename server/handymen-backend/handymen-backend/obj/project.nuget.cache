@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HMWqFrMIqY0tJo94og/XY3tudRkcsEjM7XhiL/+FeZ1mK3LrmD+jseyhmoF8fDhTDzJE8GBbT8lN1yeoYauomg==",
+  "dgSpecHash": "3EFrWKpsjQri7zII8Lw52Xer0stvr6+kZp88QGpKzIf2UDtgB3WqYMWyIFB6gD+tZp+xkmVwEogLVZf6KNyvWg==",
   "success": true,
   "projectFilePath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\handymen-backend\\handymen-backend.csproj",
   "expectedPackageFiles": [
@@ -22,6 +22,9 @@
     "C:\\Users\\Milorad\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\Milorad\\.nuget\\packages\\microsoft.extensions.options\\5.0.0\\microsoft.extensions.options.5.0.0.nupkg.sha512",
     "C:\\Users\\Milorad\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "C:\\Users\\Milorad\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.11.1\\microsoft.identitymodel.jsonwebtokens.6.11.1.nupkg.sha512",
+    "C:\\Users\\Milorad\\.nuget\\packages\\microsoft.identitymodel.logging\\6.11.1\\microsoft.identitymodel.logging.6.11.1.nupkg.sha512",
+    "C:\\Users\\Milorad\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.11.1\\microsoft.identitymodel.tokens.6.11.1.nupkg.sha512",
     "C:\\Users\\Milorad\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Milorad\\.nuget\\packages\\npgsql\\5.0.7\\npgsql.5.0.7.nupkg.sha512",
     "C:\\Users\\Milorad\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\5.0.7\\npgsql.entityframeworkcore.postgresql.5.0.7.nupkg.sha512",
@@ -32,7 +35,9 @@
     "C:\\Users\\Milorad\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
     "C:\\Users\\Milorad\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "C:\\Users\\Milorad\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.1\\system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512",
-    "C:\\Users\\Milorad\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.6.0\\system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512"
+    "C:\\Users\\Milorad\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.11.1\\system.identitymodel.tokens.jwt.6.11.1.nupkg.sha512",
+    "C:\\Users\\Milorad\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.6.0\\system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512",
+    "C:\\Users\\Milorad\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
   ],
   "logs": []
 }
