@@ -332,27 +332,10 @@
           }
         }
       },
-      "Contracts/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "5.0.7",
-          "Model": "1.0.0",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "5.0.7",
-          "System.IdentityModel.Tokens.Jwt": "6.11.1"
-        },
-        "compile": {
-          "bin/placeholder/Contracts.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Contracts.dll": {}
-        }
-      },
       "DataAccessLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "Contracts": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.7",
           "Model": "1.0.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "5.0.7",
@@ -1094,11 +1077,6 @@
         "version.txt"
       ]
     },
-    "Contracts/1.0.0": {
-      "type": "project",
-      "path": "../Contracts/Contracts.csproj",
-      "msbuildProject": "../Contracts/Contracts.csproj"
-    },
     "DataAccessLayer/1.0.0": {
       "type": "project",
       "path": "../DataAccessLayer/DataAccessLayer.csproj",
@@ -1112,7 +1090,6 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "Contracts >= 1.0.0",
       "DataAccessLayer >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 5.0.7",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.7",
@@ -1145,9 +1122,6 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Contracts\\Contracts.csproj": {
-              "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\Contracts\\Contracts.csproj"
-            },
             "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\DataAccessLayer\\DataAccessLayer.csproj": {
               "projectPath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\DataAccessLayer\\DataAccessLayer.csproj"
             }

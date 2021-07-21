@@ -15,6 +15,7 @@ namespace handymen_backend.Controllers
             _authService = authService;
         }
 
+        /*
         [HttpPost("log-in")]
         public IActionResult LogIn(LoginDataDTO loginDataDto)
         {
@@ -25,12 +26,12 @@ namespace handymen_backend.Controllers
                 return BadRequest();
             }
 
-            return Ok(new LoginDataDTO()
+            return Ok(new TokenDataDTO()
             {
-                Password = loginDataDto.Password,
-                Username = loginDataDto.Username,
+                LoginDataDto = loginDataDto,
                 Token = response
             });
         }
+        */
     }
 }

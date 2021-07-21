@@ -8,8 +8,17 @@ namespace DataAccessLayer
     {
         
         public DbSet<User> Users { get; set; } 
-        public DbSet<Something> Somethings { get; set; }
-        
+        public DbSet<AdditionalJobAdInfo> AdditionalJobAdInfos { get; set; }
+        public DbSet<Administrator> Administrators { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Firm> Firms { get; set; }
+        public DbSet<HandyMan> HandyMen { get; set; }
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Profession> Professions { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Trade> Trades { get; set; }
+
         public PostgreSqlContext(DbContextOptions<PostgreSqlContext> options) : base(options)  
         {  
         }

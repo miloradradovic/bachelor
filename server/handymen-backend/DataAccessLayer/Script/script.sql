@@ -1,0 +1,1 @@
+insert into "Users" ("FirstName", "LastName", "Role", "Email", "Password", "Verified") values ('Ime2', 'Prezime', 1, 'Email2', 'Sifra', true);

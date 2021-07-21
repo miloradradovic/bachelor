@@ -4,9 +4,7 @@ D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\Data
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\DataAccessLayer\bin\Debug\net5.0\DataAccessLayer.dll
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\DataAccessLayer\bin\Debug\net5.0\ref\DataAccessLayer.dll
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\DataAccessLayer\bin\Debug\net5.0\DataAccessLayer.pdb
-D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\DataAccessLayer\bin\Debug\net5.0\Contracts.dll
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\DataAccessLayer\bin\Debug\net5.0\Model.dll
-D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\DataAccessLayer\bin\Debug\net5.0\Contracts.pdb
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\DataAccessLayer\bin\Debug\net5.0\Model.pdb
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\DataAccessLayer\obj\Debug\net5.0\DataAccessLayer.csproj.AssemblyReference.cache
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\DataAccessLayer\obj\Debug\net5.0\DataAccessLayer.GeneratedMSBuildEditorConfig.editorconfig

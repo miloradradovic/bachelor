@@ -8,7 +8,6 @@
     ".NETCoreApp,Version=v5.0": {
       "DataAccessLayer/1.0.0": {
         "dependencies": {
-          "Contracts": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.7",
           "Microsoft.EntityFrameworkCore.Tools": "5.0.7",
           "Model": "1.0.0",
@@ -264,17 +263,6 @@
       },
       "System.Runtime.CompilerServices.Unsafe/4.6.0": {},
       "System.Security.Cryptography.Cng/4.5.0": {},
-      "Contracts/1.0.0": {
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "5.0.7",
-          "Model": "1.0.0",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "5.0.7",
-          "System.IdentityModel.Tokens.Jwt": "6.11.1"
-        },
-        "runtime": {
-          "Contracts.dll": {}
-        }
-      },
       "Model/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "5.0.7",
@@ -488,11 +476,6 @@
       "sha512": "sha512-WG3r7EyjUe9CMPFSs6bty5doUqT+q9pbI80hlNzo2SkPkZ4VTuZkGWjpp77JB8+uaL4DFPRdBsAY+DX3dBK92A==",
       "path": "system.security.cryptography.cng/4.5.0",
       "hashPath": "system.security.cryptography.cng.4.5.0.nupkg.sha512"
-    },
-    "Contracts/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     },
     "Model/1.0.0": {
       "type": "project",

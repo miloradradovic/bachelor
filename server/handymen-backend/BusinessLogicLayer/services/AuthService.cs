@@ -11,7 +11,9 @@ namespace BusinessLogicLayer.services
     
     public interface IAuthService
     {
+        /*
         public string LogIn(LoginData loginData);
+        */
     }
     
     public class AuthService : IAuthService
@@ -26,6 +28,7 @@ namespace BusinessLogicLayer.services
             _configuration = configuration;
         }
         
+        /*
         public string LogIn(LoginData loginData)
         {
             User user = _userService.GetUserByUsername(loginData.Username);
@@ -50,5 +53,6 @@ namespace BusinessLogicLayer.services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+        */
     }
 }

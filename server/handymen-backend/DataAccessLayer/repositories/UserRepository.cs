@@ -8,11 +8,14 @@ namespace DataAccessLayer.repositories
 {
     public interface IUserRepository
     {
+        
         public User Create(User toCreate);
 
+        /*
         public List<User> GetUsersBySomething(Something something);
 
         public User GetUserByUsername(string username);
+        */
     }
     
     public class UserRepository: IUserRepository
@@ -25,13 +28,15 @@ namespace DataAccessLayer.repositories
             _context = context;
         }
         
+        
         public User Create(User toCreate)
         {
             _context.Users.Add(toCreate);
             _context.SaveChanges();
             return toCreate;
         }
-
+        
+        /*
         public List<User> GetUsersBySomething(Something something)
         {
             IEnumerable<User> users = 
@@ -50,5 +55,6 @@ namespace DataAccessLayer.repositories
             User found = _context.Users.SingleOrDefault(user => user.FirstName == username);
             return found;
         }
+        */
     }
 }

@@ -21,11 +21,9 @@ D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\hand
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\BusinessLogicLayer.dll
-D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\Contracts.dll
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\DataAccessLayer.dll
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\Model.dll
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\BusinessLogicLayer.pdb
-D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\Contracts.pdb
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\DataAccessLayer.pdb
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\Model.pdb
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\obj\Debug\net5.0\handymen-backend.csproj.AssemblyReference.cache

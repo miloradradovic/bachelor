@@ -34,7 +34,6 @@
       "handymen-backend/1.0.0": {
         "dependencies": {
           "BusinessLogicLayer": "1.0.0",
-          "Contracts": "1.0.0",
           "DataAccessLayer": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.7",
           "Microsoft.EntityFrameworkCore.Tools": "5.0.7",
@@ -619,7 +618,7 @@
       "System.Security.Cryptography.Cng/4.5.0": {},
       "BusinessLogicLayer/1.0.0": {
         "dependencies": {
-          "Contracts": "1.0.0",
+          "DataAccessLayer": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.7",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "5.0.7",
           "System.IdentityModel.Tokens.Jwt": "6.11.1"
@@ -629,25 +628,10 @@
         },
         "compile": {
           "BusinessLogicLayer.dll": {}
-        }
-      },
-      "Contracts/1.0.0": {
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "5.0.7",
-          "Model": "1.0.0",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "5.0.7",
-          "System.IdentityModel.Tokens.Jwt": "6.11.1"
-        },
-        "runtime": {
-          "Contracts.dll": {}
-        },
-        "compile": {
-          "Contracts.dll": {}
         }
       },
       "DataAccessLayer/1.0.0": {
         "dependencies": {
-          "Contracts": "1.0.0",
           "Microsoft.EntityFrameworkCore": "5.0.7",
           "Model": "1.0.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "5.0.7",
@@ -2606,11 +2590,6 @@
       "hashPath": "system.security.cryptography.cng.4.5.0.nupkg.sha512"
     },
     "BusinessLogicLayer/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Contracts/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

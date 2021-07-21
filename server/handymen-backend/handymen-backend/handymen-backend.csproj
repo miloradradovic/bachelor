@@ -18,7 +18,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
-      <ProjectReference Include="..\Contracts\Contracts.csproj" />
       <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
       <ProjectReference Include="..\Model\Model.csproj" />
     </ItemGroup>

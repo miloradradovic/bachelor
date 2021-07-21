@@ -21,14 +21,16 @@ namespace handymen_backend.Controllers
         {
             _UserService = userService;
         }
-
+        
+        
         [HttpPost]
         public IActionResult CreateUser(UserDTO userDto)
         {
             User saved = _UserService.CreateUser(userDto.toEntity());
-            return Ok(saved.toDto2());
+            return Ok(saved);
         }
 
+        /*
         [HttpGet]
         public IActionResult GetUserBySomethings()
         {
@@ -40,5 +42,6 @@ namespace handymen_backend.Controllers
             List<User> users = _UserService.GetUsersBySomethings(something);
             return Ok(users);
         }
+        */
     }
 }
