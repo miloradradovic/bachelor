@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Model.dto;
 using BusinessLogicLayer.services;
+using handymen_backend.jwt;
 
 namespace handymen_backend.Controllers
 {
@@ -14,8 +15,7 @@ namespace handymen_backend.Controllers
         {
             _authService = authService;
         }
-
-        /*
+        
         [HttpPost("log-in")]
         public IActionResult LogIn(LoginDataDTO loginDataDto)
         {
@@ -32,6 +32,26 @@ namespace handymen_backend.Controllers
                 Token = response
             });
         }
-        */
+        
+        [Authorize(Roles.ADMINISTRATOR)]
+        [HttpPost("test-admin")]
+        public IActionResult TestAdmin()
+        {
+            return Ok();
+        }
+        
+        [Authorize(Roles.HANDYMAN)]
+        [HttpPost("test-handyman")]
+        public IActionResult TestHandyman()
+        {
+            return Ok();
+        }
+        
+        [Authorize(Roles.USER)]
+        [HttpPost("test-user")]
+        public IActionResult TestUser()
+        {
+            return Ok();
+        }
     }
 }

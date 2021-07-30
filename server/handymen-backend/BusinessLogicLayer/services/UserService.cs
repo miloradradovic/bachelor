@@ -8,6 +8,8 @@ namespace BusinessLogicLayer.services
     public interface IUserService
     {
         public User CreateUser(User toCreate);
+        public User GetById(int id);
+        public User GetByEmailAndPassword(string email, string password);
         /*
         public List<User> GetUsersBySomethings(Something something);
 
@@ -36,6 +38,17 @@ namespace BusinessLogicLayer.services
         {
             return _userRepository.Create(toCreate);
         }
+
+        public User GetById(int id)
+        {
+            return _userRepository.GetById(id);
+        }
+
+        public User GetByEmailAndPassword(string email, string password)
+        {
+            return _userRepository.GetByEmailAndPassword(email, password);
+        }
+
         /*
 
         public User GetUserByUsername(string username)

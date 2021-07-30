@@ -3,9 +3,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessLogicLayer.services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Model.models;
 
 namespace handymen_backend.jwt
 {
@@ -20,18 +22,19 @@ namespace handymen_backend.jwt
             _configuration = configuration;
         }
 
-        /*
-        public async Task Invoke(HttpContext context, ITeamMemberService teamMemberService)
+        public async Task Invoke(HttpContext context, IAdministratorService administratorService, IHandymanService handymanService,
+            IUserService userService)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
-                AttachUserToContext(context, teamMemberService, token);
+                AttachUserToContext(context, administratorService, handymanService, userService, token);
 
             await _next(context);
         }
 
-        private void AttachUserToContext(HttpContext context, ITeamMemberService teamMemberService, string token)
+        private void AttachUserToContext(HttpContext context, IAdministratorService administratorService, 
+            IHandymanService handymanService, IUserService userService, string token)
         {
             try
             {
@@ -47,15 +50,40 @@ namespace handymen_backend.jwt
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+                var personId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
-                context.Items["User"] = teamMemberService.GetById(userId);
+                Person loggedIn = findLoggedIn(administratorService, handymanService, userService, personId);
+
+                context.Items["LoggedIn"] = loggedIn;
             }
             catch
             {
 
             }
         }
-        */
+
+        private Person findLoggedIn(IAdministratorService administratorService,
+            IHandymanService handymanService, IUserService userService, int personId)
+        {
+            User foundUser = userService.GetById(personId);
+            if (foundUser != null)
+            {
+                return foundUser;
+            }
+
+            HandyMan foundHandyMan = handymanService.GetById(personId);
+            if (foundHandyMan != null)
+            {
+                return foundHandyMan;
+            }
+
+            Administrator foundAdministrator = administratorService.GetById(personId);
+            if (foundAdministrator != null)
+            {
+                return foundAdministrator;
+            }
+
+            return null;
+        }
     }
 }

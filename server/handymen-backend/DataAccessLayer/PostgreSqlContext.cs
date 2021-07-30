@@ -11,7 +11,6 @@ namespace DataAccessLayer
         public DbSet<AdditionalJobAdInfo> AdditionalJobAdInfos { get; set; }
         public DbSet<Administrator> Administrators { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Firm> Firms { get; set; }
         public DbSet<HandyMan> HandyMen { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Location> Locations { get; set; }
@@ -26,6 +25,28 @@ namespace DataAccessLayer
         protected override void OnModelCreating(ModelBuilder builder)  
         {  
             base.OnModelCreating(builder);
+            builder.Entity<Administrator>()
+                .Property(x => x.Id)
+                .UseHiLo("person_seq");
+                //.HasDefaultValueSql("NEXT VALUE FOR postgres.public.person_seq");
+                //.HasDefaultValueSql("NEXT VALUE FOR postgres.public.person_seq");
+            builder.Entity<User>()
+                .Property(x => x.Id)
+                .UseHiLo("person_seq");
+                //.HasDefaultValueSql("NEXT VALUE FOR postgres.public.person_seq");
+            //.HasDefaultValueSql("NEXT VALUE FOR postgres.public.person_seq");
+            builder.Entity<HandyMan>()
+                .Property(x => x.Id)
+                .UseHiLo("person_seq");
+                //.HasDefaultValueSql("NEXT VALUE FOR postgres.public.person_seq");
+            //.HasDefaultValueSql("NEXT VALUE FOR postgres.public.person_seq");
+            /*
+            builder.ForSqlServerHasSequence<int>("DBSequence")
+                .StartsAt(1000).IncrementsBy(2);
+            builder.Entity<Category>()
+                .Property(x => x.CategoryID)
+                .HasDefaultValueSql("NEXT VALUE FOR DBSequence");
+                */
             //builder.Entity<Person>().ToTable("People");
             //builder.Entity<User>().ToTable("Users");
         }  

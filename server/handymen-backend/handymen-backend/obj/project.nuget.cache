@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "wg6DmIjS/lh1Fe3Z9ro8cS9z+8i+CLvtf8MHrSFYJ9Y/aQuFTjYAz+I00Mb3xTMlZ8XB8xJFCOMVvAO7fkpIaQ==",
+  "dgSpecHash": "JbTUwWVV3l0zBTwDxXjsBF2ycYxU/DndhuKaSBzjlI9GbL6ZaZsQNhJxvvGKRunj4qe6aBVZEi38jfsPl4opoQ==",
   "success": true,
   "projectFilePath": "D:\\Fakultet\\8. semestar\\PROJEKTI\\diplomski\\bachelor\\server\\handymen-backend\\handymen-backend\\handymen-backend.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Milorad\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\Milorad\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Milorad\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Milorad\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.7\\microsoft.entityframeworkcore.5.0.7.nupkg.sha512",

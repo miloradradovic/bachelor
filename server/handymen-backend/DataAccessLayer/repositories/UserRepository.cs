@@ -10,7 +10,8 @@ namespace DataAccessLayer.repositories
     {
         
         public User Create(User toCreate);
-
+        public User GetById(int id);
+        public User GetByEmailAndPassword(string email, string password);
         /*
         public List<User> GetUsersBySomething(Something something);
 
@@ -35,7 +36,19 @@ namespace DataAccessLayer.repositories
             _context.SaveChanges();
             return toCreate;
         }
-        
+
+        public User GetById(int id)
+        {
+            User found = _context.Users.SingleOrDefault(user => user.Id == id);
+            return found;
+        }
+
+        public User GetByEmailAndPassword(string email, string password)
+        {
+            User found = _context.Users.SingleOrDefault(user => user.Email == email && user.Password == password);
+            return found;
+        }
+
         /*
         public List<User> GetUsersBySomething(Something something)
         {

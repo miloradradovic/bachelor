@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using BusinessLogicLayer.services;
+using handymen_backend.jwt;
 
 namespace handymen_backend
 {
@@ -23,6 +24,10 @@ namespace handymen_backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IAdministratorRepository, AdministratorRepository>();
+            services.AddScoped<IAdministratorService, AdministratorService>();
+            services.AddScoped<IHandymanRepository, HandymanRepository>();
+            services.AddScoped<IHandymanService, HandymanService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthService, AuthService>();
@@ -45,11 +50,12 @@ namespace handymen_backend
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "handymen_backend v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

@@ -1,40 +1,16 @@
-﻿using System;
-using System.Data.SqlTypes;
-using System.IO;
+﻿using System.IO;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class model : Migration
+    public partial class jwt : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Somethings");
-
-            migrationBuilder.DropColumn(
-                name: "Age",
-                table: "Users");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Email",
-                table: "Users",
-                type: "text",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Password",
-                table: "Users",
-                type: "text",
-                nullable: true);
-
-            migrationBuilder.AddColumn<bool>(
-                name: "Verified",
-                table: "Users",
-                type: "boolean",
-                nullable: false,
-                defaultValue: false);
+            //migrationBuilder.CreateSequence(
+              //  name: "person_seq",
+                //incrementBy: 10);
 
             migrationBuilder.CreateTable(
                 name: "AdditionalJobAdInfos",
@@ -56,7 +32,7 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SequenceHiLo),
                     FirstName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
                     Email = table.Column<string>(type: "text", nullable: true),
@@ -87,7 +63,7 @@ namespace DataAccessLayer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SequenceHiLo),
                     FirstName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
                     Email = table.Column<string>(type: "text", nullable: true),
@@ -116,6 +92,24 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SequenceHiLo),
+                    FirstName = table.Column<string>(type: "text", nullable: true),
+                    LastName = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Password = table.Column<string>(type: "text", nullable: true),
+                    Role = table.Column<int>(type: "integer", nullable: false),
+                    Verified = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Professions",
                 columns: table => new
                 {
@@ -136,24 +130,22 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Firms",
+                name: "Ratings",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PIB = table.Column<int>(type: "integer", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Logo = table.Column<string>(type: "text", nullable: true),
-                    Email = table.Column<string>(type: "text", nullable: true),
-                    AddressId = table.Column<int>(type: "integer", nullable: true)
+                    Rate = table.Column<int>(type: "integer", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    HandyManId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Firms", x => x.Id);
+                    table.PrimaryKey("PK_Ratings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Firms_Locations_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Locations",
+                        name: "FK_Ratings_HandyMen_HandyManId",
+                        column: x => x.HandyManId,
+                        principalTable: "HandyMen",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -194,53 +186,18 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ratings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Rate = table.Column<int>(type: "integer", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    FirmId = table.Column<int>(type: "integer", nullable: true),
-                    HandyManId = table.Column<int>(type: "integer", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Ratings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Ratings_Firms_FirmId",
-                        column: x => x.FirmId,
-                        principalTable: "Firms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Ratings_HandyMen_HandyManId",
-                        column: x => x.HandyManId,
-                        principalTable: "HandyMen",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Trades",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: true),
-                    FirmId = table.Column<int>(type: "integer", nullable: true),
                     HandyManId = table.Column<int>(type: "integer", nullable: true),
                     ProfessionId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Trades", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Trades_Firms_FirmId",
-                        column: x => x.FirmId,
-                        principalTable: "Firms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Trades_HandyMen_HandyManId",
                         column: x => x.HandyManId,
@@ -263,19 +220,12 @@ namespace DataAccessLayer.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     JobAdId = table.Column<int>(type: "integer", nullable: true),
                     HandyManId = table.Column<int>(type: "integer", nullable: true),
-                    FirmId = table.Column<int>(type: "integer", nullable: true),
                     Finished = table.Column<bool>(type: "boolean", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Jobs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Jobs_Firms_FirmId",
-                        column: x => x.FirmId,
-                        principalTable: "Firms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Jobs_HandyMen_HandyManId",
                         column: x => x.HandyManId,
@@ -297,11 +247,6 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Firms_AddressId",
-                table: "Firms",
-                column: "AddressId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_JobAd_AdditionalJobAdInfoId",
                 table: "JobAd",
                 column: "AdditionalJobAdInfoId");
@@ -315,11 +260,6 @@ namespace DataAccessLayer.Migrations
                 name: "IX_JobAd_OwnerId",
                 table: "JobAd",
                 column: "OwnerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Jobs_FirmId",
-                table: "Jobs",
-                column: "FirmId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Jobs_HandyManId",
@@ -342,19 +282,9 @@ namespace DataAccessLayer.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ratings_FirmId",
-                table: "Ratings",
-                column: "FirmId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Ratings_HandyManId",
                 table: "Ratings",
                 column: "HandyManId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Trades_FirmId",
-                table: "Trades",
-                column: "FirmId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trades_HandyManId",
@@ -365,10 +295,9 @@ namespace DataAccessLayer.Migrations
                 name: "IX_Trades_ProfessionId",
                 table: "Trades",
                 column: "ProfessionId");
-
-            var sqlFile = "../Script/script.sql";
-            migrationBuilder.Sql(sqlFile);
-
+            
+            var sqlFile = "../DataAccessLayer/Script/script.sql"; 
+            migrationBuilder.Sql(File.ReadAllText(sqlFile));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -389,9 +318,6 @@ namespace DataAccessLayer.Migrations
                 name: "JobAd");
 
             migrationBuilder.DropTable(
-                name: "Firms");
-
-            migrationBuilder.DropTable(
                 name: "HandyMen");
 
             migrationBuilder.DropTable(
@@ -404,51 +330,13 @@ namespace DataAccessLayer.Migrations
                 name: "Locations");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "Categories");
 
-            migrationBuilder.DropColumn(
-                name: "Email",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "Password",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "Verified",
-                table: "Users");
-
-            migrationBuilder.AddColumn<int>(
-                name: "Age",
-                table: "Users",
-                type: "integer",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.CreateTable(
-                name: "Somethings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<int>(type: "integer", nullable: true),
-                    name = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Somethings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Somethings_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Somethings_UserId",
-                table: "Somethings",
-                column: "UserId");
+            migrationBuilder.DropSequence(
+                name: "person_seq");
         }
     }
 }
