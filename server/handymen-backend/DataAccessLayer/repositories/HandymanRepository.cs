@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Model.models;
+using BC = BCrypt.Net.BCrypt;
 
 namespace DataAccessLayer.repositories
 {
@@ -7,6 +8,7 @@ namespace DataAccessLayer.repositories
     {
         public HandyMan GetById(int id);
         public HandyMan GetByEmailAndPassword(string email, string password);
+        public HandyMan GetByEmail(string email);
     }
 
     public class HandymanRepository : IHandymanRepository
@@ -27,7 +29,22 @@ namespace DataAccessLayer.repositories
         public HandyMan GetByEmailAndPassword(string email, string password)
         {
             HandyMan found = _context.HandyMen.SingleOrDefault(handyman =>
-                handyman.Email == email && handyman.Password == password);
+                handyman.Email == email && handyman.Verified);
+            
+            if (found != null)
+            {
+                if (BC.Verify(password, found.Password))
+                {
+                    return found;
+                }
+
+            }
+            return null;
+        }
+
+        public HandyMan GetByEmail(string email)
+        {
+            HandyMan found = _context.HandyMen.SingleOrDefault(handyman => handyman.Email == email);
             return found;
         }
     }

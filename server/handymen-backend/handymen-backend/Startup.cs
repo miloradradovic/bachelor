@@ -32,9 +32,9 @@ namespace handymen_backend
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IRegistrationRequestService, RegistrationRequestService>();
-            services.AddScoped<IRegistrationRequestRepository, RegistrationRequestRepository>();
             services.AddScoped<IMailService, MailService>();
+            services.AddScoped<ICryptingService, CryptingService>();
+            
             services.Configure<EmailSenderData>(Configuration.GetSection("EmailSenderData"));
             var sqlConnectionString = Configuration["PostgreSQLConnection"];
             services.AddDbContext<PostgreSqlContext>(options => options.UseNpgsql(sqlConnectionString));  

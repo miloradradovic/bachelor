@@ -1,21 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using DataAccessLayer.repositories;
 using Model.models;
+using BC = BCrypt.Net.BCrypt;
 
 namespace BusinessLogicLayer.services
 {
     
     public interface IUserService
     {
-        public User CreateUser(User toCreate);
         public User GetById(int id);
         public User GetByEmailAndPassword(string email, string password);
-        public ApiResponse CreateRegistrationRequest(RegistrationRequest request);
-        /*
-        public List<User> GetUsersBySomethings(Something something);
-
-        public User GetUserByUsername(string username);
-        */
+        public User GetByEmail(string email);
+        public ApiResponse RegisterUser(RegistrationRequest request);
+        public ApiResponse VerifyUser(string encrypted);
     }
     
     
@@ -23,25 +20,19 @@ namespace BusinessLogicLayer.services
     {
 
         private readonly IUserRepository _userRepository;
-        private readonly IRegistrationRequestService _registrationRequestService;
         private readonly IMailService _mailService;
+        private readonly ICryptingService _cryptingService;
+        private readonly IAdministratorService _administratorService;
+        private readonly IHandymanService _handymanService;
 
-        public UserService(IUserRepository repository, IRegistrationRequestService requestService, IMailService mailService)
+        public UserService(IUserRepository repository, IMailService mailService,
+            ICryptingService cryptingService, IAdministratorService administratorService, IHandymanService handymanService)
         {
             _userRepository = repository;
-            _registrationRequestService = requestService;
             _mailService = mailService;
-        }
-
-        /*
-        public List<User> GetUsersBySomethings(Something something)
-        {
-            return _userRepository.GetUsersBySomething(something);
-        }
-        */
-        public User CreateUser(User toCreate)
-        {
-            return _userRepository.Create(toCreate);
+            _cryptingService = cryptingService;
+            _administratorService = administratorService;
+            _handymanService = handymanService;
         }
 
         public User GetById(int id)
@@ -54,14 +45,36 @@ namespace BusinessLogicLayer.services
             return _userRepository.GetByEmailAndPassword(email, password);
         }
 
-        public ApiResponse CreateRegistrationRequest(RegistrationRequest request)
+        public ApiResponse RegisterUser(RegistrationRequest request)
         {
-            RegistrationRequest created = _registrationRequestService.Create(request);
+            User findUserByEmail = _userRepository.GetByEmail(request.Email);
+            Administrator findAdministratorByEmail = _administratorService.GetByEmail(request.Email);
+            HandyMan findHandymanByEmail = _handymanService.GetByEmail(request.Email);
+            if (findUserByEmail != null || findAdministratorByEmail != null || findHandymanByEmail != null)
+            {
+                return new ApiResponse()
+                {
+                    Message = "Entered email is taken.",
+                    ResponseObject = null,
+                    Status = 400
+                };
+            }
+
+            User created = _userRepository.Create(new User()
+            {
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Password = BC.HashPassword(request.Password),
+                Role = Role.USER,
+                Verified = false
+            });
+
             if (created == null)
             {
                 return new ApiResponse()
                 {
-                    Message = "Registration request with that email already exists. Please verify your account.",
+                    Message = "Something went wrong with the database. Please, try again later.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -69,7 +82,7 @@ namespace BusinessLogicLayer.services
             
             _mailService.SendEmail(new MailRequest()
             {
-                Body = "Please verify your account. Verification link: https://localhost:5001/users/verify?id=" + created.Id,
+                Body = "Please verify your account. Verification link: https://localhost:5001/users/verify/" + _cryptingService.Encrypt(created.Id.ToString()),
                 Subject = "Account verification",
                 ToEmail = created.Email
             });
@@ -82,12 +95,58 @@ namespace BusinessLogicLayer.services
             };
         }
 
-        /*
-
-        public User GetUserByUsername(string username)
+        public ApiResponse VerifyUser(string encrypted)
         {
-            return _userRepository.GetUserByUsername(username);
+            int decryptedId;
+            bool canParse = int.TryParse(_cryptingService.Decrypt(encrypted), out decryptedId);
+            if (!canParse)
+            {
+                return new ApiResponse()
+                {
+                    Message = "Something is wrong with encrypted id. Please try again.",
+                    ResponseObject = null,
+                    Status = 400
+                };
+            }
+            
+            User toVerify = _userRepository.GetById(decryptedId);
+
+            if (toVerify == null)
+            {
+                return new ApiResponse()
+                {
+                    Message = "Could not find your account.",
+                    ResponseObject = null,
+                    Status = 404
+                };
+            }
+
+            toVerify.Verified = true;
+            User updated = _userRepository.Update(toVerify);
+
+            if (updated == null)
+            {
+                return new ApiResponse()
+                {
+                    Message = "Something went wrong while updating your account. Please try again later.",
+                    ResponseObject = null,
+                    Status = 400
+                };
+            }
+
+            return new ApiResponse()
+            {
+                Message = "Successfully verified your account. Now you can log in!",
+                ResponseObject = updated,
+                Status = 200
+            };
+
+
         }
-        */
+
+        public User GetByEmail(string email)
+        {
+            return _userRepository.GetByEmail(email);
+        }
     }
 }

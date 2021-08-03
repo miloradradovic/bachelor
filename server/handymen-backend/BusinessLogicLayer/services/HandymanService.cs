@@ -8,6 +8,7 @@ namespace BusinessLogicLayer.services
     {
         public HandyMan GetById(int id);
         public HandyMan GetByEmailAndPassword(string email, string password);
+        public HandyMan GetByEmail(string email);
     }
     
     public class HandymanService : IHandymanService
@@ -27,6 +28,11 @@ namespace BusinessLogicLayer.services
         public HandyMan GetByEmailAndPassword(string email, string password)
         {
             return _handymanRepository.GetByEmailAndPassword(email, password);
+        }
+
+        public HandyMan GetByEmail(string email)
+        {
+            return _handymanRepository.GetByEmail(email);
         }
     }
 }

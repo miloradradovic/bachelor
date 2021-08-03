@@ -12,8 +12,6 @@ namespace Model.dto
         
         public string Password { get; set; }
         
-        public string Role { get; set; }
-
         public RegistrationRequest ToRegistrationRequest()
         {
             return new RegistrationRequest()
@@ -22,8 +20,7 @@ namespace Model.dto
                 LastName = LastName,
                 Email = Email,
                 Password = Password,
-                Role = Enum.Parse<Role>(Role, true),
-                DateCreated = DateTime.Now
+                Role = Role.USER
             };
         }
     }

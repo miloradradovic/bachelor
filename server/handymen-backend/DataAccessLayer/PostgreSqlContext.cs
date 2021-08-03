@@ -17,8 +17,7 @@ namespace DataAccessLayer
         public DbSet<Profession> Professions { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Trade> Trades { get; set; }
-        public DbSet<RegistrationRequest> RegistrationRequests { get; set; }
-
+        
         public PostgreSqlContext(DbContextOptions<PostgreSqlContext> options) : base(options)  
         {  
         }

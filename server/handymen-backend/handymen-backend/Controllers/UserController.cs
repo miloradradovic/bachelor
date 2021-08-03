@@ -23,34 +23,34 @@ namespace handymen_backend.Controllers
             _UserService = userService;
         }
 
-        [HttpPost]
-        public IActionResult CreateRegistrationRequest(UserRegistrationRequestDTO userRegistrationRequestDto)
+        [HttpPost("register")]
+        public IActionResult CreateRegistrationRequest([FromBody] UserRegistrationRequestDTO userRegistrationRequestDto)
         {
-            ApiResponse response = _UserService.CreateRegistrationRequest(userRegistrationRequestDto.ToRegistrationRequest());
-
-            if (response.Status == 200)
+            ApiResponse response = _UserService.RegisterUser(userRegistrationRequestDto.ToRegistrationRequest());
+            
+            if (response.Status == 400)
             {
-                return Ok(response);
-            } else if (response.Status == 201)
-            {
-                return Created(response.Message, response);
+                return BadRequest(response);
             }
             
-            return BadRequest(response);
+            return Created(response.Message, response);
         }
 
-        /*
-        [HttpGet]
-        public IActionResult GetUserBySomethings()
+        [HttpGet("verify/{encrypted}")]
+        public IActionResult VerifyRegistrationRequest([FromRoute] string encrypted)
         {
-            Something something = new Something()
+            ApiResponse response = _UserService.VerifyUser(encrypted);
+            
+            if (response.Status == 404)
             {
-                Id = 1,
-                name = "something1"
-            };
-            List<User> users = _UserService.GetUsersBySomethings(something);
-            return Ok(users);
+                return NotFound(response);
+            }
+
+            if (response.Status == 400)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        */
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
 using Model.models;
+using BC = BCrypt.Net.BCrypt;
 
 namespace DataAccessLayer.repositories
 {
@@ -12,6 +10,8 @@ namespace DataAccessLayer.repositories
         public User Create(User toCreate);
         public User GetById(int id);
         public User GetByEmailAndPassword(string email, string password);
+        public User GetByEmail(string email);
+        public User Update(User toUpdate);
         /*
         public List<User> GetUsersBySomething(Something something);
 
@@ -45,8 +45,30 @@ namespace DataAccessLayer.repositories
 
         public User GetByEmailAndPassword(string email, string password)
         {
-            User found = _context.Users.SingleOrDefault(user => user.Email == email && user.Password == password);
+            User found = _context.Users.SingleOrDefault(user => user.Email == email && user.Verified);
+            
+            if (found != null)
+            {
+                if (BC.Verify(password, found.Password))
+                {
+                    return found;
+                }
+
+            }
+            return null;
+        }
+
+        public User GetByEmail(string email)
+        {
+            User found = _context.Users.SingleOrDefault(user => user.Email == email);
             return found;
+        }
+
+        public User Update(User toUpdate)
+        {
+            _context.Users.Update(toUpdate);
+            _context.SaveChanges();
+            return toUpdate;
         }
 
         /*

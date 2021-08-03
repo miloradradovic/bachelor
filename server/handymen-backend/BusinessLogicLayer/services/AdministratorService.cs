@@ -8,6 +8,7 @@ namespace BusinessLogicLayer.services
     {
         public Administrator GetById(int id);
         public Administrator GetByEmailAndPassword(string email, string password);
+        public Administrator GetByEmail(string email);
     }
     
     public class AdministratorService : IAdministratorService
@@ -27,6 +28,11 @@ namespace BusinessLogicLayer.services
         public Administrator GetByEmailAndPassword(string email, string password)
         {
             return _administratorRepository.GetByEmailAndPassword(email, password);
+        }
+
+        public Administrator GetByEmail(string email)
+        {
+            return _administratorRepository.GetByEmail(email);
         }
     }
 }

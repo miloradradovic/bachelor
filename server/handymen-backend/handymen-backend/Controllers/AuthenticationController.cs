@@ -2,6 +2,7 @@
 using Model.dto;
 using BusinessLogicLayer.services;
 using handymen_backend.jwt;
+using Model.models;
 
 namespace handymen_backend.Controllers
 {
@@ -19,18 +20,14 @@ namespace handymen_backend.Controllers
         [HttpPost("log-in")]
         public IActionResult LogIn(LoginDataDTO loginDataDto)
         {
-            var response = _authService.LogIn(loginDataDto.ToEntity());
+            ApiResponse response = _authService.LogIn(loginDataDto.ToEntity());
 
-            if (response == null)
+            if (response.Status == 401)
             {
-                return BadRequest();
+                return Unauthorized(response);
             }
 
-            return Ok(new TokenDataDTO()
-            {
-                LoginDataDto = loginDataDto,
-                Token = response
-            });
+            return Ok(response);
         }
         
         /*

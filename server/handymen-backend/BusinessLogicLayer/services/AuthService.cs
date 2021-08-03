@@ -5,13 +5,14 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Model.dto;
 
 namespace BusinessLogicLayer.services
 {
     
     public interface IAuthService
     {
-        public string LogIn(LoginData loginData);
+        public ApiResponse LogIn(LoginData loginData);
         
     }
     
@@ -32,9 +33,8 @@ namespace BusinessLogicLayer.services
             _configuration = configuration;
         }
         
-        public string LogIn(LoginData loginData)
+        public ApiResponse LogIn(LoginData loginData)
         {
-            // string hashedPassword = BCrypt.Net.BCrypt.HashPassword(loginData.Password);
             Administrator administrator = _administratorService.GetByEmailAndPassword(loginData.Email, loginData.Password);
             User user = _userService.GetByEmailAndPassword(loginData.Email, loginData.Password);
             HandyMan handyMan = _handymanService.GetByEmailAndPassword(loginData.Email, loginData.Password);
@@ -42,7 +42,12 @@ namespace BusinessLogicLayer.services
             
             if (user == null && administrator == null && handyMan == null)
             {
-                return null;
+                return new ApiResponse()
+                {
+                    Message = "Bad credentials.",
+                    ResponseObject = null,
+                    Status = 401
+                };
             }
 
             if (user != null)
@@ -58,10 +63,21 @@ namespace BusinessLogicLayer.services
                 toLogIn = handyMan;
             }
 
-            return GenerateJwtToken(toLogIn);
+            string token = GenerateJwtToken(toLogIn);
+
+            return new ApiResponse()
+            {
+                Message = "Successfully logged in.",
+                ResponseObject = new TokenDataDTO()
+                {
+                    LoginDataDto = loginData.ToDto(),
+                    Token = token
+                },
+                Status = 200
+            };
         }
 
-        public string GenerateJwtToken(Person toLogIn)
+        private string GenerateJwtToken(Person toLogIn)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]);
