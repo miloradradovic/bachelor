@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using BusinessLogicLayer.services;
+using handymen_backend.jwt;
 
 
 namespace handymen_backend.Controllers
@@ -21,13 +22,21 @@ namespace handymen_backend.Controllers
         {
             _UserService = userService;
         }
-        
-        
+
         [HttpPost]
-        public IActionResult CreateUser(UserDTO userDto)
+        public IActionResult CreateRegistrationRequest(UserRegistrationRequestDTO userRegistrationRequestDto)
         {
-            User saved = _UserService.CreateUser(userDto.toEntity());
-            return Ok(saved);
+            ApiResponse response = _UserService.CreateRegistrationRequest(userRegistrationRequestDto.ToRegistrationRequest());
+
+            if (response.Status == 200)
+            {
+                return Ok(response);
+            } else if (response.Status == 201)
+            {
+                return Created(response.Message, response);
+            }
+            
+            return BadRequest(response);
         }
 
         /*

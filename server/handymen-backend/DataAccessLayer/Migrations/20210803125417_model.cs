@@ -4,13 +4,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class jwt : Migration
+    public partial class model : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            //migrationBuilder.CreateSequence(
-              //  name: "person_seq",
-                //incrementBy: 10);
+            migrationBuilder.CreateSequence<int>(
+                name: "person_seq");
 
             migrationBuilder.CreateTable(
                 name: "AdditionalJobAdInfos",
@@ -89,6 +88,23 @@ namespace DataAccessLayer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Locations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RegistrationRequests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstName = table.Column<string>(type: "text", nullable: true),
+                    LastName = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Password = table.Column<string>(type: "text", nullable: true),
+                    Role = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RegistrationRequests", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -192,18 +208,11 @@ namespace DataAccessLayer.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: true),
-                    HandyManId = table.Column<int>(type: "integer", nullable: true),
                     ProfessionId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Trades", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Trades_HandyMen_HandyManId",
-                        column: x => x.HandyManId,
-                        principalTable: "HandyMen",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Trades_Professions_ProfessionId",
                         column: x => x.ProfessionId,
@@ -246,6 +255,35 @@ namespace DataAccessLayer.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "HandyManTrade",
+                columns: table => new
+                {
+                    HandyMenId = table.Column<int>(type: "integer", nullable: false),
+                    TradesId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HandyManTrade", x => new { x.HandyMenId, x.TradesId });
+                    table.ForeignKey(
+                        name: "FK_HandyManTrade_HandyMen_HandyMenId",
+                        column: x => x.HandyMenId,
+                        principalTable: "HandyMen",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HandyManTrade_Trades_TradesId",
+                        column: x => x.TradesId,
+                        principalTable: "Trades",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HandyManTrade_TradesId",
+                table: "HandyManTrade",
+                column: "TradesId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_JobAd_AdditionalJobAdInfoId",
                 table: "JobAd",
@@ -287,17 +325,15 @@ namespace DataAccessLayer.Migrations
                 column: "HandyManId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Trades_HandyManId",
-                table: "Trades",
-                column: "HandyManId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Trades_ProfessionId",
                 table: "Trades",
                 column: "ProfessionId");
             
-            var sqlFile = "../DataAccessLayer/Script/script.sql"; 
-            migrationBuilder.Sql(File.ReadAllText(sqlFile));
+            string[] sqlFiles = {"../DataAccessLayer/Script/persons.sql", "../DataAccessLayer/Script/categories.sql", 
+                "../DataAccessLayer/Script/professions.sql", "../DataAccessLayer/Script/trades.sql",};
+            foreach (string sqlFile in sqlFiles) {
+                migrationBuilder.Sql(File.ReadAllText(sqlFile));
+            }
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -306,10 +342,16 @@ namespace DataAccessLayer.Migrations
                 name: "Administrators");
 
             migrationBuilder.DropTable(
+                name: "HandyManTrade");
+
+            migrationBuilder.DropTable(
                 name: "Jobs");
 
             migrationBuilder.DropTable(
                 name: "Ratings");
+
+            migrationBuilder.DropTable(
+                name: "RegistrationRequests");
 
             migrationBuilder.DropTable(
                 name: "Trades");

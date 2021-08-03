@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using BusinessLogicLayer.services;
 using handymen_backend.jwt;
+using Model.models;
 
 namespace handymen_backend
 {
@@ -31,6 +32,10 @@ namespace handymen_backend
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IRegistrationRequestService, RegistrationRequestService>();
+            services.AddScoped<IRegistrationRequestRepository, RegistrationRequestRepository>();
+            services.AddScoped<IMailService, MailService>();
+            services.Configure<EmailSenderData>(Configuration.GetSection("EmailSenderData"));
             var sqlConnectionString = Configuration["PostgreSQLConnection"];
             services.AddDbContext<PostgreSqlContext>(options => options.UseNpgsql(sqlConnectionString));  
             services.AddControllers();

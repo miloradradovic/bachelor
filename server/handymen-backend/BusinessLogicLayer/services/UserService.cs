@@ -10,6 +10,7 @@ namespace BusinessLogicLayer.services
         public User CreateUser(User toCreate);
         public User GetById(int id);
         public User GetByEmailAndPassword(string email, string password);
+        public ApiResponse CreateRegistrationRequest(RegistrationRequest request);
         /*
         public List<User> GetUsersBySomethings(Something something);
 
@@ -22,10 +23,14 @@ namespace BusinessLogicLayer.services
     {
 
         private readonly IUserRepository _userRepository;
+        private readonly IRegistrationRequestService _registrationRequestService;
+        private readonly IMailService _mailService;
 
-        public UserService(IUserRepository repository)
+        public UserService(IUserRepository repository, IRegistrationRequestService requestService, IMailService mailService)
         {
             _userRepository = repository;
+            _registrationRequestService = requestService;
+            _mailService = mailService;
         }
 
         /*
@@ -47,6 +52,34 @@ namespace BusinessLogicLayer.services
         public User GetByEmailAndPassword(string email, string password)
         {
             return _userRepository.GetByEmailAndPassword(email, password);
+        }
+
+        public ApiResponse CreateRegistrationRequest(RegistrationRequest request)
+        {
+            RegistrationRequest created = _registrationRequestService.Create(request);
+            if (created == null)
+            {
+                return new ApiResponse()
+                {
+                    Message = "Registration request with that email already exists. Please verify your account.",
+                    ResponseObject = null,
+                    Status = 400
+                };
+            }
+            
+            _mailService.SendEmail(new MailRequest()
+            {
+                Body = "Please verify your account. Verification link: https://localhost:5001/users/verify?id=" + created.Id,
+                Subject = "Account verification",
+                ToEmail = created.Email
+            });
+            
+            return new ApiResponse()
+            {
+                Message = "Registration request successfully created. Verification link has been sent to your email.",
+                ResponseObject = created,
+                Status = 201
+            };
         }
 
         /*

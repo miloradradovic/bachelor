@@ -19,8 +19,22 @@ namespace DataAccessLayer.Migrations
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            modelBuilder.HasSequence("person_seq")
-                .IncrementsBy(10);
+            modelBuilder.HasSequence<int>("person_seq");
+
+            modelBuilder.Entity("HandyManTrade", b =>
+                {
+                    b.Property<int>("HandyMenId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TradesId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("HandyMenId", "TradesId");
+
+                    b.HasIndex("TradesId");
+
+                    b.ToTable("HandyManTrade");
+                });
 
             modelBuilder.Entity("Model.models.AdditionalJobAdInfo", b =>
                 {
@@ -247,15 +261,42 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Ratings");
                 });
 
-            modelBuilder.Entity("Model.models.Trade", b =>
+            modelBuilder.Entity("Model.models.RegistrationRequest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("HandyManId")
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Role")
                         .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RegistrationRequests");
+                });
+
+            modelBuilder.Entity("Model.models.Trade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -264,8 +305,6 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HandyManId");
 
                     b.HasIndex("ProfessionId");
 
@@ -301,6 +340,21 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("HandyManTrade", b =>
+                {
+                    b.HasOne("Model.models.HandyMan", null)
+                        .WithMany()
+                        .HasForeignKey("HandyMenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Model.models.Trade", null)
+                        .WithMany()
+                        .HasForeignKey("TradesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Model.models.Job", b =>
@@ -359,10 +413,6 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("Model.models.Trade", b =>
                 {
-                    b.HasOne("Model.models.HandyMan", null)
-                        .WithMany("Trades")
-                        .HasForeignKey("HandyManId");
-
                     b.HasOne("Model.models.Profession", null)
                         .WithMany("Trades")
                         .HasForeignKey("ProfessionId");
@@ -378,8 +428,6 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("DoneJobs");
 
                     b.Navigation("Ratings");
-
-                    b.Navigation("Trades");
                 });
 
             modelBuilder.Entity("Model.models.Profession", b =>

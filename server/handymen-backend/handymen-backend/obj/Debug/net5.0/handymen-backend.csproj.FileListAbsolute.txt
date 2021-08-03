@@ -47,3 +47,6 @@ D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\hand
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
 D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\BCrypt.Net-Next.dll
+D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\MailKit.dll
+D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\MimeKit.dll
+D:\Fakultet\8. semestar\PROJEKTI\diplomski\bachelor\server\handymen-backend\handymen-backend\bin\Debug\net5.0\BouncyCastle.Crypto.dll

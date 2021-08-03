@@ -33,6 +33,7 @@ namespace handymen_backend.Controllers
             });
         }
         
+        /*
         [Authorize(Roles.ADMINISTRATOR)]
         [HttpPost("test-admin")]
         public IActionResult TestAdmin()
@@ -53,5 +54,6 @@ namespace handymen_backend.Controllers
         {
             return Ok();
         }
+        */
     }
 }

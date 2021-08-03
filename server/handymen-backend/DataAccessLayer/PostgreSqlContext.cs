@@ -17,6 +17,7 @@ namespace DataAccessLayer
         public DbSet<Profession> Professions { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Trade> Trades { get; set; }
+        public DbSet<RegistrationRequest> RegistrationRequests { get; set; }
 
         public PostgreSqlContext(DbContextOptions<PostgreSqlContext> options) : base(options)  
         {  
@@ -25,6 +26,8 @@ namespace DataAccessLayer
         protected override void OnModelCreating(ModelBuilder builder)  
         {  
             base.OnModelCreating(builder);
+            builder.HasSequence<int>("person_seq")
+                .StartsAt(1).IncrementsBy(1);
             builder.Entity<Administrator>()
                 .Property(x => x.Id)
                 .UseHiLo("person_seq");
