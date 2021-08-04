@@ -9,6 +9,7 @@ namespace DataAccessLayer.repositories
         public Administrator GetById(int id);
         public Administrator GetByEmailAndPassword(string email, string password);
         public Administrator GetByEmail(string email);
+        public Administrator Create(Administrator toCreate);
     }
     
     public class AdministratorRepository : IAdministratorRepository
@@ -45,6 +46,13 @@ namespace DataAccessLayer.repositories
         {
             Administrator found = _context.Administrators.SingleOrDefault(admin => admin.Email == email);
             return found;
+        }
+
+        public Administrator Create(Administrator toCreate)
+        {
+            _context.Administrators.Add(toCreate);
+            _context.SaveChanges();
+            return toCreate;
         }
     }
 }

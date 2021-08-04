@@ -20,27 +20,22 @@ namespace BusinessLogicLayer.services
     {
 
         private readonly IConfiguration _configuration;
-        private readonly IUserService _userService;
-        private readonly IAdministratorService _administratorService;
-        private readonly IHandymanService _handymanService;
+        private readonly IPersonService _personService;
+        //private readonly IUserService _userService;
+        //private readonly IAdministratorService _administratorService;
+        //private readonly IHandymanService _handymanService;
 
-        public AuthService(IUserService userService, IAdministratorService administratorService,
-            IHandymanService handymanService, IConfiguration configuration)
+        public AuthService(IPersonService personService, IConfiguration configuration)
         {
-            _userService = userService;
-            _administratorService = administratorService;
-            _handymanService = handymanService;
+            _personService = personService;
             _configuration = configuration;
         }
         
         public ApiResponse LogIn(LoginData loginData)
         {
-            Administrator administrator = _administratorService.GetByEmailAndPassword(loginData.Email, loginData.Password);
-            User user = _userService.GetByEmailAndPassword(loginData.Email, loginData.Password);
-            HandyMan handyMan = _handymanService.GetByEmailAndPassword(loginData.Email, loginData.Password);
-            Person toLogIn = null;
+            Person toLogIn = _personService.GetByEmailAndPassword(loginData.Email, loginData.Password);
             
-            if (user == null && administrator == null && handyMan == null)
+            if (toLogIn == null)
             {
                 return new ApiResponse()
                 {
@@ -48,19 +43,6 @@ namespace BusinessLogicLayer.services
                     ResponseObject = null,
                     Status = 401
                 };
-            }
-
-            if (user != null)
-            {
-                toLogIn = user;
-            } 
-            else if (administrator != null)
-            {
-                toLogIn = administrator;
-            }
-            else
-            {
-                toLogIn = handyMan;
             }
 
             string token = GenerateJwtToken(toLogIn);

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Model.models;
 using BC = BCrypt.Net.BCrypt;
 
@@ -9,6 +10,9 @@ namespace DataAccessLayer.repositories
         public HandyMan GetById(int id);
         public HandyMan GetByEmailAndPassword(string email, string password);
         public HandyMan GetByEmail(string email);
+        public HandyMan Create(HandyMan toSave);
+        public HandyMan Update(HandyMan toUpdate);
+        public bool Delete(HandyMan toDelete);
     }
 
     public class HandymanRepository : IHandymanRepository
@@ -46,6 +50,34 @@ namespace DataAccessLayer.repositories
         {
             HandyMan found = _context.HandyMen.SingleOrDefault(handyman => handyman.Email == email);
             return found;
+        }
+
+        public HandyMan Create(HandyMan toSave)
+        {
+            _context.HandyMen.Add(toSave);
+            _context.SaveChanges();
+            return toSave;
+        }
+
+        public HandyMan Update(HandyMan toUpdate)
+        {
+            _context.HandyMen.Update(toUpdate);
+            _context.SaveChanges();
+            return toUpdate;
+        }
+
+        public bool Delete(HandyMan toDelete)
+        {
+            try
+            {
+                _context.HandyMen.Remove(toDelete);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }

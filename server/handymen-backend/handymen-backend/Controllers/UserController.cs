@@ -16,17 +16,17 @@ namespace handymen_backend.Controllers
     [Route("users")]
     public class UserController: ControllerBase
     {
-        public readonly IUserService _UserService;
+        private readonly IPersonService _personService;
         
-        public UserController(IUserService userService)
+        public UserController(IPersonService personService)
         {
-            _UserService = userService;
+            _personService = personService;
         }
 
         [HttpPost("register")]
-        public IActionResult CreateRegistrationRequest([FromBody] UserRegistrationRequestDTO userRegistrationRequestDto)
+        public IActionResult CreateRegistrationRequest([FromBody] RegistrationRequestDTO userRegistrationRequestDto)
         {
-            ApiResponse response = _UserService.RegisterUser(userRegistrationRequestDto.ToRegistrationRequest());
+            ApiResponse response = _personService.RegisterUser(userRegistrationRequestDto.ToUser());
             
             if (response.Status == 400)
             {
@@ -39,7 +39,7 @@ namespace handymen_backend.Controllers
         [HttpGet("verify/{encrypted}")]
         public IActionResult VerifyRegistrationRequest([FromRoute] string encrypted)
         {
-            ApiResponse response = _UserService.VerifyUser(encrypted);
+            ApiResponse response = _personService.VerifyUser(encrypted);
             
             if (response.Status == 404)
             {

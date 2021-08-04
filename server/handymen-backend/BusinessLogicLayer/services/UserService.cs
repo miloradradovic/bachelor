@@ -11,7 +11,7 @@ namespace BusinessLogicLayer.services
         public User GetById(int id);
         public User GetByEmailAndPassword(string email, string password);
         public User GetByEmail(string email);
-        public ApiResponse RegisterUser(RegistrationRequest request);
+        public ApiResponse RegisterUser(User request);
         public ApiResponse VerifyUser(string encrypted);
     }
     
@@ -22,17 +22,13 @@ namespace BusinessLogicLayer.services
         private readonly IUserRepository _userRepository;
         private readonly IMailService _mailService;
         private readonly ICryptingService _cryptingService;
-        private readonly IAdministratorService _administratorService;
-        private readonly IHandymanService _handymanService;
 
         public UserService(IUserRepository repository, IMailService mailService,
-            ICryptingService cryptingService, IAdministratorService administratorService, IHandymanService handymanService)
+            ICryptingService cryptingService)
         {
             _userRepository = repository;
             _mailService = mailService;
             _cryptingService = cryptingService;
-            _administratorService = administratorService;
-            _handymanService = handymanService;
         }
 
         public User GetById(int id)
@@ -45,30 +41,12 @@ namespace BusinessLogicLayer.services
             return _userRepository.GetByEmailAndPassword(email, password);
         }
 
-        public ApiResponse RegisterUser(RegistrationRequest request)
+        public ApiResponse RegisterUser(User request)
         {
-            User findUserByEmail = _userRepository.GetByEmail(request.Email);
-            Administrator findAdministratorByEmail = _administratorService.GetByEmail(request.Email);
-            HandyMan findHandymanByEmail = _handymanService.GetByEmail(request.Email);
-            if (findUserByEmail != null || findAdministratorByEmail != null || findHandymanByEmail != null)
-            {
-                return new ApiResponse()
-                {
-                    Message = "Entered email is taken.",
-                    ResponseObject = null,
-                    Status = 400
-                };
-            }
+            
+            request.Password = BC.HashPassword(request.Password);
 
-            User created = _userRepository.Create(new User()
-            {
-                Email = request.Email,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Password = BC.HashPassword(request.Password),
-                Role = Role.USER,
-                Verified = false
-            });
+            User created = _userRepository.Create(request);
 
             if (created == null)
             {
@@ -90,7 +68,7 @@ namespace BusinessLogicLayer.services
             return new ApiResponse()
             {
                 Message = "Registration request successfully created. Verification link has been sent to your email.",
-                ResponseObject = created,
+                ResponseObject = created.ToDtoWithoutLists(),
                 Status = 201
             };
         }
@@ -137,7 +115,7 @@ namespace BusinessLogicLayer.services
             return new ApiResponse()
             {
                 Message = "Successfully verified your account. Now you can log in!",
-                ResponseObject = updated,
+                ResponseObject = updated.ToDtoWithoutLists(),
                 Status = 200
             };
 
