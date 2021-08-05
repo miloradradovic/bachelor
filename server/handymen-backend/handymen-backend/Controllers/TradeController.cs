@@ -6,7 +6,7 @@ using Model.models;
 namespace handymen_backend.Controllers
 {
     [ApiController]
-    [Route("trades")]
+    [Route("api/trades")]
     public class TradeController : ControllerBase
     {
         private readonly ITradeService _tradeService;

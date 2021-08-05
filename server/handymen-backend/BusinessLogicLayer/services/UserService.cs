@@ -1,5 +1,4 @@
-﻿using System;
-using DataAccessLayer.repositories;
+﻿using DataAccessLayer.repositories;
 using Model.models;
 using BC = BCrypt.Net.BCrypt;
 
@@ -60,7 +59,7 @@ namespace BusinessLogicLayer.services
             
             _mailService.SendEmail(new MailRequest()
             {
-                Body = "Please verify your account. Verification link: https://localhost:5001/users/verify/" + _cryptingService.Encrypt(created.Id.ToString()),
+                Body = "Greetings " + created.FirstName + ". Please verify your account by following this <a href='https://localhost:5001/api/users/verify/" + _cryptingService.Encrypt(created.Id.ToString()) + "'>LINK</a>",
                 Subject = "Account verification",
                 ToEmail = created.Email
             });

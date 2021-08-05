@@ -1,3 +1,4 @@
+using System;
 using DataAccessLayer;
 using DataAccessLayer.repositories;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +38,8 @@ namespace handymen_backend
             services.AddScoped<ITradeRepository, TradeRepository>();
             services.AddScoped<ITradeService, TradeService>();
             services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IJobAdRepository, JobAdRepository>();
+            services.AddScoped<IJobAdService, JobAdService>();
 
             services.Configure<EmailSenderData>(Configuration.GetSection("EmailSenderData"));
             var sqlConnectionString = Configuration["PostgreSQLConnection"];
@@ -45,6 +48,29 @@ namespace handymen_backend
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "handymen_backend", Version = "v1"});
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
             });
         }
 
@@ -61,7 +87,8 @@ namespace handymen_backend
             //app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             //app.UseAuthorization();
             app.UseMiddleware<JwtMiddleware>();
 

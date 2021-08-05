@@ -13,7 +13,7 @@ namespace BusinessLogicLayer.services
     public interface IAuthService
     {
         public ApiResponse LogIn(LoginData loginData);
-        
+
     }
     
     public class AuthService : IAuthService

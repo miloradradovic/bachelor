@@ -7,7 +7,7 @@ using Model.models;
 namespace handymen_backend.Controllers
 {
     [ApiController]
-    [Route("administrators")]
+    [Route("api/administrators")]
     public class AdministratorController : ControllerBase
     {
 

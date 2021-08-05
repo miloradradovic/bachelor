@@ -52,7 +52,7 @@ namespace BusinessLogicLayer.services
                 {
                     trade.HandyMen.Add(updatedHandyman);
                 }
-                catch (Exception e)
+                catch
                 {
                     trade.HandyMen = new List<HandyMan>();
                     trade.HandyMen.Add(updatedHandyman);

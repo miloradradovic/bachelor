@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -83,28 +84,11 @@ namespace DataAccessLayer.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Latitude = table.Column<double>(type: "double precision", nullable: false),
                     Longitude = table.Column<double>(type: "double precision", nullable: false),
-                    Name = table.Column<double>(type: "double precision", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Locations", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RegistrationRequests",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FirstName = table.Column<string>(type: "text", nullable: true),
-                    LastName = table.Column<string>(type: "text", nullable: true),
-                    Email = table.Column<string>(type: "text", nullable: true),
-                    Password = table.Column<string>(type: "text", nullable: true),
-                    Role = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RegistrationRequests", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -176,7 +160,9 @@ namespace DataAccessLayer.Migrations
                     Description = table.Column<string>(type: "text", nullable: true),
                     AddressId = table.Column<int>(type: "integer", nullable: true),
                     OwnerId = table.Column<int>(type: "integer", nullable: true),
-                    AdditionalJobAdInfoId = table.Column<int>(type: "integer", nullable: true)
+                    AdditionalJobAdInfoId = table.Column<int>(type: "integer", nullable: true),
+                    DateFrom = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    DateTo = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -279,6 +265,30 @@ namespace DataAccessLayer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "JobAdTrade",
+                columns: table => new
+                {
+                    JobAdsId = table.Column<int>(type: "integer", nullable: false),
+                    TradesId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobAdTrade", x => new { x.JobAdsId, x.TradesId });
+                    table.ForeignKey(
+                        name: "FK_JobAdTrade_JobAd_JobAdsId",
+                        column: x => x.JobAdsId,
+                        principalTable: "JobAd",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_JobAdTrade_Trades_TradesId",
+                        column: x => x.TradesId,
+                        principalTable: "Trades",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_HandyManTrade_TradesId",
                 table: "HandyManTrade",
@@ -298,6 +308,11 @@ namespace DataAccessLayer.Migrations
                 name: "IX_JobAd_OwnerId",
                 table: "JobAd",
                 column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobAdTrade_TradesId",
+                table: "JobAdTrade",
+                column: "TradesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Jobs_HandyManId",
@@ -345,13 +360,13 @@ namespace DataAccessLayer.Migrations
                 name: "HandyManTrade");
 
             migrationBuilder.DropTable(
+                name: "JobAdTrade");
+
+            migrationBuilder.DropTable(
                 name: "Jobs");
 
             migrationBuilder.DropTable(
                 name: "Ratings");
-
-            migrationBuilder.DropTable(
-                name: "RegistrationRequests");
 
             migrationBuilder.DropTable(
                 name: "Trades");

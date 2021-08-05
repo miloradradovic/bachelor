@@ -7,6 +7,7 @@ namespace DataAccessLayer.repositories
 {
     public interface IHandymanRepository
     {
+        public HandyMan GetById(int id, bool verified);
         public HandyMan GetById(int id);
         public HandyMan GetByEmailAndPassword(string email, string password);
         public HandyMan GetByEmail(string email);
@@ -27,6 +28,12 @@ namespace DataAccessLayer.repositories
         public HandyMan GetById(int id)
         {
             HandyMan found = _context.HandyMen.SingleOrDefault(handyman => handyman.Id == id);
+            return found;
+        }
+
+        public HandyMan GetById(int id, bool verified)
+        {
+            HandyMan found = _context.HandyMen.SingleOrDefault(handyman => handyman.Id == id && handyman.Verified == verified);
             return found;
         }
 

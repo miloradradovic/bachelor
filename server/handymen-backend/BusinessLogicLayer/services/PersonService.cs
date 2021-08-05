@@ -13,6 +13,7 @@ namespace BusinessLogicLayer.services
         public Person GetByEmail(string email);
         public ApiResponse VerifyHandyman(HandymanVerificationData handymanVerificationData);
         public ApiResponse CreateAdministrator(Administrator toCreate);
+        public User GetUserById(int id);
 
     }
     
@@ -118,6 +119,11 @@ namespace BusinessLogicLayer.services
             }
 
             return _administratorService.Create(toCreate);
+        }
+
+        public User GetUserById(int id)
+        {
+            return _userService.GetById(id);
         }
     }
 }

@@ -64,7 +64,7 @@ namespace BusinessLogicLayer.services
                 {
                     request.Trades.Add(found);
                 }
-                catch (Exception e)
+                catch
                 {
                     request.Trades = new List<Trade>();
                     request.Trades.Add(found);
@@ -95,7 +95,7 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse VerifyHandyman(HandymanVerificationData handymanVerificationData)
         {
-            HandyMan found = _handymanRepository.GetById(handymanVerificationData.Id);
+            HandyMan found = _handymanRepository.GetById(handymanVerificationData.Id, false);
             if (found == null)
             {
                 return new ApiResponse()
@@ -122,7 +122,7 @@ namespace BusinessLogicLayer.services
                 }
                 _mailService.SendEmail(new MailRequest()
                 {
-                    Body = "Your account has been verified. Now you can log in following this link: https://localhost:4200",
+                    Body = "Your account has been verified. Now you can log in following this <a href='https://localhost:4200'>LINK</a>",
                     Subject = "Account verified",
                     ToEmail = updated.Email
                 });

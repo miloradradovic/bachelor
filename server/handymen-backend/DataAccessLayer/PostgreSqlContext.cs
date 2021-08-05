@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Model.models;
 
 namespace DataAccessLayer
@@ -17,6 +16,7 @@ namespace DataAccessLayer
         public DbSet<Profession> Professions { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Trade> Trades { get; set; }
+        public DbSet<JobAd> JobAd { get; set; }
         
         public PostgreSqlContext(DbContextOptions<PostgreSqlContext> options) : base(options)  
         {  

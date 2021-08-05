@@ -1,22 +1,22 @@
-﻿using Model.dto;
+﻿using Model.models;
 
-namespace Model.models
+namespace Model.dto
 {
-    public class AdditionalJobAdInfo
+    public class AdditionalJobAdInfoDTO
     {
         public int Id { get; set; }
         public bool Urgent { get; set; }
         public double PriceFrom { get; set; }
         public double PriceTo { get; set; }
 
-        public AdditionalJobAdInfoDTO ToAdditionalJobAdInfoDTO()
+        public AdditionalJobAdInfo ToAdditionalJobAdInfo()
         {
-            return new AdditionalJobAdInfoDTO()
+            return new AdditionalJobAdInfo()
             {
                 Id = Id,
-                Urgent = Urgent,
                 PriceFrom = PriceFrom,
-                PriceTo = PriceTo
+                PriceTo = PriceTo,
+                Urgent = Urgent
             };
         }
     }

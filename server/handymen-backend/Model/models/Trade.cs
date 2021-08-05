@@ -7,5 +7,7 @@ namespace Model.models
         public int Id { get; set; }
         public string Name { get; set; }
         public virtual List<HandyMan> HandyMen { get; set; }
+        
+        public virtual List<JobAd> JobAds { get; set; }
     }
 }

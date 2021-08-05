@@ -7,7 +7,7 @@ using Model.models;
 namespace handymen_backend.Controllers
 {
     [ApiController]
-    [Route("handymen")]
+    [Route("api/handymen")]
     public class HandymanController : ControllerBase
     {
 

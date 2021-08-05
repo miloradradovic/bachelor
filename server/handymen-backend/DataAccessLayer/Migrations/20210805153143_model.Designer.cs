@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(PostgreSqlContext))]
-    [Migration("20210804121510_model4")]
-    partial class model4
+    [Migration("20210805153143_model")]
+    partial class model
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,6 +36,21 @@ namespace DataAccessLayer.Migrations
                     b.HasIndex("TradesId");
 
                     b.ToTable("HandyManTrade");
+                });
+
+            modelBuilder.Entity("JobAdTrade", b =>
+                {
+                    b.Property<int>("JobAdsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TradesId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("JobAdsId", "TradesId");
+
+                    b.HasIndex("TradesId");
+
+                    b.ToTable("JobAdTrade");
                 });
 
             modelBuilder.Entity("Model.models.AdditionalJobAdInfo", b =>
@@ -179,6 +194,12 @@ namespace DataAccessLayer.Migrations
                     b.Property<int?>("AddressId")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("DateFrom")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("DateTo")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
@@ -212,8 +233,8 @@ namespace DataAccessLayer.Migrations
                     b.Property<double>("Longitude")
                         .HasColumnType("double precision");
 
-                    b.Property<double>("Name")
-                        .HasColumnType("double precision");
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -319,6 +340,21 @@ namespace DataAccessLayer.Migrations
                     b.HasOne("Model.models.HandyMan", null)
                         .WithMany()
                         .HasForeignKey("HandyMenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Model.models.Trade", null)
+                        .WithMany()
+                        .HasForeignKey("TradesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("JobAdTrade", b =>
+                {
+                    b.HasOne("Model.models.JobAd", null)
+                        .WithMany()
+                        .HasForeignKey("JobAdsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

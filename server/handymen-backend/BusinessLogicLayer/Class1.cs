@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BusinessLogicLayer
+﻿namespace BusinessLogicLayer
 {
     public class Class1
     {
