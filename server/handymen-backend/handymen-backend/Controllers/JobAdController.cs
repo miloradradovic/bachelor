@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using BusinessLogicLayer.services;
 using handymen_backend.jwt;
@@ -34,6 +35,14 @@ namespace handymen_backend.Controllers
             }
 
             return Created(response.Message, response);
+        }
+
+        [HttpGet("get-job-ads-for-current")]
+        [Authorize(Roles.HANDYMAN)]
+        public IActionResult GetJobAdsForCurrentHandyman()
+        {
+            ApiResponse response = _jobAdService.GetJobAdsForCurrentHandyman((HandyMan) HttpContext.Items["LoggedIn"]);
+            return Ok(response);
         }
     }
 }

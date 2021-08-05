@@ -8,6 +8,7 @@ namespace BusinessLogicLayer.services
     public interface IJobAdService
     {
         public ApiResponse CreateJobAd(JobAd jobAd, List<string> Trades, User loggedIn);
+        public ApiResponse GetJobAdsForCurrentHandyman(HandyMan handyMan);
     }
     
     public class JobAdService : IJobAdService
@@ -26,7 +27,7 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse CreateJobAd(JobAd jobAd, List<string> trades, User loggedIn)
         {
-            jobAd.Owner = _personService.GetUserById(loggedIn.Id);
+            jobAd.Owner = loggedIn;
 
             foreach (string trade in trades)
             {
@@ -69,6 +70,18 @@ namespace BusinessLogicLayer.services
                 Message = "Successfully created job ad.",
                 ResponseObject = created.ToJobAdDTO(),
                 Status = 201
+            };
+        }
+
+        public ApiResponse GetJobAdsForCurrentHandyman(HandyMan handyMan)
+        {
+            HandyMan handyManWithTrades = _personService.GetHandymanWithTrades(handyMan.Id);
+            
+            return new ApiResponse()
+            {
+                Message = "Successfully retrieved job ads for current handyman.",
+                ResponseObject = _jobAdRepository.GetJobAdsForCurrentHandyman(handyManWithTrades),
+                Status = 200
             };
         }
     }

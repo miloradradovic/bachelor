@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Model.models;
 using BC = BCrypt.Net.BCrypt;
 
@@ -14,6 +16,7 @@ namespace DataAccessLayer.repositories
         public HandyMan Create(HandyMan toSave);
         public HandyMan Update(HandyMan toUpdate);
         public bool Delete(HandyMan toDelete);
+        public HandyMan GetHandymanWithTrades(int id);
     }
 
     public class HandymanRepository : IHandymanRepository
@@ -85,6 +88,21 @@ namespace DataAccessLayer.repositories
             {
                 return false;
             }
+        }
+
+        public HandyMan GetHandymanWithTrades(int id)
+        {
+            List<HandyMan> found = 
+                (from handyman in _context.HandyMen.Include(handy => handy.Trades)
+                where handyman.Id == id
+                select handyman).ToList();
+
+            if (found.Count == 0)
+            {
+                return null;
+            }
+
+            return found.ElementAt(0);
         }
     }
 }

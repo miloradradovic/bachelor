@@ -14,6 +14,7 @@ namespace BusinessLogicLayer.services
         public ApiResponse VerifyHandyman(HandymanVerificationData handymanVerificationData);
         public ApiResponse CreateAdministrator(Administrator toCreate);
         public User GetUserById(int id);
+        public HandyMan GetHandymanWithTrades(int id);
 
     }
     
@@ -124,6 +125,11 @@ namespace BusinessLogicLayer.services
         public User GetUserById(int id)
         {
             return _userService.GetById(id);
+        }
+
+        public HandyMan GetHandymanWithTrades(int id)
+        {
+            return _handymanService.GetHandymanWithTrades(id);
         }
     }
 }

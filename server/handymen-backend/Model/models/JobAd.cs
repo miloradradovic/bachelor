@@ -14,7 +14,7 @@ namespace Model.models
         public AdditionalJobAdInfo AdditionalJobAdInfo { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
-        public List<Trade> Trades { get; set; }
+        public virtual List<Trade> Trades { get; set; }
 
         public JobAdDTO ToJobAdDTO()
         {
