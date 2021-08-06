@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Migrations;
+﻿using System.Collections.Generic;
+using DataAccessLayer.Migrations;
 using DataAccessLayer.repositories;
 using Model.models;
 
@@ -8,6 +9,9 @@ namespace BusinessLogicLayer.services
     public interface IInterestService
     {
         public ApiResponse MakeInterest(Interest interest, int jobAdId, HandyMan handyMan);
+        public Interest GetById(int id);
+        public bool DeleteRemainingInterests(int jobAdId);
+        public List<HandyMan> GetRemainingHandymen(int interestId, int jobHandyId);
     }
     
     public class InterestService : IInterestService
@@ -78,6 +82,21 @@ namespace BusinessLogicLayer.services
                 ResponseObject = saved.ToInterestDTO(),
                 Status = 201
             };
+        }
+
+        public Interest GetById(int id)
+        {
+            return _interestRepository.GetById(id);
+        }
+
+        public bool DeleteRemainingInterests(int jobAdId)
+        {
+            return _interestRepository.DeleteRemainingInterests(jobAdId);
+        }
+
+        public List<HandyMan> GetRemainingHandymen(int interestId, int jobHandyId)
+        {
+            return _interestRepository.GetRemainingHandymen(interestId, jobHandyId);
         }
     }
 }

@@ -6,8 +6,7 @@ namespace Model.models
     {
         public int Id { get; set; }
         public bool Urgent { get; set; }
-        public double PriceFrom { get; set; }
-        public double PriceTo { get; set; }
+        public double PriceMax { get; set; }
 
         public AdditionalJobAdInfoDTO ToAdditionalJobAdInfoDTO()
         {
@@ -15,8 +14,7 @@ namespace Model.models
             {
                 Id = Id,
                 Urgent = Urgent,
-                PriceFrom = PriceFrom,
-                PriceTo = PriceTo
+                PriceMax = PriceMax
             };
         }
     }

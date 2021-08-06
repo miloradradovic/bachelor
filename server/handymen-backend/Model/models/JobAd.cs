@@ -12,8 +12,7 @@ namespace Model.models
         public Location Address { get; set; }
         public User Owner { get; set; }
         public AdditionalJobAdInfo AdditionalJobAdInfo { get; set; }
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
+        public DateTime DateWhen { get; set; }
         public virtual List<Trade> Trades { get; set; }
 
         public JobAdDTO ToJobAdDTO()
@@ -23,8 +22,7 @@ namespace Model.models
                 return new JobAdDTO()
                 {
                     Address = Address.ToLocationDTO(),
-                    DateFrom = DateFrom,
-                    DateTo = DateTo,
+                    DateWhen = DateWhen,
                     Description = Description,
                     Id = Id,
                     Title = Title,
@@ -35,8 +33,7 @@ namespace Model.models
             return new JobAdDTO()
             {
                 Address = Address.ToLocationDTO(),
-                DateFrom = DateFrom,
-                DateTo = DateTo,
+                DateWhen = DateWhen,
                 Description = Description,
                 Id = Id,
                 Title = Title,

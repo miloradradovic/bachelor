@@ -42,6 +42,8 @@ namespace handymen_backend
             services.AddScoped<IJobAdService, JobAdService>();
             services.AddScoped<IInterestRepository, InterestRepository>();
             services.AddScoped<IInterestService, InterestService>();
+            services.AddScoped<IJobRepository, JobRepository>();
+            services.AddScoped<IJobService, JobService>();
 
             services.Configure<EmailSenderData>(Configuration.GetSection("EmailSenderData"));
             var sqlConnectionString = Configuration["PostgreSQLConnection"];

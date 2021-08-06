@@ -1,4 +1,6 @@
-﻿namespace Model.models
+﻿using Model.dto;
+
+namespace Model.models
 {
     public class Job
     {
@@ -6,5 +8,15 @@
         public JobAd JobAd { get; set; }
         public HandyMan HandyMan { get; set; }
         public bool Finished { get; set; }
+        public User User { get; set; }
+
+        public JobDTO ToJobDTO()
+        {
+            return new JobDTO()
+            {
+                Id = Id,
+                Finished = Finished
+            };
+        }
     }
 }

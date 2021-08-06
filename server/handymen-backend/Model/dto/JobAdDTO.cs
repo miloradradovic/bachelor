@@ -11,8 +11,7 @@ namespace Model.dto
         public string Description { get; set; }
         public LocationDTO Address { get; set; }
         public AdditionalJobAdInfoDTO AdditionalJobAdInfo { get; set; }
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
+        public DateTime DateWhen { get; set; }
         public List<string> Trades { get; set; }
 
         public JobAd ToJobAd()
@@ -23,8 +22,7 @@ namespace Model.dto
                 {
                     Id = Id,
                     Address = Address.ToLocation(),
-                    DateFrom = DateFrom,
-                    DateTo = DateTo,
+                    DateWhen = DateWhen,
                     Description = Description,
                     Title = Title
                 };
@@ -34,8 +32,7 @@ namespace Model.dto
             {
                 Id = Id,
                 Address = Address.ToLocation(),
-                DateFrom = DateFrom,
-                DateTo = DateTo,
+                DateWhen = DateWhen,
                 Description = Description,
                 Title = Title,
                 AdditionalJobAdInfo = AdditionalJobAdInfo.ToAdditionalJobAdInfo()

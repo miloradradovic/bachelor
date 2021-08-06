@@ -6,16 +6,14 @@ namespace Model.dto
     {
         public int Id { get; set; }
         public bool Urgent { get; set; }
-        public double PriceFrom { get; set; }
-        public double PriceTo { get; set; }
+        public double PriceMax { get; set; }
 
         public AdditionalJobAdInfo ToAdditionalJobAdInfo()
         {
             return new AdditionalJobAdInfo()
             {
                 Id = Id,
-                PriceFrom = PriceFrom,
-                PriceTo = PriceTo,
+                PriceMax = PriceMax,
                 Urgent = Urgent
             };
         }

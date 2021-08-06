@@ -3,15 +3,17 @@ using System;
 using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(PostgreSqlContext))]
-    partial class PostgreSqlContextModelSnapshot : ModelSnapshot
+    [Migration("20210806193938_editjobad")]
+    partial class editjobad
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -421,15 +423,13 @@ namespace DataAccessLayer.Migrations
                         .WithMany()
                         .HasForeignKey("JobAdId");
 
-                    b.HasOne("Model.models.User", "User")
+                    b.HasOne("Model.models.User", null)
                         .WithMany("Jobs")
                         .HasForeignKey("UserId");
 
                     b.Navigation("HandyMan");
 
                     b.Navigation("JobAd");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Model.models.JobAd", b =>
