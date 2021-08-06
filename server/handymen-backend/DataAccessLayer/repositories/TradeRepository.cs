@@ -38,12 +38,8 @@ namespace DataAccessLayer.repositories
 
         public List<Trade> GetAll()
         {
-            //return _context.Trades.ToList();
-            IEnumerable<Trade> trades = 
-                from trade in _context.Trades.Include(trade => trade.HandyMen)
-                select trade;
-            
-            return trades.ToList();
+            List<Trade> trades = _context.Trades.ToList();
+            return trades;
         }
 
         public Trade Update(Trade toUpdate)

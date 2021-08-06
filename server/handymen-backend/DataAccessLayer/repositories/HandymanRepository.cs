@@ -16,7 +16,6 @@ namespace DataAccessLayer.repositories
         public HandyMan Create(HandyMan toSave);
         public HandyMan Update(HandyMan toUpdate);
         public bool Delete(HandyMan toDelete);
-        public HandyMan GetHandymanWithTrades(int id);
     }
 
     public class HandymanRepository : IHandymanRepository
@@ -30,19 +29,34 @@ namespace DataAccessLayer.repositories
 
         public HandyMan GetById(int id)
         {
-            HandyMan found = _context.HandyMen.SingleOrDefault(handyman => handyman.Id == id);
+            HandyMan found = _context.HandyMen
+                .Include(handy => handy.Ratings)
+                .Include(handy => handy.Trades)
+                .Include(handy => handy.DoneJobs)
+                .Include(handy => handy.Circle)
+                .SingleOrDefault(handyman => handyman.Id == id);
             return found;
         }
 
         public HandyMan GetById(int id, bool verified)
         {
-            HandyMan found = _context.HandyMen.SingleOrDefault(handyman => handyman.Id == id && handyman.Verified == verified);
+            HandyMan found = _context.HandyMen
+                .Include(handy => handy.Ratings)
+                .Include(handy => handy.Trades)
+                .Include(handy => handy.DoneJobs)
+                .Include(handy => handy.Circle)
+                .SingleOrDefault(handyman => handyman.Id == id && handyman.Verified == verified);
             return found;
         }
 
         public HandyMan GetByEmailAndPassword(string email, string password)
         {
-            HandyMan found = _context.HandyMen.SingleOrDefault(handyman =>
+            HandyMan found = _context.HandyMen
+                .Include(handy => handy.Ratings)
+                .Include(handy => handy.Trades)
+                .Include(handy => handy.DoneJobs)
+                .Include(handy => handy.Circle)
+                .SingleOrDefault(handyman =>
                 handyman.Email == email && handyman.Verified);
             
             if (found != null)
@@ -58,7 +72,12 @@ namespace DataAccessLayer.repositories
 
         public HandyMan GetByEmail(string email)
         {
-            HandyMan found = _context.HandyMen.SingleOrDefault(handyman => handyman.Email == email);
+            HandyMan found = _context.HandyMen
+                .Include(handy => handy.Ratings)
+                .Include(handy => handy.Trades)
+                .Include(handy => handy.DoneJobs)
+                .Include(handy => handy.Circle)
+                .SingleOrDefault(handyman => handyman.Email == email);
             return found;
         }
 
@@ -84,25 +103,10 @@ namespace DataAccessLayer.repositories
                 _context.SaveChanges();
                 return true;
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
-        }
-
-        public HandyMan GetHandymanWithTrades(int id)
-        {
-            List<HandyMan> found = 
-                (from handyman in _context.HandyMen.Include(handy => handy.Trades)
-                where handyman.Id == id
-                select handyman).ToList();
-
-            if (found.Count == 0)
-            {
-                return null;
-            }
-
-            return found.ElementAt(0);
         }
     }
 }

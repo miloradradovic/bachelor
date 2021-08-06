@@ -9,6 +9,7 @@ namespace BusinessLogicLayer.services
     {
         public ApiResponse CreateJobAd(JobAd jobAd, List<string> Trades, User loggedIn);
         public ApiResponse GetJobAdsForCurrentHandyman(HandyMan handyMan);
+        public JobAd GetById(int id);
     }
     
     public class JobAdService : IJobAdService
@@ -75,7 +76,7 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetJobAdsForCurrentHandyman(HandyMan handyMan)
         {
-            HandyMan handyManWithTrades = _personService.GetHandymanWithTrades(handyMan.Id);
+            HandyMan handyManWithTrades = _personService.GetHandymanById(handyMan.Id);
             
             return new ApiResponse()
             {
@@ -83,6 +84,11 @@ namespace BusinessLogicLayer.services
                 ResponseObject = _jobAdRepository.GetJobAdsForCurrentHandyman(handyManWithTrades),
                 Status = 200
             };
+        }
+
+        public JobAd GetById(int id)
+        {
+            return _jobAdRepository.GetById(id);
         }
     }
 }

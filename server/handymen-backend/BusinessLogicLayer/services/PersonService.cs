@@ -14,7 +14,8 @@ namespace BusinessLogicLayer.services
         public ApiResponse VerifyHandyman(HandymanVerificationData handymanVerificationData);
         public ApiResponse CreateAdministrator(Administrator toCreate);
         public User GetUserById(int id);
-        public HandyMan GetHandymanWithTrades(int id);
+        public HandyMan GetHandymanById(int id);
+        public Person GetById(int id);
 
     }
     
@@ -30,6 +31,24 @@ namespace BusinessLogicLayer.services
             _administratorService = administratorService;
             _handymanService = handymanService;
             _userService = userService;
+        }
+
+        public Person GetById(int id)
+        {
+            Administrator foundAdmin = _administratorService.GetById(id);
+            if (foundAdmin != null)
+            {
+                return foundAdmin;
+            }
+
+            HandyMan foundHandy = _handymanService.GetById(id);
+            if (foundHandy != null)
+            {
+                return foundHandy;
+            }
+
+            User foundUser = _userService.GetById(id);
+            return foundUser;
         }
 
         public Person GetByEmailAndPassword(string email, string password)
@@ -127,9 +146,9 @@ namespace BusinessLogicLayer.services
             return _userService.GetById(id);
         }
 
-        public HandyMan GetHandymanWithTrades(int id)
+        public HandyMan GetHandymanById(int id)
         {
-            return _handymanService.GetHandymanWithTrades(id);
+            return _handymanService.GetById(id);
         }
     }
 }

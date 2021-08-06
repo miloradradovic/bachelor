@@ -14,7 +14,6 @@ namespace BusinessLogicLayer.services
         public HandyMan GetByEmail(string email);
         public ApiResponse Register(HandyMan request, List<string> trades);
         public ApiResponse VerifyHandyman(HandymanVerificationData handymanVerificationData);
-        public HandyMan GetHandymanWithTrades(int id);
     }
     
     public class HandymanService : IHandymanService
@@ -161,11 +160,6 @@ namespace BusinessLogicLayer.services
                 ResponseObject = found.ToDtoWithoutLists(),
                 Status = 200
             };
-        }
-
-        public HandyMan GetHandymanWithTrades(int id)
-        {
-            return _handymanRepository.GetHandymanWithTrades(id);
         }
     }
 }

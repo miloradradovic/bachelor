@@ -22,19 +22,17 @@ namespace handymen_backend.jwt
             _configuration = configuration;
         }
 
-        public async Task Invoke(HttpContext context, IAdministratorService administratorService, IHandymanService handymanService,
-            IUserService userService)
+        public async Task Invoke(HttpContext context, IPersonService personService)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
-                AttachUserToContext(context, administratorService, handymanService, userService, token);
+                AttachUserToContext(context, personService, token);
 
             await _next(context);
         }
 
-        private void AttachUserToContext(HttpContext context, IAdministratorService administratorService, 
-            IHandymanService handymanService, IUserService userService, string token)
+        private void AttachUserToContext(HttpContext context, IPersonService personService, string token)
         {
             try
             {
@@ -52,7 +50,7 @@ namespace handymen_backend.jwt
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var personId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
-                Person loggedIn = findLoggedIn(administratorService, handymanService, userService, personId);
+                Person loggedIn = personService.GetById(personId);
 
                 context.Items["LoggedIn"] = loggedIn;
             }
@@ -60,30 +58,6 @@ namespace handymen_backend.jwt
             {
 
             }
-        }
-
-        private Person findLoggedIn(IAdministratorService administratorService,
-            IHandymanService handymanService, IUserService userService, int personId)
-        {
-            User foundUser = userService.GetById(personId);
-            if (foundUser != null)
-            {
-                return foundUser;
-            }
-
-            HandyMan foundHandyMan = handymanService.GetById(personId);
-            if (foundHandyMan != null)
-            {
-                return foundHandyMan;
-            }
-
-            Administrator foundAdministrator = administratorService.GetById(personId);
-            if (foundAdministrator != null)
-            {
-                return foundAdministrator;
-            }
-
-            return null;
         }
     }
 }
