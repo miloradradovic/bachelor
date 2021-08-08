@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DataAccessLayer.repositories;
+using Microsoft.EntityFrameworkCore;
 using Model.models;
 using BC = BCrypt.Net.BCrypt;
 
@@ -14,6 +15,7 @@ namespace BusinessLogicLayer.services
         public HandyMan GetByEmail(string email);
         public ApiResponse Register(HandyMan request, List<string> trades);
         public ApiResponse VerifyHandyman(HandymanVerificationData handymanVerificationData);
+        public HandyMan Update(HandyMan toUpdate);
     }
     
     public class HandymanService : IHandymanService
@@ -102,7 +104,7 @@ namespace BusinessLogicLayer.services
                 {
                     Message = "Could not find handyman account by id.",
                     ResponseObject = null,
-                    Status = 404
+                    Status = 400
                 };
             }
 
@@ -160,6 +162,11 @@ namespace BusinessLogicLayer.services
                 ResponseObject = found.ToDtoWithoutLists(),
                 Status = 200
             };
+        }
+
+        public HandyMan Update(HandyMan toUpdate)
+        {
+            return _handymanRepository.Update(toUpdate);
         }
     }
 }

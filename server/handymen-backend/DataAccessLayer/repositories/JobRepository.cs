@@ -31,7 +31,11 @@ namespace DataAccessLayer.repositories
 
         public Job GetById(int id)
         {
-            Job found = _context.Jobs.SingleOrDefault(job => job.Id == id);
+            Job found = _context.Jobs
+                .Include(job => job.HandyMan)
+                .Include(job => job.User)
+                .Include(job => job.JobAd)
+                .SingleOrDefault(job => job.Id == id);
             return found;
         }
 

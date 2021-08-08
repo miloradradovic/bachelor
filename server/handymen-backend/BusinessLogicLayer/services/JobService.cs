@@ -9,6 +9,7 @@ namespace BusinessLogicLayer.services
     {
         public ApiResponse CreateJob(int interest);
         public ApiResponse FinishJob(int jobId);
+        public Job GetById(int jobId);
     }
     
     public class JobService : IJobService
@@ -134,6 +135,11 @@ namespace BusinessLogicLayer.services
                 ResponseObject = updated.ToJobDTO(),
                 Status = 200
             };
+        }
+
+        public Job GetById(int jobId)
+        {
+            return _jobRepository.GetById(jobId);
         }
     }
 }

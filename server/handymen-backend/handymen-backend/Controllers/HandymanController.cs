@@ -39,11 +39,6 @@ namespace handymen_backend.Controllers
             ApiResponse response =
                 _personService.VerifyHandyman(handymanVerificationDataDto.ToHandymanVerificationData());
 
-            if (response.Status == 404)
-            {
-                return NotFound(response);
-            }
-
             if (response.Status == 400)
             {
                 return BadRequest(response);

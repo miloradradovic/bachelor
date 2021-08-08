@@ -33,11 +33,6 @@ namespace handymen_backend.Controllers
         public IActionResult VerifyRegistrationRequest([FromRoute] string encrypted)
         {
             ApiResponse response = _personService.VerifyUser(encrypted);
-            
-            if (response.Status == 404)
-            {
-                return NotFound(response);
-            }
 
             if (response.Status == 400)
             {

@@ -94,7 +94,7 @@ namespace BusinessLogicLayer.services
                 {
                     Message = "Could not find your account.",
                     ResponseObject = null,
-                    Status = 404
+                    Status = 400
                 };
             }
 

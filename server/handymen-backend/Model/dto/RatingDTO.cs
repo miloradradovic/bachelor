@@ -1,22 +1,21 @@
-﻿using Model.dto;
+﻿using Model.models;
 
-namespace Model.models
+namespace Model.dto
 {
-    public class Rating
+    public class RatingDTO
     {
         public int Id { get; set; }
         public int Rate { get; set; }
         public string Description { get; set; }
-        public Job RatedJob { get; set; }
+        public int JobId { get; set; }
 
-        public RatingDTO ToRatingDTO(int jobId)
+        public Rating ToRating()
         {
-            return new RatingDTO()
+            return new Rating()
             {
                 Id = Id,
-                Rate = Rate,
                 Description = Description,
-                JobId =  jobId
+                Rate = Rate
             };
         }
     }

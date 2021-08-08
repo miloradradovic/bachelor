@@ -16,6 +16,7 @@ namespace BusinessLogicLayer.services
         public User GetUserById(int id);
         public HandyMan GetHandymanById(int id);
         public Person GetById(int id);
+        public HandyMan UpdateHandyman(HandyMan toUpdate);
 
     }
     
@@ -149,6 +150,11 @@ namespace BusinessLogicLayer.services
         public HandyMan GetHandymanById(int id)
         {
             return _handymanService.GetById(id);
+        }
+
+        public HandyMan UpdateHandyman(HandyMan toUpdate)
+        {
+            return _handymanService.Update(toUpdate);
         }
     }
 }
