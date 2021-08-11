@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Model.dto;
 using BusinessLogicLayer.services;
+using Microsoft.AspNetCore.Cors;
 using Model.models;
 
 namespace handymen_backend.Controllers
 {
     [ApiController]
     [Route("api/auth")]
+    [EnableCors("CorsPolicy")]  
     public class AuthenticationController: ControllerBase
     {
         private IAuthService _authService;

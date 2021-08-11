@@ -1,0 +1,19 @@
+<div class="wrapper">
+    <div class="page-header clear-filter" >
+      <div class="page-header-image"  style="background-image: url('assets/img/login_background.jpg'); filter: brightness(30%);">
+  
+      </div>
+        <div class="container">
+            <div class="content-center brand">
+                <h1 class="h1-seo">Everything you need.</h1>
+                <h3>Create job ad, search local handymen and more!</h3>
+                <div *ngIf="!isUser() && !isAdmin()">
+                    <a href="/login" style="margin-left:30%; width: 40%;" class="btn btn-primary btn-round btn-lg btn-block">Sign in</a>
+                    <h6 style="margin-top: 2%;">
+                        <a href="/signup" class="link" >Create Account</a>
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>

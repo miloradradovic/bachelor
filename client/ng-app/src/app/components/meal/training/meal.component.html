@@ -1,0 +1,30 @@
+<mat-card  class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Diet recommendations</mat-card-title>
+      <!--<mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+    </mat-card-header>
+    <mat-card-content>
+      <p><b>Recommended kCal: </b> {{model.kCal}}</p>
+      <p><b>Recommended carbon hydrates: </b> {{model.carbonHydrates}}</p>
+      <p><b>Recommended proteins: </b> {{model.proteins}}</p>
+      <p><b>Recommended fats: </b>{{model.fats}}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card style="width: 100%;float: left;margin-right: 2%;" *ngFor="let meal of model.meals" class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{meal.name}}</mat-card-title>
+      <!--<mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+    </mat-card-header>
+    <mat-card-content>
+      <p><b>Meal type: </b> {{meal.mealType}}</p>
+      <p><b>KCal: </b> {{meal.kCal}}</p>
+      <p><b>Carbon hydrates: </b> {{meal.carbonHydrates}}</p>
+      <p><b>Proteins: </b> {{meal.proteins}}</p>
+      <p><b>Fats: </b>{{meal.fats}}</p>
+      <p><b>Junk %: </b> {{meal.junkPercentage}}</p>
+      <p><b>Recipe: </b> {{meal.recipe}}</p>
+    </mat-card-content>
+  </mat-card>

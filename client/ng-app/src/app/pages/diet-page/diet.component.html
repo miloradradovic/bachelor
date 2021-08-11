@@ -1,0 +1,78 @@
+<div class="wrapper">
+    <div class="page-header page-header-small" filter-color="orange">
+        <div class="page-header-image rellax-header" data-rellax-speed="-8" style="background-image: url('assets/img/gym_wallpaper.jpg') ;">
+        </div>
+        <div class="container">
+            <div class="content-center">
+                <div class="photo-container">
+                    <img src="assets/img/ryan.jpg" alt="">
+                </div>
+                <h3 class="title">Vukasin</h3>
+                <div class="content">
+                    <div class="social-description">
+                        <h2>26</h2>
+                        <p>Age</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="container">
+          <div style="margin-left: 40%; margin-top:2%; margin-bottom:3%;">
+                <h1>Make your diet plan!</h1>
+          </div>
+          <div>
+              <form [formGroup]="inputForm">
+                <div class="row">
+                    <mat-form-field style="width: 20%; margin-left: 5%;" appearance="outline">
+                        <mat-label>Current weight</mat-label>
+                        <input matInput type="number" formControlName="currentWeight">
+                      </mat-form-field>
+                      <mat-form-field style="width: 20%; margin-left: 5%;" appearance="outline">
+                        <mat-label>Goal weight</mat-label>
+                        <input matInput type="number" formControlName="goalWeight" >
+                      </mat-form-field>
+                      <mat-form-field style="width: 20%; margin-left: 5%;" appearance="outline">
+                        <mat-label>Program duration</mat-label>
+                        <input matInput type="number" formControlName="programDuration" >
+                      </mat-form-field>
+                      <mat-form-field style="width: 20%; margin-left: 5%;" appearance="outline">
+                        <mat-label>Fat percentage</mat-label>
+                        <input matInput type="number" formControlName="fatPercentage" >
+                      </mat-form-field>
+                </div>
+                <div class="row">
+                  <mat-form-field style="width: 20%; margin-left: 5%;" appearance="outline">
+                    <mat-label>Daily kcal burn</mat-label>
+                    <input matInput type="number" formControlName="dailyCalBurn" >
+                  </mat-form-field>
+                    <mat-form-field style="width: 20%; margin-left: 5%;" appearance="outline">
+                                <mat-label>Junk food frequency</mat-label>
+                                <mat-select formControlName="junkFoodFrequency">
+                                  <mat-option value="OFTEN">Often</mat-option>
+                                  <mat-option value="SOMETIMES">Sometimes</mat-option>
+                                  <mat-option value="RARELY">Rarely</mat-option>
+                                  <mat-option value="NEVER">Never</mat-option>
+                                </mat-select>
+                    </mat-form-field>
+                    <mat-form-field style="width: 20%; margin-left: 5%;" appearance="outline">
+                        <mat-label>Health issues</mat-label>
+                        <mat-select formControlName="healthIssues" multiple>
+                          <mat-option *ngFor="let issue of healthIssues" [value]="issue">{{issue}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div style="width: 20%; margin-left: 5%; margin-top:2%;">
+                        <button mat-raised-button (click)="submit()">Search</button>
+                    </div>
+                </div>
+              </form>
+          </div>
+          <div>
+            <div *ngIf="this.diet" style="width: 100%;float: left;">
+                <app-meal [model]="this.diet"></app-meal>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

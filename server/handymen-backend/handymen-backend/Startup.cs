@@ -47,6 +47,12 @@ namespace handymen_backend
             services.AddScoped<IRatingRepository, RatingRepository>();
             services.AddScoped<IRatingService, RatingService>();
 
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));  
             services.Configure<EmailSenderData>(Configuration.GetSection("EmailSenderData"));
             var sqlConnectionString = Configuration["PostgreSQLConnection"];
             services.AddDbContext<PostgreSqlContext>(options => options.UseNpgsql(sqlConnectionString));  
@@ -97,7 +103,7 @@ namespace handymen_backend
             app.UseAuthorization();
             //app.UseAuthorization();
             app.UseMiddleware<JwtMiddleware>();
-
+            app.UseCors("CorsPolicy");
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

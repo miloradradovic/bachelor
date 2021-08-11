@@ -1,0 +1,83 @@
+<div class="wrapper">
+    <div class="page-header page-header-small" filter-color="orange">
+        <div class="page-header-image rellax-header" data-rellax-speed="-8" style="background-image: url('assets/img/gym_wallpaper.jpg') ;">
+        </div>
+        <div class="container">
+            <div class="content-center">
+                <div class="photo-container">
+                    <img src="assets/img/ryan.jpg" alt="">
+                </div>
+                <h3 class="title">{{getUsername()}}</h3>
+                <div class="content">
+                    <div class="social-description">
+                        <h2>26</h2>
+                        <p>Age</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-left: 40%; margin-top:2%; margin-bottom:3%;">
+        <h1>Make new meals!</h1>
+  </div>
+  <div style="margin-left:20%;">
+    <form [formGroup]="inputForm">
+      <div class="row">
+          <mat-form-field style="width: 18%; margin-left: 2%;" appearance="outline">
+              <mat-label>kCal</mat-label>
+              <input matInput type="number" formControlName="kCal">
+            </mat-form-field>
+            <mat-form-field style="width: 18%; margin-left: 2%;" appearance="outline">
+              <mat-label>Carbs</mat-label>
+              <input matInput type="number" formControlName="carbonHydrates" >
+            </mat-form-field>
+            <mat-form-field style="width: 18%; margin-left: 2%;" appearance="outline">
+              <mat-label>Proteins</mat-label>
+              <input matInput type="number" formControlName="proteins" >
+            </mat-form-field>
+            
+      </div>
+      <div class="row">
+        <mat-form-field style="width: 18%; margin-left: 2%;" appearance="outline">
+          <mat-label>Fats</mat-label>
+          <input matInput type="number" formControlName="fats" >
+        </mat-form-field>
+        <mat-form-field style="width: 18%; margin-left: 2%;" appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" formControlName="name">
+        </mat-form-field>
+        <mat-form-field style="width: 18%; margin-left: 2%;" appearance="outline">
+          <mat-label>Meal type</mat-label>
+          <mat-select formControlName="mealType">
+            <mat-option value="BREAKFAST">Breakfast</mat-option>
+            <mat-option value="LUNCH">Lunch</mat-option>
+            <mat-option value="DINNER">Dinner</mat-option>
+            <mat-option value="SNACK">Snack</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="row">
+            <mat-form-field style="width: 18%; margin-left: 2%;" appearance="outline">
+              <mat-label>Junk %</mat-label>
+              <input matInput type="number" formControlName="junkPercentage" >
+            </mat-form-field>
+            <mat-form-field style="width: 18%; margin-left: 2%;" appearance="outline">
+              <mat-label>Health issues</mat-label>
+              <mat-select formControlName="healthIssueTypes" multiple>
+                <mat-option *ngFor="let issue of healthIssues" [value]="issue">{{issue}}</mat-option>
+              </mat-select>
+          </mat-form-field>
+          <mat-form-field style="width: 18%; margin-left: 2%;" appearance="outline">
+            <mat-label>Recipe</mat-label>
+            <input matInput type="text" formControlName="recipe">
+          </mat-form-field>
+      </div>
+      <div class="row">
+            <div style="width: 20%; margin-left: 5%; margin-top:2%;">
+              <button mat-raised-button (click)="addMeal()">Add meal</button>
+            </div>
+      </div>
+
+    </form>
+</div>
+</div>
