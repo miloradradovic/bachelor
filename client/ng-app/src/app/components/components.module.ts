@@ -1,44 +1,42 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
-import { NouisliderModule } from 'ng2-nouislider';
-import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
-import { RouterModule } from '@angular/router';
-
-import { BasicelementsComponent } from './basicelements/basicelements.component';
-import { NavigationComponent } from './navigation/navigation.component';
-import { TypographyComponent } from './typography/typography.component';
-import { NucleoiconsComponent } from './nucleoicons/nucleoicons.component';
-import { ComponentsComponent } from './components.component';
-import { NotificationComponent } from './notification/notification.component';
-import { NgbdModalBasic } from './modal/modal.component';
-import { SingleTrainingComponent } from './training/training/single-training.component';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {CommonModule} from '@angular/common';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NouisliderModule} from 'ng2-nouislider';
+import {RouterModule} from '@angular/router';
+import {JwBootstrapSwitchNg2Module} from 'jw-bootstrap-switch-ng2';
+import {HttpClientModule} from '@angular/common/http';
+import {NgxSpinnerModule} from 'ngx-spinner';
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatCardModule} from '@angular/material/card';
-import { MealComponent } from './meal/training/meal.component';
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {NavbarComponent} from './navbar/navbar.component';
 
 @NgModule({
     imports: [
+        ReactiveFormsModule,
+        BrowserModule,
         CommonModule,
         FormsModule,
         NgbModule,
         NouisliderModule,
         RouterModule,
         JwBootstrapSwitchNg2Module,
-        MatCardModule
-      ],
-    declarations: [
-        ComponentsComponent,
-        BasicelementsComponent,
-        NavigationComponent,
-        TypographyComponent,
-        NucleoiconsComponent,
-        NotificationComponent,
-        NgbdModalBasic,
-        SingleTrainingComponent,
-        MealComponent
+        HttpClientModule,
+        NgxSpinnerModule,
+        MatSelectModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatCardModule,
+        MatSnackBarModule,
+        MatInputModule
     ],
-    exports:[ ComponentsComponent, SingleTrainingComponent, MealComponent ]
+    declarations: [
+        NavbarComponent
+    ],
+    exports: [ NavbarComponent ]
 })
 export class ComponentsModule { }
