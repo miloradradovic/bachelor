@@ -6,12 +6,10 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatIconModule} from '@angular/material/icon';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpAuthInterceptor } from './interceptors/http-auth.interceptor';
-import {MatCardModule} from '@angular/material/card';
 import {ComponentsModule} from './components/components.module';
+import {MaterialModule} from './material/material.module';
 
 
 @NgModule({
@@ -25,11 +23,8 @@ import {ComponentsModule} from './components/components.module';
         RouterModule,
         AppRoutingModule,
         PagesModule,
-        MatSnackBarModule,
-        MatIconModule,
-        MatCardModule,
-        ComponentsModule
-
+        ComponentsModule,
+        MaterialModule
     ],
     providers: [{provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true}],
     bootstrap: [AppComponent]

@@ -14,6 +14,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatCardModule} from '@angular/material/card';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {NavbarComponent} from './navbar/navbar.component';
+import {MaterialModule} from '../material/material.module';
 
 @NgModule({
     imports: [
@@ -27,12 +28,7 @@ import {NavbarComponent} from './navbar/navbar.component';
         JwBootstrapSwitchNg2Module,
         HttpClientModule,
         NgxSpinnerModule,
-        MatSelectModule,
-        MatInputModule,
-        MatCheckboxModule,
-        MatCardModule,
-        MatSnackBarModule,
-        MatInputModule
+        MaterialModule
     ],
     declarations: [
         NavbarComponent

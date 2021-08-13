@@ -6,7 +6,9 @@ import { LogInService } from 'app/services/log-in.service';
 import { Router } from '@angular/router';
 import { StorageService } from 'app/services/storage.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {RegisteringDecideComponent} from './registering-decide/registering-decide.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
 
 
 
@@ -33,7 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         public router: Router,
         private storageService: StorageService,
         private spinnerService: NgxSpinnerService,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        public dialog: MatDialog
       ) {
         this.fb = fb;
         this.form = this.fb.group({
@@ -85,7 +88,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
           },
           error => {
-              console.log(error)
             this.snackBar.open(error.message, 'Ok', {duration: 2000});
             this.spinnerService.hide();
           }
@@ -94,4 +96,16 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       }
 
+    createAccount() {
+        const dialogRef = this.dialog.open(RegisteringDecideComponent, {
+            width: '30%'
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            if (result === 'user') {
+                console.log('user');
+            } else if (result === 'handyman') {
+                console.log('handyman');
+            }
+        });
+    }
 }

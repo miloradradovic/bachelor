@@ -22,14 +22,14 @@
                                 <input type="password" formControlName="password" placeholder="Password..." class="form-control" (focus)="focus1=true" (blur)="focus1=false"/>
                             </div>
                             <div>
-                                <button (click)="submit()" type="submit" style="width: 50%;" class="btn btn-primary">Log in</button>
+                                <button (click)="submit()" type="submit" [disabled]="!form.valid" style="width: 50%;" class="btn btn-primary">Log in</button>
                             </div>    
                         </div>            
  
                     </form>
                     <div class="pull-left">
                         <h6>
-                            <a href="/signup" class="link">Create Account</a>
+                            <button (click)="createAccount()" style="width: 50%; color: orange" class="btn btn-link">Don't have account? Create one!</button>
                         </h6>
                     </div>
 

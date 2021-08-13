@@ -9,12 +9,9 @@ import { NouisliderModule } from 'ng2-nouislider';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import {MatSelectModule} from '@angular/material/select';
-import {MatInputModule} from '@angular/material/input';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import { MatCardModule } from '@angular/material/card';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
+import { RegisteringDecideComponent } from './login/registering-decide/registering-decide.component';
+import {MaterialModule} from '../material/material.module';
 
 
 
@@ -31,16 +28,12 @@ import { BrowserModule } from '@angular/platform-browser';
         JwBootstrapSwitchNg2Module,
         HttpClientModule,
         NgxSpinnerModule,
-        MatSelectModule,
-        MatInputModule,
-        MatCheckboxModule,
-        MatCardModule,
-        MatSnackBarModule,
-        MatInputModule
+        MaterialModule
       ],
     declarations: [
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        RegisteringDecideComponent
     ],
     exports: [  ]
 })
