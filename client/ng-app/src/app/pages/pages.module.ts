@@ -12,6 +12,8 @@ import { RegisterComponent } from './register/register.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { RegisteringDecideComponent } from './login/registering-decide/registering-decide.component';
 import {MaterialModule} from '../material/material.module';
+import { RegisterUserComponent } from './register/register-user/register-user.component';
+import { RegisterHandymanComponent } from './register/register-handyman/register-handyman.component';
 
 
 
@@ -33,7 +35,9 @@ import {MaterialModule} from '../material/material.module';
     declarations: [
         LoginComponent,
         RegisterComponent,
-        RegisteringDecideComponent
+        RegisteringDecideComponent,
+        RegisterUserComponent,
+        RegisterHandymanComponent
     ],
     exports: [  ]
 })

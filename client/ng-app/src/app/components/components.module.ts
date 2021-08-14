@@ -8,13 +8,10 @@ import {RouterModule} from '@angular/router';
 import {JwBootstrapSwitchNg2Module} from 'jw-bootstrap-switch-ng2';
 import {HttpClientModule} from '@angular/common/http';
 import {NgxSpinnerModule} from 'ngx-spinner';
-import {MatSelectModule} from '@angular/material/select';
-import {MatInputModule} from '@angular/material/input';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatCardModule} from '@angular/material/card';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {NavbarComponent} from './navbar/navbar.component';
 import {MaterialModule} from '../material/material.module';
+import { MapComponent } from './map/map.component';
+import {AgmCoreModule} from '@agm/core';
 
 @NgModule({
     imports: [
@@ -28,11 +25,15 @@ import {MaterialModule} from '../material/material.module';
         JwBootstrapSwitchNg2Module,
         HttpClientModule,
         NgxSpinnerModule,
-        MaterialModule
+        MaterialModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
+        })
     ],
     declarations: [
-        NavbarComponent
+        NavbarComponent,
+        MapComponent
     ],
-    exports: [ NavbarComponent ]
+    exports: [ NavbarComponent, MapComponent ]
 })
 export class ComponentsModule { }

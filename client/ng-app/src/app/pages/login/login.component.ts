@@ -67,7 +67,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.spinnerService.show();
         this.logInService.logIn(logIn).subscribe(
           result => {
-              console.log(result);
             const jwt: JwtHelperService = new JwtHelperService();
             const info = jwt.decodeToken(result.accessToken);
             /*
@@ -102,9 +101,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result === 'user') {
-                console.log('user');
+                this.router.navigate(['/register-user']);
             } else if (result === 'handyman') {
-                console.log('handyman');
+                this.router.navigate(['/register-handyman']);
             }
         });
     }

@@ -8,6 +8,8 @@ namespace Model.models
         public virtual List<JobAd> JobAds { get; set; }
         
         public virtual List<Job> Jobs { get; set; }
+        
+        public Location Address { get; set; }
 
         public UserDTO ToDtoWithoutLists()
         {

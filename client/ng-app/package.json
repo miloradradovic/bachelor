@@ -12,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "@agm/core": "1.1.0",
+    "@agm/core": "^1.1.0",
     "@angular/animations": "11.0.4",
     "@angular/cdk": "^11.2.13",
     "@angular/common": "11.0.4",
@@ -44,7 +44,8 @@
     "rxjs": "6.6.3",
     "rxjs-compat": "6.6.3",
     "tslib": "2.0.3",
-    "zone.js": "0.11.3"
+    "zone.js": "0.11.3",
+    "opencage-api-client": "^0.10.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.1100.4",
