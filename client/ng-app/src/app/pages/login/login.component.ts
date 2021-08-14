@@ -3,12 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LogIn, LogInModel } from 'app/model/login.model';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import { LogInService } from 'app/services/log-in.service';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { StorageService } from 'app/services/storage.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {RegisteringDecideComponent} from './registering-decide/registering-decide.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
+import {UserService} from '../../services/user.service';
 
 
 
@@ -36,7 +37,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         private storageService: StorageService,
         private spinnerService: NgxSpinnerService,
         private snackBar: MatSnackBar,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private activatedRoute: ActivatedRoute,
+        private userService: UserService
       ) {
         this.fb = fb;
         this.form = this.fb.group({
@@ -51,6 +54,21 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         const navbar = document.getElementsByTagName('nav')[0];
         navbar.classList.add('navbar-transparent');
+
+        const idPassed = this.activatedRoute.snapshot.queryParamMap.get('id');
+        if (idPassed) {
+            this.spinnerService.show();
+            this.userService.verify(idPassed).subscribe(
+                result => {
+                    this.spinnerService.hide();
+                    this.snackBar.open(result.message, 'Ok', {duration: 3000});
+                },
+                error => {
+                    this.snackBar.open(error.message, 'Ok', {duration: 3000});
+                    this.spinnerService.hide();
+                }
+            );
+        }
     }
 
     ngOnDestroy() {
@@ -63,7 +81,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     submit(): void {
         const logIn: LogIn = this.form.value;
-        console.log(logIn);
         this.spinnerService.show();
         this.logInService.logIn(logIn).subscribe(
           result => {

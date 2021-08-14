@@ -33,7 +33,7 @@ namespace DataAccessLayer.repositories
                 .Include(handy => handy.Ratings)
                 .Include(handy => handy.Trades)
                 .Include(handy => handy.DoneJobs)
-                .Include(handy => handy.Circle)
+                .Include(handy => handy.Address)
                 .SingleOrDefault(handyman => handyman.Id == id);
             return found;
         }
@@ -44,7 +44,7 @@ namespace DataAccessLayer.repositories
                 .Include(handy => handy.Ratings)
                 .Include(handy => handy.Trades)
                 .Include(handy => handy.DoneJobs)
-                .Include(handy => handy.Circle)
+                .Include(handy => handy.Address)
                 .SingleOrDefault(handyman => handyman.Id == id && handyman.Verified == verified);
             return found;
         }
@@ -55,7 +55,7 @@ namespace DataAccessLayer.repositories
                 .Include(handy => handy.Ratings)
                 .Include(handy => handy.Trades)
                 .Include(handy => handy.DoneJobs)
-                .Include(handy => handy.Circle)
+                .Include(handy => handy.Address)
                 .SingleOrDefault(handyman =>
                 handyman.Email == email && handyman.Verified);
             
@@ -76,7 +76,7 @@ namespace DataAccessLayer.repositories
                 .Include(handy => handy.Ratings)
                 .Include(handy => handy.Trades)
                 .Include(handy => handy.DoneJobs)
-                .Include(handy => handy.Circle)
+                .Include(handy => handy.Address)
                 .SingleOrDefault(handyman => handyman.Email == email);
             return found;
         }

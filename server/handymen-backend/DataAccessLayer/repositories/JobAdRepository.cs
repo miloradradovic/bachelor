@@ -35,8 +35,8 @@ namespace DataAccessLayer.repositories
         {
             List<JobAd> result = (from jobad in _context.JobAd.Include(jobad => jobad.Trades).Include(jobad => jobad.Owner).Include(jobad => jobad.AdditionalJobAdInfo)
                 where (handyMan.Trades.Any(item => jobad.Trades.Contains(item))) && 
-                      (Math.Sqrt(Math.Pow(Math.Abs(handyMan.Circle.Latitude - jobad.Address.Latitude), 2) + 
-                                 Math.Pow(Math.Abs(handyMan.Circle.Radius - jobad.Address.Longitude), 2)) <= handyMan.Circle.Radius)
+                      (Math.Sqrt(Math.Pow(Math.Abs(handyMan.Address.Latitude - jobad.Address.Latitude), 2) + 
+                                 Math.Pow(Math.Abs(handyMan.Radius - jobad.Address.Longitude), 2)) <= handyMan.Radius)
                 select jobad).ToList();
             return result;
         }

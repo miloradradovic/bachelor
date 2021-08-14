@@ -14,6 +14,7 @@ import { RegisteringDecideComponent } from './login/registering-decide/registeri
 import {MaterialModule} from '../material/material.module';
 import { RegisterUserComponent } from './register/register-user/register-user.component';
 import { RegisterHandymanComponent } from './register/register-handyman/register-handyman.component';
+import {ComponentsModule} from '../components/components.module';
 
 
 
@@ -30,7 +31,8 @@ import { RegisterHandymanComponent } from './register/register-handyman/register
         JwBootstrapSwitchNg2Module,
         HttpClientModule,
         NgxSpinnerModule,
-        MaterialModule
+        MaterialModule,
+        ComponentsModule
       ],
     declarations: [
         LoginComponent,

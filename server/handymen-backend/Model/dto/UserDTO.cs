@@ -14,22 +14,11 @@ namespace Model.dto
         public string Password { get; set; }
         public bool Verified { get; set; }
         
+        public LocationDTO Location { get; set; }
         
-        public User toEntity()
+        
+        public User ToEntity()
         {
-            if (Id == 0)
-            {
-                return new User()
-                {
-                    FirstName = FirstName,
-                    LastName = LastName,
-                    Role = Enum.Parse<Role>(Role),
-                    Email = Email,
-                    Password = Password,
-                    Verified = Verified
-                };
-            }
-
             return new User()
             {
                 Id = Id,
@@ -38,7 +27,8 @@ namespace Model.dto
                 Role = Enum.Parse<Role>(Role),
                 Email = Email,
                 Password = Password,
-                Verified = Verified
+                Verified = Verified,
+                Address = Location.ToLocation()
             };
         }
         

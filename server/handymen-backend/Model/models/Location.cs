@@ -8,7 +8,6 @@ namespace Model.models
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string Name { get; set; }
-        public int Radius { get; set; }
 
         public LocationDTO ToLocationDTO()
         {
@@ -17,8 +16,7 @@ namespace Model.models
                 Id = Id,
                 Latitude = Latitude,
                 Longitude = Longitude,
-                Name = Name,
-                Radius = Radius
+                Name = Name
             };
         }
     }

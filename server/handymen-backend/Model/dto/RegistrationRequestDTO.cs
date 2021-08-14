@@ -13,6 +13,8 @@ namespace Model.dto
         
         public string Password { get; set; }
         
+        public LocationDTO Location { get; set; }
+        
         public List<string> Trades { get; set; }
         
         public User ToUser()
@@ -24,7 +26,8 @@ namespace Model.dto
                 Email = Email,
                 Password = Password,
                 Role = Role.USER,
-                Verified = false
+                Verified = false,
+                Address = Location.ToLocation()
             };
         }
 
@@ -37,7 +40,9 @@ namespace Model.dto
                 LastName = LastName,
                 Password = Password,
                 Role = Role.HANDYMAN,
-                Verified = false
+                Verified = false,
+                Radius = Location.Radius,
+                Address = Location.ToLocation()
                 // list of trades will be mapped later
             };
         }

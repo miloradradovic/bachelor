@@ -23,12 +23,14 @@ namespace BusinessLogicLayer.services
         private readonly IHandymanRepository _handymanRepository;
         private readonly ITradeService _tradeService;
         private readonly IMailService _mailService;
+        private readonly ILocationService _locationService;
 
-        public HandymanService(IHandymanRepository handymanRepository, ITradeService tradeService, IMailService mailService)
+        public HandymanService(IHandymanRepository handymanRepository, ITradeService tradeService, IMailService mailService, ILocationService locationService)
         {
             _handymanRepository = handymanRepository;
             _tradeService = tradeService;
             _mailService = mailService;
+            _locationService = locationService;
         }
 
         public HandyMan GetById(int id)
@@ -48,6 +50,13 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse Register(HandyMan request, List<string> trades)
         {
+
+            Location foundLocation =
+                _locationService.GetByLatAndLng(request.Address.Latitude, request.Address.Longitude);
+            if (foundLocation != null)
+            {
+                request.Address = foundLocation;
+            }
             
             foreach (string trade in trades)
             {

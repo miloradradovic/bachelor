@@ -8,7 +8,9 @@ namespace Model.models
         public virtual List<Trade> Trades { get; set; }
         public virtual List<Rating> Ratings { get; set; }
         public virtual List<Job> DoneJobs { get; set; }
-        public Location Circle { get; set; }
+        public Location Address { get; set; }
+        
+        public int Radius { get; set; }
 
         public HandymanDTO ToDtoWithTrades()
         {

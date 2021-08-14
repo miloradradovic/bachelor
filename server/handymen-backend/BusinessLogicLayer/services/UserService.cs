@@ -21,13 +21,15 @@ namespace BusinessLogicLayer.services
         private readonly IUserRepository _userRepository;
         private readonly IMailService _mailService;
         private readonly ICryptingService _cryptingService;
+        private readonly ILocationService _locationService;
 
         public UserService(IUserRepository repository, IMailService mailService,
-            ICryptingService cryptingService)
+            ICryptingService cryptingService, ILocationService locationService)
         {
             _userRepository = repository;
             _mailService = mailService;
             _cryptingService = cryptingService;
+            _locationService = locationService;
         }
 
         public User GetById(int id)
@@ -45,6 +47,14 @@ namespace BusinessLogicLayer.services
             
             request.Password = BC.HashPassword(request.Password);
 
+            Location foundLocation =
+                _locationService.GetByLatAndLng(request.Address.Latitude, request.Address.Longitude);
+
+            if (foundLocation != null)
+            {
+                request.Address = foundLocation;
+            }
+
             User created = _userRepository.Create(request);
 
             if (created == null)
@@ -59,7 +69,7 @@ namespace BusinessLogicLayer.services
             
             _mailService.SendEmail(new MailRequest()
             {
-                Body = "Greetings " + created.FirstName + ". Please verify your account by following this <a href='https://localhost:5001/api/users/verify/" + _cryptingService.Encrypt(created.Id.ToString()) + "'>LINK</a>",
+                Body = "Greetings " + created.FirstName + ". Please verify your account by following this <a href='https://localhost:4200/?id=" + _cryptingService.Encrypt(created.Id.ToString()) + "'>LINK</a>",
                 Subject = "Account verification",
                 ToEmail = created.Email
             });
@@ -93,6 +103,16 @@ namespace BusinessLogicLayer.services
                 return new ApiResponse()
                 {
                     Message = "Could not find your account.",
+                    ResponseObject = null,
+                    Status = 400
+                };
+            }
+
+            if (toVerify.Verified)
+            {
+                return new ApiResponse()
+                {
+                    Message = "You already verified your account.",
                     ResponseObject = null,
                     Status = 400
                 };

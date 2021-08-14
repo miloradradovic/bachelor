@@ -2,11 +2,13 @@
 using Model.dto;
 using Model.models;
 using BusinessLogicLayer.services;
+using Microsoft.AspNetCore.Cors;
 
 namespace handymen_backend.Controllers
 {
     [ApiController]
     [Route("api/users")]
+    [EnableCors("CorsPolicy")]
     public class UserController: ControllerBase
     {
         private readonly IPersonService _personService;
