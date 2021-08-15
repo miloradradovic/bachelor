@@ -1,0 +1,11 @@
+<div *ngIf="role === ''">
+  <app-navbar-non-signed-in></app-navbar-non-signed-in>
+</div>
+
+<div *ngIf="role === 'HANDYMAN'">
+  <app-navbar-handyman (logOut)="logOut($event)"></app-navbar-handyman>
+</div>
+
+<div *ngIf="role === 'USER'">
+  <app-navbar-user (logOut)="logOut($event)"></app-navbar-user>
+</div>

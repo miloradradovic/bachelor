@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+
+  <a routerLink="/pocetna-stranica-gradjanin" id="home-nav" style="margin-left: 0.1%;" ><mat-icon [ngStyle]="{'color':'white'}">home</mat-icon></a>
+  <span style="padding-left: 2%">Портал органа власти</span>
+  <a routerLink="/zahtev" style="margin-left: 5%;" ><button style="width: 90%;margin-bottom: 5%"mat-flat-button color="primary" id="create-zahtev">Креирај захтев</button></a>
+  <span style="width: 80%"></span>
+
+  <a routerLink="/gradjanin/profil" style="margin-right: 2%;" id="view-profile"><mat-icon [ngStyle]="{'color':'white'}">face</mat-icon></a>
+  <a routerLink="/" style="margin-left: 0.5%;" ><mat-icon (click)="logOutUser()" [ngStyle]="{'color':'white'}">exit_to_app</mat-icon></a>
+
+</mat-toolbar>
