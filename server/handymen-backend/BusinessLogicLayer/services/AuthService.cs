@@ -34,7 +34,7 @@ namespace BusinessLogicLayer.services
         public ApiResponse LogIn(LoginData loginData)
         {
             Person toLogIn = _personService.GetByEmailAndPassword(loginData.Email, loginData.Password);
-            
+
             if (toLogIn == null)
             {
                 return new ApiResponse()
@@ -50,11 +50,7 @@ namespace BusinessLogicLayer.services
             return new ApiResponse()
             {
                 Message = "Successfully logged in.",
-                ResponseObject = new TokenDataDTO()
-                {
-                    LoginDataDto = loginData.ToDto(),
-                    Token = token
-                },
+                ResponseObject = token,
                 Status = 200
             };
         }
@@ -65,7 +61,7 @@ namespace BusinessLogicLayer.services
             var key = Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", toLogIn.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("id", toLogIn.Id.ToString()), new Claim("email", toLogIn.Email), new Claim("role", toLogIn.Role.ToString()) }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

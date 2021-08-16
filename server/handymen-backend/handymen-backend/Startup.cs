@@ -48,6 +48,10 @@ namespace handymen_backend
             services.AddScoped<IRatingService, RatingService>();
             services.AddScoped<ILocationRepository, LocationRepository>();
             services.AddScoped<ILocationService, LocationService>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProfessionRepository, ProfessionRepository>();
+            services.AddScoped<IProfessionService, ProfessionService>();
 
             services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
             {

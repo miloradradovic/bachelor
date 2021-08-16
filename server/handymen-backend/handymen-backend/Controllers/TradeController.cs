@@ -30,5 +30,17 @@ namespace handymen_backend.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("get-trades/{professionId}")]
+        public IActionResult GetTradesByProfession([FromRoute] int professionId)
+        {
+            ApiResponse response = _tradeService.GetTradesByProfession(professionId);
+            if (response.Status == 400)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
     }
 }

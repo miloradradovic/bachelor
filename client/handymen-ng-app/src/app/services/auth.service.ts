@@ -25,9 +25,9 @@ export class AuthService {
   }
 
   getRole(): string {
-    if (!localStorage.getItem('user')) {
+    if (!sessionStorage.getItem('user')) {
       return '';
     }
-    return JSON.parse(localStorage.getItem('user')).role;
+    return JSON.parse(sessionStorage.getItem('user')).role;
   }
 }

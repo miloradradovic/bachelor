@@ -9,3 +9,7 @@
 <div *ngIf="role === 'USER'">
   <app-navbar-user (logOut)="logOut($event)"></app-navbar-user>
 </div>
+
+<div *ngIf="role === 'ADMINISTRATOR'">
+  <app-navbar-admin (logOut)="logOut($event)"></app-navbar-admin>
+</div>

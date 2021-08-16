@@ -7,6 +7,9 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {TradeService} from '../../../services/trade.service';
 import {HandymanService} from '../../../services/handyman.service';
 import {RegisterDataModel} from '../../../model/register-data.model';
+import {ProfessionService} from '../../../services/profession.service';
+import {CategoryService} from '../../../services/category.service';
+import {MatSelectChange} from '@angular/material/select';
 
 @Component({
   selector: 'app-register-handyman',
@@ -17,8 +20,11 @@ export class RegisterHandymanComponent implements OnInit {
 
   form: FormGroup;
   private fb: FormBuilder;
-  selectedTrades = new FormControl();
+  //selectedTrades = new FormControl();
   trades = []
+  professions = []
+  categories = []
+  selectedTrades = new FormControl();
   currentLocation: LocationModel = new LocationModel(45.259452102126545, 19.848492145538334, 'Aleksandra Tisme 3, 21101 Novi Sad City, Serbia', 0);
 
   constructor(
@@ -27,7 +33,9 @@ export class RegisterHandymanComponent implements OnInit {
     private spinnerService: NgxSpinnerService,
     private snackBar: MatSnackBar,
     private tradeService: TradeService,
-    private handymanService: HandymanService
+    private handymanService: HandymanService,
+    private professionService: ProfessionService,
+    private categoryService: CategoryService
   ) {
     this.fb = fb;
     this.form = this.fb.group({
@@ -35,16 +43,50 @@ export class RegisterHandymanComponent implements OnInit {
       password: [null, [Validators.required, Validators.minLength(8)]],
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
-      address: ['Aleksandra Tisme 3, 21101 Novi Sad City, Serbia', [Validators.required]]
+      address: ['Aleksandra Tisme 3, 21101 Novi Sad City, Serbia', [Validators.required]],
+      category: [null, [Validators.required]],
+      profession: [null, [Validators.required]]
     });
   }
 
   ngOnInit(): void {
-    this.getTrades();
+    this.getCategories();
   }
 
-  getTrades() {
-    this.tradeService.getTrades().subscribe(
+  selectionChange($event: MatSelectChange, type: string) {
+    if (type === 'category') {
+      this.getProfessionsByCategory($event.value);
+      this.trades = [];
+    }
+    if (type === 'profession') {
+      this.getTradesByProfession($event.value);
+    }
+  }
+
+  getCategories() {
+    this.categoryService.getCategories().subscribe(
+      result => {
+        this.categories = result.responseObject;
+      },
+      error => {
+        this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
+      }
+    )
+  }
+
+  getProfessionsByCategory(categoryId: number) {
+    this.professionService.getProfessionsByCategory(categoryId).subscribe(
+      result => {
+        this.professions = result.responseObject;
+      },
+      error => {
+        this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
+      }
+    )
+  }
+
+  getTradesByProfession(professionId: number) {
+    this.tradeService.getTradesByProfession(professionId).subscribe(
       result => {
         this.trades = result.responseObject;
       },
@@ -55,7 +97,7 @@ export class RegisterHandymanComponent implements OnInit {
   }
 
   registerHandyman() {
-    if (this.selectedTrades.value) {
+    if (this.selectedTrades) {
       if (this.selectedTrades.value.length !== 0) {
         this.spinnerService.show();
         const registrationData: RegisterDataModel = new RegisterDataModel(
@@ -66,7 +108,6 @@ export class RegisterHandymanComponent implements OnInit {
           false,
           this.currentLocation,
           this.selectedTrades.value);
-
 
         this.handymanService.register(registrationData).subscribe(
           result => {
@@ -82,8 +123,6 @@ export class RegisterHandymanComponent implements OnInit {
       }
     }
     this.snackBar.open('Please choose your trades.', 'Ok', {duration: 3000});
-
-
   }
 
   dragEnd(locationModel: LocationModel) {

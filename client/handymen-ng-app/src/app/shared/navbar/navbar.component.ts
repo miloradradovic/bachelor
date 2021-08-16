@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.storageService.watchStorage().subscribe(() => {
-      const user = JSON.parse(localStorage.getItem('user'));
+      const user = JSON.parse(sessionStorage.getItem('user'));
       if (user === null) {
         this.role = '';
       } else {
@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
       }
     });
 
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(sessionStorage.getItem('user'));
     if (user === null) {
       this.role = '';
     } else {

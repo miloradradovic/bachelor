@@ -10,6 +10,8 @@ import {UserService} from '../../services/user.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {LogInData} from '../../model/login.model';
 import {RegisteringDecideComponent} from './registering-decide/registering-decide.component';
+import {LoggedInModel} from '../../model/logged-in.model';
+import {log} from 'util';
 
 @Component({
   selector: 'app-login',
@@ -62,22 +64,19 @@ export class LoginComponent implements OnInit {
     this.logInService.logIn(logIn).subscribe(
       result => {
         const jwt: JwtHelperService = new JwtHelperService();
-        const info = jwt.decodeToken(result.accessToken);
-        /*
-        const role = info.role;
-        const user = new LogInModel(info.username, result.accessToken ,info.id, info.role);
-        localStorage.setItem('user', JSON.stringify(user));
-        this.storageService.setStorageItem('user', JSON.stringify(user))
-         */
+        const info = jwt.decodeToken(result.responseObject);
+        console.log(info);
+        const loggedIn = new LoggedInModel(info.id, info.email, info.role);
+        this.storageService.setStorageItem('user', JSON.stringify(loggedIn));
         this.spinnerService.hide();
         this.snackBar.open(result.message, 'Ok', {duration: 2000});
-        /*
-        if (role === 'ROLE_USER' || role === 'ROLE_ADMINISTRATOR') {
-            this.spinnerService.hide();
-            this.router.navigate(['/']);
+        if(loggedIn.role === 'USER') {
+          this.router.navigate(['/handymen-dashboard']);
+        } else if(loggedIn.role === 'HANDYMAN') {
+          this.router.navigate(['/jobad-dashboard']);
+        } else {
+          this.router.navigate(['/admin-landing-page']);
         }
-         */
-
 
       },
       error => {

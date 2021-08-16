@@ -28,16 +28,14 @@ import {MaterialModule} from './material/material.module';
 import { RegisteringDecideComponent } from './pages/login/registering-decide/registering-decide.component';
 import { RegisterUserComponent } from './pages/registration/register-user/register-user.component';
 import { RegisterHandymanComponent } from './pages/registration/register-handyman/register-handyman.component';
+import {PagesModule} from './pages/pages.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisteringDecideComponent,
-    RegisterUserComponent,
-    RegisterHandymanComponent
+    AppComponent
   ],
   imports: [
+    PagesModule,
     SharedModule,
     MaterialModule,
     AppRoutingModule,

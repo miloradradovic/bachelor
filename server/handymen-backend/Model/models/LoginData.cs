@@ -7,12 +7,12 @@ namespace Model.models
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public LoginDataDTO ToDto()
+        public LoginDataDTO ToDto(Role role)
         {
             return new LoginDataDTO()
             {
-                Password = Password,
-                Email = Email
+                Email = Email,
+                Role = role.ToString()
             };
         }
     }

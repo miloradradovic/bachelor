@@ -8,6 +8,7 @@ import {MaterialModule} from '../material/material.module';
 import {AgmCoreModule} from '@agm/core';
 import { MapComponent } from './map/map.component';
 import {RouterModule} from '@angular/router';
+import { NavbarAdminComponent } from './navbar/navbar-admin/navbar-admin.component';
 
 
 
@@ -17,7 +18,8 @@ import {RouterModule} from '@angular/router';
     NavbarHandymanComponent,
     NavbarNonSignedInComponent,
     NavbarUserComponent,
-    MapComponent
+    MapComponent,
+    NavbarAdminComponent
   ],
   imports: [
     CommonModule,

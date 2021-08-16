@@ -13,12 +13,12 @@ export class StorageService {
   }
 
   setStorageItem(key: string, data: any) {
-    localStorage.setItem(key, data);
+    sessionStorage.setItem(key, data);
     this.storageSub.next();
   }
 
   clearStorage() {
-    localStorage.clear();
+    sessionStorage.clear();
     this.storageSub.next();
   }
 }
