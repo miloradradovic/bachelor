@@ -21,7 +21,7 @@ namespace handymen_backend.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult CreateRegistrationRequest([FromBody] RegistrationRequestDTO requestDto)
+        public IActionResult CreateRegistrationRequest([FromBody] RegistrationRequestDataDTO requestDto)
         {
             ApiResponse response = _personService.RegisterHandyman(requestDto.ToHandyman(), requestDto.Trades);
 
@@ -48,5 +48,22 @@ namespace handymen_backend.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        [Authorize(Roles.USER, Roles.ADMINISTRATOR)]
+        public IActionResult GetAllHandymen()
+        {
+            ApiResponse response = _personService.GetAllHandymen();
+            return Ok(response);
+        }
+        
+        [HttpPost("search")]
+        public IActionResult Search([FromBody] SearchParams searchParams)
+        {
+            ApiResponse response = _personService.SearchHandymen(searchParams);
+
+            return Ok(response);
+        }
+
     }
 }

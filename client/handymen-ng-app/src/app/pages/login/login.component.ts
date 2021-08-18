@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
         const jwt: JwtHelperService = new JwtHelperService();
         const info = jwt.decodeToken(result.responseObject);
         console.log(info);
-        const loggedIn = new LoggedInModel(info.id, info.email, info.role);
+        const loggedIn = new LoggedInModel(info.id, info.email, info.role, result.responseObject);
         this.storageService.setStorageItem('user', JSON.stringify(loggedIn));
         this.spinnerService.hide();
         this.snackBar.open(result.message, 'Ok', {duration: 2000});

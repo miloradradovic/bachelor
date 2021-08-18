@@ -4,7 +4,7 @@ using Model.models;
 
 namespace Model.dto
 {
-    public class RegistrationRequestDTO
+    public class RegistrationRequestDataDTO
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -16,20 +16,6 @@ namespace Model.dto
         public LocationDTO Location { get; set; }
         
         public List<string> Trades { get; set; }
-        
-        public User ToUser()
-        {
-            return new User()
-            {
-                FirstName = FirstName,
-                LastName = LastName,
-                Email = Email,
-                Password = Password,
-                Role = Role.USER,
-                Verified = false,
-                Address = Location.ToLocation()
-            };
-        }
 
         public HandyMan ToHandyman()
         {
@@ -44,6 +30,20 @@ namespace Model.dto
                 Radius = Location.Radius,
                 Address = Location.ToLocation()
                 // list of trades will be mapped later
+            };
+        }
+        
+        public User ToUser()
+        {
+            return new User()
+            {
+                FirstName = FirstName,
+                LastName = LastName,
+                Email = Email,
+                Password = Password,
+                Role = Role.USER,
+                Verified = false,
+                Address = Location.ToLocation()
             };
         }
     }

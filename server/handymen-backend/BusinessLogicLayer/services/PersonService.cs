@@ -17,6 +17,8 @@ namespace BusinessLogicLayer.services
         public HandyMan GetHandymanById(int id);
         public Person GetById(int id);
         public HandyMan UpdateHandyman(HandyMan toUpdate);
+        public ApiResponse GetAllHandymen();
+        public ApiResponse SearchHandymen(SearchParams searchParams);
 
     }
     
@@ -155,6 +157,16 @@ namespace BusinessLogicLayer.services
         public HandyMan UpdateHandyman(HandyMan toUpdate)
         {
             return _handymanService.Update(toUpdate);
+        }
+
+        public ApiResponse GetAllHandymen()
+        {
+            return _handymanService.GetAll();
+        }
+
+        public ApiResponse SearchHandymen(SearchParams searchParams)
+        {
+            return _handymanService.Search(searchParams);
         }
     }
 }

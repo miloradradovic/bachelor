@@ -19,7 +19,7 @@ namespace handymen_backend.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult CreateRegistrationRequest([FromBody] RegistrationRequestDTO userRegistrationRequestDto)
+        public IActionResult CreateRegistrationRequest([FromBody] RegistrationRequestDataDTO userRegistrationRequestDto)
         {
             ApiResponse response = _personService.RegisterUser(userRegistrationRequestDto.ToUser());
             

@@ -5,7 +5,6 @@ import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UserService} from '../../../services/user.service';
-import {RegisterUserModel} from '../../../model/register-user.model';
 import {RegisterDataModel} from '../../../model/register-data.model';
 
 @Component({

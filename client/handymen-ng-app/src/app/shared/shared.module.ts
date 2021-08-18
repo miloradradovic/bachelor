@@ -9,6 +9,7 @@ import {AgmCoreModule} from '@agm/core';
 import { MapComponent } from './map/map.component';
 import {RouterModule} from '@angular/router';
 import { NavbarAdminComponent } from './navbar/navbar-admin/navbar-admin.component';
+import { TableComponent } from './table/table.component';
 
 
 
@@ -19,7 +20,8 @@ import { NavbarAdminComponent } from './navbar/navbar-admin/navbar-admin.compone
     NavbarNonSignedInComponent,
     NavbarUserComponent,
     MapComponent,
-    NavbarAdminComponent
+    NavbarAdminComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,8 @@ import { NavbarAdminComponent } from './navbar/navbar-admin/navbar-admin.compone
     NavbarNonSignedInComponent,
     NavbarUserComponent,
     AgmCoreModule,
-    MapComponent
+    MapComponent,
+    TableComponent
   ]
 })
 export class SharedModule { }

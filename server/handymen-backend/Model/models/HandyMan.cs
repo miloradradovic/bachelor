@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Model.dto;
 
 namespace Model.models
@@ -10,7 +11,7 @@ namespace Model.models
         public virtual List<Job> DoneJobs { get; set; }
         public Location Address { get; set; }
         
-        public int Radius { get; set; }
+        public double Radius { get; set; }
 
         public HandymanDTO ToDtoWithTrades()
         {
@@ -41,6 +42,18 @@ namespace Model.models
             };
         }
 
+        public HandymanDashboardDTO ToDahboardDTO()
+        {
+            return new HandymanDashboardDTO()
+            {
+                Address = Address.Name,
+                Email = Email,
+                FirstName = FirstName,
+                Id = Id,
+                LastName = LastName
+            };
+        }
+        
         private List<string> TradesToString()
         {
             List<string> trades = new List<string>();
@@ -51,6 +64,22 @@ namespace Model.models
             }
 
             return trades;
+        }
+
+        public double CalculateAverageRate()
+        {
+            int sum = 0;
+            foreach (Rating rating in Ratings)
+            {
+                sum = sum + rating.Rate;
+            }
+
+            if (Ratings.Count == 0)
+            {
+                return 0.0;
+            }
+            return sum / Ratings.Count;
+            
         }
     }
 }

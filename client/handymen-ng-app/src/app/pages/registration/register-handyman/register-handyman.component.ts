@@ -20,7 +20,6 @@ export class RegisterHandymanComponent implements OnInit {
 
   form: FormGroup;
   private fb: FormBuilder;
-  //selectedTrades = new FormControl();
   trades = []
   professions = []
   categories = []
@@ -108,7 +107,7 @@ export class RegisterHandymanComponent implements OnInit {
           false,
           this.currentLocation,
           this.selectedTrades.value);
-
+        console.log(registrationData);
         this.handymanService.register(registrationData).subscribe(
           result => {
             this.spinnerService.hide();
@@ -126,14 +125,12 @@ export class RegisterHandymanComponent implements OnInit {
   }
 
   dragEnd(locationModel: LocationModel) {
-    this.currentLocation.latitude = locationModel.latitude;
-    this.currentLocation.longitude = locationModel.longitude;
-    this.currentLocation.name = locationModel.name;
+    this.currentLocation = locationModel;
     this.form.controls.address.setValue(locationModel.name);
   }
 
-  radiusChanged($event: number) {
-    this.currentLocation.radius = $event;
+  radiusChanged(locationModel: LocationModel) {
+    this.currentLocation = locationModel
   }
 
 }

@@ -9,7 +9,7 @@ namespace Model.dto
         public double Longitude { get; set; }
         public string Name { get; set; }
         
-        public int Radius { get; set; }
+        public double Radius { get; set; }
 
         public Location ToLocation()
         {

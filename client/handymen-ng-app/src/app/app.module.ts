@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {AgmCoreModule} from '@agm/core';
 import {AppRoutingModule} from './app.routing';
@@ -29,6 +29,7 @@ import { RegisteringDecideComponent } from './pages/login/registering-decide/reg
 import { RegisterUserComponent } from './pages/registration/register-user/register-user.component';
 import { RegisterHandymanComponent } from './pages/registration/register-handyman/register-handyman.component';
 import {PagesModule} from './pages/pages.module';
+import {HttpAuthInterceptor} from './interceptor/http-auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,9 @@ import {PagesModule} from './pages/pages.module';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
