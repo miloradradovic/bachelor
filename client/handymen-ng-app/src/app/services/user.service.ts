@@ -18,6 +18,6 @@ export class UserService {
   }
 
   verify(data: string): Observable<any> {
-    return this.http.get('https://localhost:5001/api/users/verify/' + data, {headers: this.headers, responseType: 'json'})
+    return this.http.get('https://localhost:5001/api/users/verify/' + data, {headers: this.headers, responseType: 'json'});
   }
 }

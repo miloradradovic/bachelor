@@ -18,18 +18,25 @@ namespace BusinessLogicLayer.services
         private readonly IJobAdRepository _jobAdRepository;
         private readonly IPersonService _personService;
         private readonly ITradeService _tradeService;
+        private readonly ILocationService _locationService;
 
-        public JobAdService(IJobAdRepository jobAdRepository, IPersonService personService, ITradeService tradeService)
+        public JobAdService(IJobAdRepository jobAdRepository, IPersonService personService, ITradeService tradeService, ILocationService locationService)
         {
             _jobAdRepository = jobAdRepository;
             _personService = personService;
             _tradeService = tradeService;
+            _locationService = locationService;
         }
 
         public ApiResponse CreateJobAd(JobAd jobAd, List<string> trades, User loggedIn)
         {
             jobAd.Owner = loggedIn;
-
+            Location foundLocation = _locationService.GetByLatAndLng(jobAd.Address.Latitude, jobAd.Address.Longitude);
+            if (foundLocation != null)
+            {
+                jobAd.Address = foundLocation;
+            }
+            
             foreach (string trade in trades)
             {
                 Trade found = _tradeService.GetByName(trade);

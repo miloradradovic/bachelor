@@ -10,6 +10,11 @@ import {ProfessionService} from '../../../services/profession.service';
 import {CategoryService} from '../../../services/category.service';
 import {MatSelectChange} from '@angular/material/select';
 import {StepperSelectionEvent} from '@angular/cdk/stepper';
+import {JobAdModel} from '../../../model/job-ad.model';
+import {AdditionalJobAdInfoModel} from '../../../model/additional-job-ad-info.model';
+import {JobAdService} from '../../../services/job-ad.service';
+import {UserService} from '../../../services/user.service';
+import {LocationService} from '../../../services/location.service';
 
 @Component({
   selector: 'app-create-jobad-form',
@@ -38,7 +43,9 @@ export class CreateJobadFormComponent implements OnInit {
               private snackBar: MatSnackBar,
               private tradeService: TradeService,
               private professionService: ProfessionService,
-              private categoryService: CategoryService) {
+              private categoryService: CategoryService,
+              private jobAdService: JobAdService,
+              private locationService: LocationService) {
     this.fb = fb;
     this.firstForm = this.fb.group({
       title: [null, [Validators.required]],
@@ -64,6 +71,14 @@ export class CreateJobadFormComponent implements OnInit {
     this.fiveDaysAhead.setDate(this.fiveDaysAhead.getDate() + 7);
     this.fiveDaysAhead.setMonth(this.fiveDaysAhead.getMonth());
     this.fiveDaysAhead.setFullYear(this.fiveDaysAhead.getFullYear());
+    this.locationService.getLocation().subscribe(
+      result => {
+        this.currentLocation = result.responseObject;
+        this.secondForm.controls.address.setValue(this.currentLocation.name);
+      }, error => {
+        this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
+      }
+    )
 
   }
 
@@ -133,14 +148,45 @@ export class CreateJobadFormComponent implements OnInit {
   }
 
   createJobAd() {
+    this.spinnerService.show();
+    let jobAd: JobAdModel;
+    if (!this.fourthForm.value.maxPrice && !this.fourthForm.value.urgent) {
+      jobAd = new JobAdModel(
+        0,
+        this.firstForm.value.title,
+        this.firstForm.value.description,
+        this.currentLocation,
+        null,
+        this.secondForm.value.date,
+        this.thirdForm.value.selectedTrades
+      )
+    } else {
+      jobAd = new JobAdModel(
+        0,
+        this.firstForm.value.title,
+        this.firstForm.value.description,
+        this.currentLocation,
+        new AdditionalJobAdInfoModel(0, this.fourthForm.value.urgent, this.fourthForm.value.maxPrice),
+        this.secondForm.value.date,
+        this.thirdForm.value.selectedTrades
+      )
+    }
+
+    this.jobAdService.createJobAd(jobAd).subscribe(
+      result => {
+        this.spinnerService.hide();
+        this.snackBar.open(result.message, 'Ok', {duration: 5000});
+        this.router.navigate(['/']);
+      },
+      error => {
+        this.spinnerService.hide();
+        this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
+      }
+    );
 
   }
 
   changedMatStep($event: StepperSelectionEvent) {
-    if ($event.selectedIndex === 1) {
-      this.secondFormClicked = true;
-    } else {
-      this.secondFormClicked = false;
-    }
+    this.secondFormClicked = $event.selectedIndex === 1;
   }
 }

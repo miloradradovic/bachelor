@@ -39,6 +39,7 @@ namespace DataAccessLayer.repositories
             User found = _context.Users
                 .Include(user => user.Jobs)
                 .Include(user => user.JobAds)
+                .Include(user => user.Address)
                 .SingleOrDefault(user => user.Id == id);
             return found;
         }

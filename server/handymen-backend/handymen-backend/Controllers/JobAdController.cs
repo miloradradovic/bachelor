@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using BusinessLogicLayer.services;
 using handymen_backend.jwt;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Model.dto;
@@ -12,6 +13,7 @@ namespace handymen_backend.Controllers
 {
     [ApiController]
     [Route("api/job-ads")]
+    [EnableCors("CorsPolicy")]
     public class JobAdController : ControllerBase
     {
 

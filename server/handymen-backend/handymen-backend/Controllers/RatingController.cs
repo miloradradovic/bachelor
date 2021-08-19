@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer.services;
 using handymen_backend.jwt;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Model.dto;
 using Model.models;
@@ -8,6 +9,7 @@ namespace handymen_backend.Controllers
 {
     [ApiController]
     [Route("api/ratings")]
+    [EnableCors("CorsPolicy")]
     public class RatingController : ControllerBase
     {
         private readonly IRatingService _ratingService;

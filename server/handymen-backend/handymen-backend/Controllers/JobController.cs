@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer.services;
 using handymen_backend.jwt;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Model.models;
 
@@ -7,6 +8,7 @@ namespace handymen_backend.Controllers
 {
     [ApiController]
     [Route("api/jobs")]
+    [EnableCors("CorsPolicy")]
     public class JobController : ControllerBase
     {
         private readonly IJobService _jobService;
