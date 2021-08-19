@@ -1,0 +1,124 @@
+<div style="float: left; width: 60%; padding-top: 2%; padding-left: 2%">
+
+  <div style="float: left; width: 90%; padding-left: 2%;">
+
+    <mat-horizontal-stepper linear (selectionChange)="changedMatStep($event)">
+      <mat-step [stepControl]="firstForm">
+        <form [formGroup]="firstForm">
+          <ng-template matStepLabel>Title and description</ng-template>
+          <mat-form-field appearance="outline" style="display: block">
+            <mat-label> Title </mat-label>
+            <input [formControl]="firstForm.controls.title" matInput id="title" name="title" placeholder="Title">
+            <mat-error *ngIf="firstForm.controls.title.touched && firstForm.controls.title.errors?.required">
+              Title must be filled!</mat-error >
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="display: block">
+            <mat-label> Description </mat-label>
+            <textarea matInput rows="15" id="description" name="description" placeholder="Description of your job." [formControl]="firstForm.controls.description"></textarea>
+            <mat-error *ngIf="firstForm.controls.description.touched && firstForm.controls.description.errors?.required">
+              Description must be filled!</mat-error >
+          </mat-form-field>
+
+          <div>
+            <button [disabled]="firstForm.invalid" mat-button matStepperNext (click)="clicked('firstFormNext')">Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondForm">
+        <form [formGroup]="secondForm">
+          <ng-template matStepLabel>Address and date</ng-template>
+          <mat-form-field appearance="outline" style="display: block">
+            <mat-label> Address </mat-label>
+            <input [readonly]="true" [formControl]="secondForm.controls.address" matInput id="address" name="address" placeholder="Address">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="display: block">
+            <mat-label>Choose date:</mat-label>
+            <input [readonly]="true" [formControl]="secondForm.controls.date" [min]="fiveDaysAhead" id="date"
+                   matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <div>
+            <button mat-button (click)="clicked('secondFormBack')" matStepperPrevious>Back</button>
+            <button [disabled]="secondForm.invalid" mat-button (click)="clicked('secondFormNext')" matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="thirdForm">
+        <form [formGroup]="thirdForm">
+          <ng-template matStepLabel>Type of job</ng-template>
+          <mat-form-field appearance="outline" style="display: block">
+            <mat-label>Categories</mat-label>
+            <mat-select [formControl]="thirdForm.controls.category" (selectionChange)="selectionChange($event, 'category')">
+              <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="display: block">
+            <mat-label>Professions</mat-label>
+            <mat-select [formControl]="thirdForm.controls.profession" (selectionChange)="selectionChange($event, 'profession')">
+              <mat-option *ngFor="let profession of professions" [value]="profession.id">{{profession.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="display: block">
+            <mat-label>Trades</mat-label>
+            <mat-select [formControl]="thirdForm.controls.selectedTrades" multiple>
+              <mat-option *ngFor="let trade of trades" [value]="trade.name">{{trade.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div>
+            <button (click)="clicked('thirdFormBack')" mat-button matStepperPrevious>Back</button>
+            <button [disabled]="thirdForm.invalid" (click)="clicked('thirdFormNext')" mat-button matStepperNext>Next</button>
+          </div>
+
+        </form>
+      </mat-step>
+      <mat-step>
+        <form [formGroup]="fourthForm">
+          <ng-template matStepLabel>Additional data?</ng-template>
+          <div *ngIf="fillOutAdditionalData">
+            <mat-form-field appearance="outline" style="display: block">
+              <mat-label>Urgent?</mat-label>
+              <mat-select [formControl]="fourthForm.controls.urgent" (selectionChange)="selectionChange($event, 'urgent')">
+                <mat-option *ngFor="let urgent of urgents" [value]="urgent.boolVal">{{urgent.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="display: block">
+              <mat-label> Max price </mat-label>
+              <input type="number" [formControl]="fourthForm.controls.maxPrice" matInput id="maxPrice" name="maxPrice" placeholder="Max price">
+            </mat-form-field>
+          </div>
+          <div>
+            <button (click)="clicked('additionalDataGiveUp')" mat-button matStepperPrevious>Back</button>
+            <button [disabled]="fillOutAdditionalData" mat-button (click)="clicked('additionalData')" matStepperNext>Fill out additional data</button>
+            <button mat-button (click)="createJobAd()">Finish</button>
+          </div>
+        </form>
+      </mat-step>
+
+    </mat-horizontal-stepper>
+
+  </div>
+
+</div>
+
+<div [hidden]="!secondFormClicked" style="padding-right: 3%;float: right;padding-top: 2%;width: 30%;">
+
+  <app-map [latitude]="currentLocation.latitude" [longitude]="currentLocation.longitude" [radius]="currentLocation.radius"
+           (DragEnd)="dragEnd($event)" [draggable]="true" [showCircle]="false" >
+  </app-map>
+
+</div>
+
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-atom">
+  <p style="font-size: 20px; color: white">Stay tuned, we're creating job ad for you ...</p>
+</ngx-spinner>

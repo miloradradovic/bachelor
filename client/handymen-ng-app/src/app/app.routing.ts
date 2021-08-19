@@ -13,6 +13,7 @@ import {LogInGuard} from './guards/log-in-guard.service';
 import {UserGuard} from './guards/user-guard.service';
 import {HandymanGuard} from './guards/handyman-guard.service';
 import {AdministratorGuard} from './guards/administrator-guard.service';
+import {CreateJobadFormComponent} from './pages/user-pages/create-jobad-form/create-jobad-form.component';
 
 const routes: Routes = [
 
@@ -45,6 +46,11 @@ const routes: Routes = [
     path: 'admin-landing-page',
     component: AdminLandingPageComponent,
     canActivate: [AdministratorGuard]
+  },
+  {
+    path: 'jobad-create',
+    component: CreateJobadFormComponent,
+    canActivate: [UserGuard]
   }
 ];
 

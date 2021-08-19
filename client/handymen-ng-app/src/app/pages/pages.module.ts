@@ -11,6 +11,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { HandymenDashboardComponent } from './user-pages/handymen-dashboard/handymen-dashboard.component';
 import { JobAdDashboardComponent } from './handyman-pages/job-ad-dashboard/job-ad-dashboard.component';
 import { AdminLandingPageComponent } from './admin-pages/admin-landing-page/admin-landing-page.component';
+import { CreateJobadFormComponent } from './user-pages/create-jobad-form/create-jobad-form.component';
 
 
 
@@ -22,7 +23,8 @@ import { AdminLandingPageComponent } from './admin-pages/admin-landing-page/admi
     RegisteringDecideComponent,
     HandymenDashboardComponent,
     JobAdDashboardComponent,
-    AdminLandingPageComponent
+    AdminLandingPageComponent,
+    CreateJobadFormComponent
   ],
   imports: [
     CommonModule,

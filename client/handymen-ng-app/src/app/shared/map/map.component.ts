@@ -12,15 +12,15 @@ export class MapComponent implements OnInit {
   @ViewChild(AgmMap) agmMap: AgmMap;
   @ViewChild(AgmCircle) agmCircle: AgmCircle
 
-  latitude = 45.259452102126545;
-  longitude = 19.848492145538334;
+  @Input() latitude = 45.259452102126545;
+  @Input() longitude = 19.848492145538334;
+  @Input() radius = 500;
   @Input() draggable = true;
   @Input() showCircle = true;
   @Output() DragEnd = new EventEmitter<LocationModel>();
   @Output() RadiusChanged = new EventEmitter<LocationModel>();
   zoom = 15;
   location = '';
-  radius = 500;
 
 
   constructor() { }

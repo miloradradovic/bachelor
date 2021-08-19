@@ -1,11 +1,16 @@
 <mat-toolbar color="primary">
 
-  <a routerLink="/pocetna-stranica-gradjanin" id="home-nav" style="margin-left: 0.1%;" ><mat-icon [ngStyle]="{'color':'white'}">home</mat-icon></a>
-  <span style="padding-left: 2%">Портал органа власти</span>
-  <a routerLink="/zahtev" style="margin-left: 5%;" ><button style="width: 90%;margin-bottom: 5%"mat-flat-button color="primary" id="create-zahtev">Креирај захтев</button></a>
+  <a routerLink="/" id="home-nav" style="margin-left: 0.1%;" ><mat-icon [ngStyle]="{'color':'white'}">home</mat-icon></a>
+  <span style="padding-left: 2%">Handyman Hunt</span>
+
+  <button style="padding-left: 2%" mat-button [matMenuTriggerFor]="jobadmenu" id="jobadmenu">Job Advertisement</button>
+  <mat-menu #jobadmenu="matMenu">
+    <a routerLink="/jobad-dashboard" style="margin-left: 5%;" ><button style="width: 90%;margin-bottom: 5%" mat-flat-button color="primary">Job ad dashboard</button></a>
+    <a routerLink="/jobad-create" style="margin-left: 5%;" ><button mat-flat-button style="width: 90%;margin-bottom: 5%" color="primary" id="admin-dashboard-navigate">Create job ad</button></a>
+  </mat-menu>
   <span style="width: 80%"></span>
 
-  <a routerLink="/gradjanin/profil" style="margin-right: 2%;" id="view-profile"><mat-icon [ngStyle]="{'color':'white'}">face</mat-icon></a>
+  <a routerLink="/profile-view" style="margin-right: 2%;" id="view-profile"><mat-icon [ngStyle]="{'color':'white'}">face</mat-icon></a>
   <a routerLink="/" style="margin-left: 0.5%;" ><mat-icon (click)="logOutUser()" [ngStyle]="{'color':'white'}">exit_to_app</mat-icon></a>
 
 </mat-toolbar>
