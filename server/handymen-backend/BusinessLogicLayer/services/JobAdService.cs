@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DataAccessLayer.repositories;
+using Model.dto;
 using Model.models;
+using Org.BouncyCastle.Crypto.Prng;
 
 namespace BusinessLogicLayer.services
 {
@@ -10,6 +13,7 @@ namespace BusinessLogicLayer.services
         public ApiResponse CreateJobAd(JobAd jobAd, List<string> Trades, User loggedIn);
         public ApiResponse GetJobAdsForCurrentHandyman(HandyMan handyMan);
         public JobAd GetById(int id);
+        public ApiResponse GetJobAdsByUser(User user);
     }
     
     public class JobAdService : IJobAdService
@@ -20,7 +24,8 @@ namespace BusinessLogicLayer.services
         private readonly ITradeService _tradeService;
         private readonly ILocationService _locationService;
 
-        public JobAdService(IJobAdRepository jobAdRepository, IPersonService personService, ITradeService tradeService, ILocationService locationService)
+        public JobAdService(IJobAdRepository jobAdRepository, IPersonService personService, ITradeService tradeService, 
+            ILocationService locationService)
         {
             _jobAdRepository = jobAdRepository;
             _personService = personService;
@@ -83,19 +88,79 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetJobAdsForCurrentHandyman(HandyMan handyMan)
         {
-            HandyMan handyManWithTrades = _personService.GetHandymanById(handyMan.Id);
-            
+            List<JobAd> jobAds = _jobAdRepository.GetAll();
+            List<JobAd> fullJobAds = new List<JobAd>();
+            List<JobAdDashboardDTO> jobAdDtos = new List<JobAdDashboardDTO>();
+            foreach (JobAd jobAd in jobAds)
+            {
+                fullJobAds.Add(_jobAdRepository.GetById(jobAd.Id));
+            }
+
+            foreach (JobAd ad in fullJobAds)
+            {
+                if (CheckTrades(handyMan.Trades, ad.Trades) && DetermineCircle(handyMan.Address, handyMan.Radius, ad.Address))
+                {
+                    jobAdDtos.Add(ad.ToJobAdDashboardDTO());
+                }
+            }
+
             return new ApiResponse()
             {
-                Message = "Successfully retrieved job ads for current handyman.",
-                ResponseObject = _jobAdRepository.GetJobAdsForCurrentHandyman(handyManWithTrades),
+                Message = "Successfully fetched job ads by handyman.",
+                ResponseObject = jobAdDtos,
                 Status = 200
             };
+        }
+
+        private bool CheckTrades(List<Trade> handymanTrades, List<Trade> adTrades)
+        {
+            foreach (Trade adTrade in adTrades)
+            {
+                bool check = false;
+                foreach (Trade handymanTrade in handymanTrades)
+                {
+                    if (handymanTrade.Name == adTrade.Name)
+                    {
+                        check = true;
+                        break;
+                    }
+                }
+
+                if (!check)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool DetermineCircle(Location handymanAddress, double handymanRadius, Location adAddress)
+        {
+            return Math.Sqrt(Math.Pow(Math.Abs(handymanAddress.Latitude - adAddress.Latitude), 2) +
+                             Math.Pow(Math.Abs(handymanRadius - adAddress.Longitude), 2)) <= handymanRadius;
         }
 
         public JobAd GetById(int id)
         {
             return _jobAdRepository.GetById(id);
+        }
+
+        public ApiResponse GetJobAdsByUser(User user)
+        {
+            List<JobAd> usersJobAds = user.JobAds;
+            List<JobAdDashboardDTO> jobAdDtos = new List<JobAdDashboardDTO>();
+            foreach (JobAd jobAd in usersJobAds)
+            {
+                jobAdDtos.Add(_jobAdRepository.GetById(jobAd.Id).ToJobAdDashboardDTO());
+            }
+
+            return new ApiResponse()
+            {
+                Message = "Successfully fetched job ads by user.",
+                ResponseObject = jobAdDtos,
+                Status = 200
+            };
         }
     }
 }

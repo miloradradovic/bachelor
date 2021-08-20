@@ -42,6 +42,34 @@ namespace Model.models
             };
         }
 
+        public JobAdDashboardDTO ToJobAdDashboardDTO()
+        {
+            if (AdditionalJobAdInfo == null)
+            {
+                return new JobAdDashboardDTO()
+                {
+                    Address = Address.Name,
+                    DateWhen = DateWhen,
+                    Description = Description,
+                    Id = Id,
+                    MaxPrice = 0,
+                    Title = Title,
+                    Urgent = false
+                };
+            }
+
+            return new JobAdDashboardDTO()
+            {
+                Address = Address.Name,
+                DateWhen = DateWhen,
+                Description = Description,
+                Id = Id,
+                MaxPrice = AdditionalJobAdInfo.PriceMax,
+                Title = Title,
+                Urgent = AdditionalJobAdInfo.Urgent
+            };
+        }
+
         private List<string> ConvertTradesToStrings()
         {
             List<string> trades = new List<string>();

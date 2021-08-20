@@ -71,11 +71,11 @@ export class LoginComponent implements OnInit {
         this.spinnerService.hide();
         this.snackBar.open(result.message, 'Ok', {duration: 2000});
         if(loggedIn.role === 'USER') {
-          this.router.navigate(['/handymen-dashboard']);
+          this.router.navigate(['/user/handymen-dashboard']);
         } else if(loggedIn.role === 'HANDYMAN') {
-          this.router.navigate(['/jobad-dashboard']);
+          this.router.navigate(['/handyman/jobad-dashboard']);
         } else {
-          this.router.navigate(['/admin-landing-page']);
+          this.router.navigate(['/admin/landing-page']);
         }
 
       },
@@ -92,9 +92,9 @@ export class LoginComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'user') {
-        this.router.navigate(['/register-user']);
+        this.router.navigate(['/user/register']);
       } else if (result === 'handyman') {
-        this.router.navigate(['/register-handyman']);
+        this.router.navigate(['/handyman/register']);
       }
     });
   }

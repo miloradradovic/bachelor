@@ -12,6 +12,8 @@ import { HandymenDashboardComponent } from './user-pages/handymen-dashboard/hand
 import { JobAdDashboardComponent } from './handyman-pages/job-ad-dashboard/job-ad-dashboard.component';
 import { AdminLandingPageComponent } from './admin-pages/admin-landing-page/admin-landing-page.component';
 import { CreateJobadFormComponent } from './user-pages/create-jobad-form/create-jobad-form.component';
+import { JobadDashboardComponent } from './user-pages/jobad-dashboard/jobad-dashboard.component';
+import { CreateInterestDialogComponent } from './handyman-pages/job-ad-dashboard/create-interest-dialog/create-interest-dialog.component';
 
 
 
@@ -24,7 +26,9 @@ import { CreateJobadFormComponent } from './user-pages/create-jobad-form/create-
     HandymenDashboardComponent,
     JobAdDashboardComponent,
     AdminLandingPageComponent,
-    CreateJobadFormComponent
+    CreateJobadFormComponent,
+    JobadDashboardComponent,
+    CreateInterestDialogComponent
   ],
   imports: [
     CommonModule,

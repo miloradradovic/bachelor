@@ -20,7 +20,7 @@ namespace handymen_backend.Controllers
             _interestService = interestService;
         }
 
-        [HttpPost]
+        [HttpPost("create-interest")]
         [Authorize(Roles.HANDYMAN)]
         public IActionResult MakeInterest([FromBody] InterestDTO interestDto)
         {

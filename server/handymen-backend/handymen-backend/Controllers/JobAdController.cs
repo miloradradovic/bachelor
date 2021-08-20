@@ -1,10 +1,6 @@
-﻿using System.Net;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using BusinessLogicLayer.services;
+﻿using BusinessLogicLayer.services;
 using handymen_backend.jwt;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Model.dto;
 using Model.models;
@@ -39,11 +35,19 @@ namespace handymen_backend.Controllers
             return Created(response.Message, response);
         }
 
-        [HttpGet("get-job-ads-for-current")]
+        [HttpGet("get-job-ads-by-handyman")]
         [Authorize(Roles.HANDYMAN)]
         public IActionResult GetJobAdsForCurrentHandyman()
         {
             ApiResponse response = _jobAdService.GetJobAdsForCurrentHandyman((HandyMan) HttpContext.Items["LoggedIn"]);
+            return Ok(response);
+        }
+
+        [HttpGet("get-job-ads-by-user")]
+        [Authorize(Roles.USER)]
+        public IActionResult GetJobAdsByUser()
+        {
+            ApiResponse response = _jobAdService.GetJobAdsByUser((User) HttpContext.Items["LoggedIn"]);
             return Ok(response);
         }
     }

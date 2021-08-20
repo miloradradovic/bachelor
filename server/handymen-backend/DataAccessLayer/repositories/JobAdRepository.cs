@@ -12,6 +12,7 @@ namespace DataAccessLayer.repositories
         public JobAd CreateJobAd(JobAd jobAd);
         public List<JobAd> GetJobAdsForCurrentHandyman(HandyMan handyMan);
         public JobAd GetById(int id);
+        public List<JobAd> GetAll();
     }
     
     public class JobAdRepository : IJobAdRepository
@@ -47,8 +48,19 @@ namespace DataAccessLayer.repositories
                 .Include(ad => ad.Trades)
                 .Include(ad => ad.Owner)
                 .Include(ad => ad.AdditionalJobAdInfo)
+                .Include(ad => ad.Address)
                 .SingleOrDefault(jobad => jobad.Id == id);
             return found;
+        }
+
+        public List<JobAd> GetAll()
+        {
+            List<JobAd> result = _context.JobAd.Include(ad => ad.Address)
+                .Include(ad => ad.Owner)
+                .Include(ad => ad.Trades)
+                .Include(ad => ad.AdditionalJobAdInfo)
+                .ToList();
+            return result;
         }
     }
 }

@@ -15,13 +15,13 @@ export class LogInGuard implements CanActivate {
   canActivate(): boolean {
     const role = this.auth.getRole();
     if (role === 'HANDYMAN') {
-      this.router.navigate(['/jobad-dashboard']);
+      this.router.navigate(['/handyman/jobad-dashboard']);
       return false;
     } else if (role === 'USER') {
-      this.router.navigate(['/handymen-dashboard']);
+      this.router.navigate(['/user/handymen-dashboard']);
       return false;
     } else if (role === 'ADMINISTRATOR') {
-      this.router.navigate(['/admin-landing-page']);
+      this.router.navigate(['/admin/landing-page']);
       return false;
     }
     return true;

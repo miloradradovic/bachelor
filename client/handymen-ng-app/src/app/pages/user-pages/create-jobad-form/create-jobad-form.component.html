@@ -15,7 +15,7 @@
 
           <mat-form-field appearance="outline" style="display: block">
             <mat-label> Description </mat-label>
-            <textarea matInput rows="15" id="description" name="description" placeholder="Description of your job." [formControl]="firstForm.controls.description"></textarea>
+            <textarea matInput rows="15" id="description" name="description" placeholder="Description of your job. Please be as detailed as possible so handymen can offer appropriate sum of money." [formControl]="firstForm.controls.description"></textarea>
             <mat-error *ngIf="firstForm.controls.description.touched && firstForm.controls.description.errors?.required">
               Description must be filled!</mat-error >
           </mat-form-field>

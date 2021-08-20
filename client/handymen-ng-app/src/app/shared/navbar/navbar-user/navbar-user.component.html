@@ -5,12 +5,12 @@
 
   <button style="padding-left: 2%" mat-button [matMenuTriggerFor]="jobadmenu" id="jobadmenu">Job Advertisement</button>
   <mat-menu #jobadmenu="matMenu">
-    <a routerLink="/jobad-dashboard" style="margin-left: 5%;" ><button style="width: 90%;margin-bottom: 5%" mat-flat-button color="primary">Job ad dashboard</button></a>
-    <a routerLink="/jobad-create" style="margin-left: 5%;" ><button mat-flat-button style="width: 90%;margin-bottom: 5%" color="primary" id="admin-dashboard-navigate">Create job ad</button></a>
+    <a routerLink="/user/jobad-dashboard" style="margin-left: 5%;" ><button style="width: 90%;margin-bottom: 5%" mat-flat-button color="primary">Job ad dashboard</button></a>
+    <a routerLink="/user/jobad-create" style="margin-left: 5%;" ><button mat-flat-button style="width: 90%;margin-bottom: 5%" color="primary" id="admin-dashboard-navigate">Create job ad</button></a>
   </mat-menu>
   <span style="width: 80%"></span>
 
-  <a routerLink="/profile-view" style="margin-right: 2%;" id="view-profile"><mat-icon [ngStyle]="{'color':'white'}">face</mat-icon></a>
+  <a routerLink="/user/profile-view" style="margin-right: 2%;" id="view-profile"><mat-icon [ngStyle]="{'color':'white'}">face</mat-icon></a>
   <a routerLink="/" style="margin-left: 0.5%;" ><mat-icon (click)="logOutUser()" [ngStyle]="{'color':'white'}">exit_to_app</mat-icon></a>
 
 </mat-toolbar>

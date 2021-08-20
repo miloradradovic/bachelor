@@ -10,7 +10,7 @@ export class TableComponent {
   @Input() dataSource = [];
   @Input() columnsToDisplay = [];
   @Input() columnsToIterate = [];
-  @Output() Delete = new EventEmitter<number>();
+  @Output() MakeInterest = new EventEmitter<number>();
   @Output() Click = new EventEmitter<number>();
   @Output() DoubleClick = new EventEmitter<number>();
   constructor() {
@@ -25,8 +25,8 @@ export class TableComponent {
       }
     }
   }
-  deleted(id: number){
-    this.Delete.emit(id);
+  makeInterest(id: number){
+    this.MakeInterest.emit(id);
   }
   clicked(id: number){
     this.Click.emit(id);

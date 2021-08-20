@@ -7,13 +7,14 @@ import {LoginComponent} from './pages/login/login.component';
 import {RegisterUserComponent} from './pages/registration/register-user/register-user.component';
 import {RegisterHandymanComponent} from './pages/registration/register-handyman/register-handyman.component';
 import {HandymenDashboardComponent} from './pages/user-pages/handymen-dashboard/handymen-dashboard.component';
-import {JobAdDashboardComponent} from './pages/handyman-pages/job-ad-dashboard/job-ad-dashboard.component';
 import {AdminLandingPageComponent} from './pages/admin-pages/admin-landing-page/admin-landing-page.component';
 import {LogInGuard} from './guards/log-in-guard.service';
 import {UserGuard} from './guards/user-guard.service';
 import {HandymanGuard} from './guards/handyman-guard.service';
 import {AdministratorGuard} from './guards/administrator-guard.service';
 import {CreateJobadFormComponent} from './pages/user-pages/create-jobad-form/create-jobad-form.component';
+import {JobadDashboardComponent} from './pages/user-pages/jobad-dashboard/jobad-dashboard.component';
+import {JobAdDashboardComponent} from './pages/handyman-pages/job-ad-dashboard/job-ad-dashboard.component';
 
 const routes: Routes = [
 
@@ -23,34 +24,54 @@ const routes: Routes = [
     canActivate: [LogInGuard]
   },
   {
-    path: 'register-user',
-    component: RegisterUserComponent,
-    canActivate: [LogInGuard]
+    path: 'user',
+    children: [
+      {
+        path: 'register',
+        component: RegisterUserComponent,
+        canActivate: [LogInGuard]
+      },
+      {
+        path: 'handymen-dashboard',
+        component: HandymenDashboardComponent,
+        canActivate: [UserGuard]
+      },
+      {
+        path: 'jobad-create',
+        component: CreateJobadFormComponent,
+        canActivate: [UserGuard]
+      },
+      {
+        path: 'jobad-dashboard',
+        component: JobadDashboardComponent,
+        canActivate: [UserGuard]
+      }
+    ]
   },
   {
-    path: 'register-handyman',
-    component: RegisterHandymanComponent,
-    canActivate: [LogInGuard]
+    path: 'handyman',
+    children: [
+      {
+        path: 'register',
+        component: RegisterHandymanComponent,
+        canActivate: [LogInGuard]
+      },
+      {
+        path: 'jobad-dashboard',
+        component: JobAdDashboardComponent,
+        canActivate: [HandymanGuard]
+      },
+    ]
   },
   {
-    path: 'handymen-dashboard',
-    component: HandymenDashboardComponent,
-    canActivate: [UserGuard]
-  },
-  {
-    path: 'jobad-dashboard',
-    component: JobAdDashboardComponent,
-    canActivate: [HandymanGuard]
-  },
-  {
-    path: 'admin-landing-page',
-    component: AdminLandingPageComponent,
-    canActivate: [AdministratorGuard]
-  },
-  {
-    path: 'jobad-create',
-    component: CreateJobadFormComponent,
-    canActivate: [UserGuard]
+    path: 'admin',
+    children: [
+      {
+        path: 'landing-page',
+        component: AdminLandingPageComponent,
+        canActivate: [AdministratorGuard]
+      }
+    ]
   }
 ];
 
