@@ -43,5 +43,21 @@ namespace handymen_backend.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("get-jobs-by-user")]
+        [Authorize(Roles.USER)]
+        public IActionResult GetJobsByUser()
+        {
+            ApiResponse response = _jobService.GetByUser((User) HttpContext.Items["LoggedIn"]);
+            return Ok(response);
+        }
+        
+        [HttpGet("get-jobs-by-handyman")]
+        [Authorize(Roles.HANDYMAN)]
+        public IActionResult GetJobsByHandyman()
+        {
+            ApiResponse response = _jobService.GetByHandyman((HandyMan) HttpContext.Items["LoggedIn"]);
+            return Ok(response);
+        }
     }
 }

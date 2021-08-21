@@ -25,6 +25,7 @@
     "@angular/router": "~11.2.1",
     "@auth0/angular-jwt": "^5.0.2",
     "ngx-spinner": "^11.0.2",
+    "ngx-star-rating": "^2.0.2",
     "opencage-api-client": "^0.10.0",
     "rxjs": "~6.6.0",
     "tslib": "^1.10.0",

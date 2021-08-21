@@ -14,6 +14,7 @@ namespace DataAccessLayer.repositories
         public JobAd GetById(int id);
         public List<JobAd> GetAll();
         public Interest InterestExists(int jobAd, int handyman);
+        public Job GetJobByJobAdAndHandyman(int jobAd, int handyman);
     }
     
     public class JobAdRepository : IJobAdRepository
@@ -69,6 +70,16 @@ namespace DataAccessLayer.repositories
             Interest found = _context.Interests.Include(interest => interest.JobAd)
                 .Include(interest => interest.HandyMan)
                 .SingleOrDefault(interest => interest.JobAd.Id == jobAd && interest.HandyMan.Id == handyman);
+            return found;
+        }
+
+        public Job GetJobByJobAdAndHandyman(int jobAd, int handyman)
+        {
+            Job found = _context.Jobs
+                .Include(job => job.User)
+                .Include(job => job.HandyMan)
+                .Include(job => job.JobAd)
+                .SingleOrDefault(job => job.HandyMan.Id == handyman && job.JobAd.Id == jobAd);
             return found;
         }
     }

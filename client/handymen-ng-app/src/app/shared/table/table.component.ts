@@ -15,6 +15,8 @@ export class TableComponent {
   @Output() DoubleClick = new EventEmitter<number>();
   @Output() HandymanDetails = new EventEmitter<number>();
   @Output() MakeJobDeal = new EventEmitter<number>();
+  @Output() FinishJob = new EventEmitter<number>();
+  @Output() RateJob = new EventEmitter<number>();
   constructor() {
 
   }
@@ -53,5 +55,13 @@ export class TableComponent {
 
   makeJobDeal(id) {
     this.MakeJobDeal.emit(id);
+  }
+
+  finishJob(id) {
+    this.FinishJob.emit(id);
+  }
+
+  rateJob(id) {
+    this.RateJob.emit(id);
   }
 }

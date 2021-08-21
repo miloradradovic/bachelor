@@ -19,7 +19,7 @@ namespace handymen_backend.Controllers
             _ratingService = ratingService;
         }
 
-        [HttpPost]
+        [HttpPost("create-rating")]
         [Authorize(Roles.USER)]
         public IActionResult CreateRating([FromBody] RatingDTO ratingDto)
         {

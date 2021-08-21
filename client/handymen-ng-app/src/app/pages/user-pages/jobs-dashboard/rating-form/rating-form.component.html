@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Rating form</h1>
+<form [formGroup]="form">
+  <div class="cont">
+    <div class="stars">
+      <ngx-star-rating [formControl]="form.controls.pickedRating" [id]="'rating3'" ></ngx-star-rating >
+    </div>
+    <div style="padding-top: 2%">
+      <mat-form-field>
+        <mat-label for="commentInput">Comment:</mat-label>
+        <textarea matInput id="commentInput" name="commentInput" placeholder="Insert comment here" [formControl]="form.controls.commentInput"></textarea>
+        <mat-error *ngIf="form.controls.commentInput.touched && form.controls.commentInput.errors?.required">
+          This field can't be empty!</mat-error >
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+<div mat-dialog-actions>
+  <button [disabled]="form.invalid" mat-button (click)="submit()">Submit</button>
+  <button mat-button (click)="cancel()">Cancel</button>
+</div>

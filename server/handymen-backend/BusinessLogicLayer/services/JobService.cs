@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DataAccessLayer.repositories;
+using Model.dto;
 using Model.models;
 
 namespace BusinessLogicLayer.services
@@ -10,6 +11,8 @@ namespace BusinessLogicLayer.services
         public ApiResponse CreateJob(int interest);
         public ApiResponse FinishJob(int jobId);
         public Job GetById(int jobId);
+        public ApiResponse GetByUser(User user);
+        public ApiResponse GetByHandyman(HandyMan handyMan);
     }
     
     public class JobService : IJobService
@@ -141,6 +144,40 @@ namespace BusinessLogicLayer.services
         public Job GetById(int jobId)
         {
             return _jobRepository.GetById(jobId);
+        }
+
+        public ApiResponse GetByUser(User user)
+        {
+            List<Job> jobs = _jobRepository.GetByUser(user.Id);
+            List<JobDashboardDTO> jobAdDashboardDtos = new List<JobDashboardDTO>();
+            foreach (Job job in jobs)
+            {
+                jobAdDashboardDtos.Add(job.ToJobDashboardDTO(_jobRepository.CheckIfRated(job)));
+            }
+
+            return new ApiResponse()
+            {
+                Message = "Successfully fetched jobs by user.",
+                ResponseObject = jobAdDashboardDtos,
+                Status = 200
+            };
+        }
+
+        public ApiResponse GetByHandyman(HandyMan handyMan)
+        {
+            List<Job> jobs = _jobRepository.GetByHandyman(handyMan.Id);
+            List<JobDashboardDTO> jobAdDashboardDtos = new List<JobDashboardDTO>();
+            foreach (Job job in jobs)
+            {
+                jobAdDashboardDtos.Add(job.ToJobDashboardDTO(_jobRepository.CheckIfRated(job)));
+            }
+
+            return new ApiResponse()
+            {
+                Message = "Successfully fetched jobs by handyman.",
+                ResponseObject = jobAdDashboardDtos,
+                Status = 200
+            };
         }
     }
 }

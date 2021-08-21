@@ -16,6 +16,8 @@ import {CreateJobadFormComponent} from './pages/user-pages/create-jobad-form/cre
 import {JobadDashboardComponent} from './pages/user-pages/jobad-dashboard/jobad-dashboard.component';
 import {JobAdDashboardComponent} from './pages/handyman-pages/job-ad-dashboard/job-ad-dashboard.component';
 import {InterestsDashboardComponent} from './pages/user-pages/interests-dashboard/interests-dashboard.component';
+import {JobsDashboardComponent} from './pages/user-pages/jobs-dashboard/jobs-dashboard.component';
+import {JobDashboardComponent} from './pages/handyman-pages/job-dashboard/job-dashboard.component';
 
 const routes: Routes = [
 
@@ -51,6 +53,11 @@ const routes: Routes = [
         path: 'interests-dashboard',
         component: InterestsDashboardComponent,
         canActivate: [UserGuard]
+      },
+      {
+        path: 'jobs-dashboard',
+        component: JobsDashboardComponent,
+        canActivate: [UserGuard]
       }
     ]
   },
@@ -67,6 +74,11 @@ const routes: Routes = [
         component: JobAdDashboardComponent,
         canActivate: [HandymanGuard]
       },
+      {
+        path: 'jobs-dashboard',
+        component: JobDashboardComponent,
+        canActivate: [HandymanGuard]
+      }
     ]
   },
   {
