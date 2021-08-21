@@ -20,5 +20,23 @@ namespace Model.models
                 PriceEstimated = PriceEstimated
             };
         }
+
+        public InterestDashboardDTO ToInterestDashboardDTO(JobAdDashboardDTO jobAdDashboardDto)
+        {
+            return new InterestDashboardDTO()
+            {
+                Address = jobAdDashboardDto.Address,
+                DateWhen = jobAdDashboardDto.DateWhen,
+                Description = jobAdDashboardDto.Description,
+                Email = HandyMan.Email,
+                EstimatedDays = DaysEstimated,
+                EstimatedPrice = PriceEstimated,
+                FirstName = HandyMan.FirstName,
+                Id = Id,
+                LastName = HandyMan.LastName,
+                MaxPrice = jobAdDashboardDto.MaxPrice,
+                Title = jobAdDashboardDto.Title
+            };
+        }
     }
 }

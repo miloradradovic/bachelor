@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DataAccessLayer.Migrations;
 using DataAccessLayer.repositories;
+using Model.dto;
 using Model.models;
 
 namespace BusinessLogicLayer.services
@@ -12,6 +13,7 @@ namespace BusinessLogicLayer.services
         public Interest GetById(int id);
         public bool DeleteRemainingInterests(int jobAdId);
         public List<HandyMan> GetRemainingHandymen(int interestId, int jobHandyId);
+        public ApiResponse GetByUser(User user);
     }
     
     public class InterestService : IInterestService
@@ -43,7 +45,7 @@ namespace BusinessLogicLayer.services
                 };
             }
 
-            if (_interestRepository.GetByJobAd(found.Id) != null)
+            if (_interestRepository.GetByJobAdAndHandymanId(found.Id, handyMan.Id) != null)
             {
                 return new ApiResponse()
                 {
@@ -97,6 +99,29 @@ namespace BusinessLogicLayer.services
         public List<HandyMan> GetRemainingHandymen(int interestId, int jobHandyId)
         {
             return _interestRepository.GetRemainingHandymen(interestId, jobHandyId);
+        }
+
+        public ApiResponse GetByUser(User user)
+        {
+            List<InterestDashboardDTO> result = new List<InterestDashboardDTO>();
+            
+            foreach (JobAd jobAd in user.JobAds)
+            {
+                JobAd fullJobAd = _jobAdService.GetById(jobAd.Id);
+                List<Interest> interests = _interestRepository.GetByJobAd(fullJobAd.Id);
+                foreach (Interest interest in interests)
+                {
+                    result.Add(interest.ToInterestDashboardDTO(fullJobAd.ToJobAdDashboardDTO()));
+                }
+                
+            }
+
+            return new ApiResponse()
+            {
+                Message = "Successfully fetched interests by user.",
+                ResponseObject = result,
+                Status = 200
+            };
         }
     }
 }

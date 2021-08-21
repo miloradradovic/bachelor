@@ -15,6 +15,7 @@ import {AdministratorGuard} from './guards/administrator-guard.service';
 import {CreateJobadFormComponent} from './pages/user-pages/create-jobad-form/create-jobad-form.component';
 import {JobadDashboardComponent} from './pages/user-pages/jobad-dashboard/jobad-dashboard.component';
 import {JobAdDashboardComponent} from './pages/handyman-pages/job-ad-dashboard/job-ad-dashboard.component';
+import {InterestsDashboardComponent} from './pages/user-pages/interests-dashboard/interests-dashboard.component';
 
 const routes: Routes = [
 
@@ -44,6 +45,11 @@ const routes: Routes = [
       {
         path: 'jobad-dashboard',
         component: JobadDashboardComponent,
+        canActivate: [UserGuard]
+      },
+      {
+        path: 'interests-dashboard',
+        component: InterestsDashboardComponent,
         canActivate: [UserGuard]
       }
     ]

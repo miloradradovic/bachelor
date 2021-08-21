@@ -16,4 +16,8 @@ export class InterestService {
   createInterest(interest: InterestModel): Observable<any> {
     return this.http.post('https://localhost:5001/api/interests/create-interest', interest, {headers: this.headers, responseType: 'json'});
   }
+
+  getInterestsForCurrentUser(): Observable<any> {
+    return this.http.get('https://localhost:5001/api/interests/get-interests-by-user', {headers: this.headers, responseType: 'json'});
+  }
 }

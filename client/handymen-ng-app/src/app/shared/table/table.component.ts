@@ -13,6 +13,8 @@ export class TableComponent {
   @Output() MakeInterest = new EventEmitter<number>();
   @Output() Click = new EventEmitter<number>();
   @Output() DoubleClick = new EventEmitter<number>();
+  @Output() HandymanDetails = new EventEmitter<number>();
+  @Output() MakeJobDeal = new EventEmitter<number>();
   constructor() {
 
   }
@@ -43,5 +45,13 @@ export class TableComponent {
       default:
         return this.columnsToIterate;
     }
+  }
+
+  handymanDetails(id) {
+    this.HandymanDetails.emit(id);
+  }
+
+  makeJobDeal(id) {
+    this.MakeJobDeal.emit(id);
   }
 }

@@ -33,5 +33,13 @@ namespace handymen_backend.Controllers
 
             return Created(response.Message, response);
         }
+
+        [HttpGet("get-interests-by-user")]
+        [Authorize(Roles.USER)]
+        public IActionResult GetInterestsByUser()
+        {
+            ApiResponse response = _interestService.GetByUser((User) HttpContext.Items["LoggedIn"]);
+            return Ok(response);
+        }
     }
 }

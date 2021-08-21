@@ -56,7 +56,7 @@ export class JobAdDashboardComponent implements OnInit {
           result => {
             this.spinnerService.hide();
             this.snackBar.open(result.message, 'Ok', {duration: 3000});
-            this.router.navigate(['/'])
+            this.getJobAdsForHandyman();
           }, error => {
             this.spinnerService.hide();
             this.snackBar.open(error.error.message, 'Ok', {duration: 3000});

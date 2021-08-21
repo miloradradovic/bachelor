@@ -98,7 +98,8 @@ namespace BusinessLogicLayer.services
 
             foreach (JobAd ad in fullJobAds)
             {
-                if (CheckTrades(handyMan.Trades, ad.Trades) && DetermineCircle(handyMan.Address, handyMan.Radius, ad.Address))
+                if (CheckTrades(handyMan.Trades, ad.Trades) && DetermineCircle(handyMan.Address, handyMan.Radius, ad.Address)
+                && !InterestExists(ad.Id, handyMan.Id))
                 {
                     jobAdDtos.Add(ad.ToJobAdDashboardDTO());
                 }
@@ -110,6 +111,17 @@ namespace BusinessLogicLayer.services
                 ResponseObject = jobAdDtos,
                 Status = 200
             };
+        }
+
+        private bool InterestExists(int jobAd, int handyman)
+        {
+            Interest found = _jobAdRepository.InterestExists(jobAd, handyman);
+            if (found == null)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private bool CheckTrades(List<Trade> handymanTrades, List<Trade> adTrades)

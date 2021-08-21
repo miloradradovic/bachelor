@@ -14,6 +14,7 @@ import { AdminLandingPageComponent } from './admin-pages/admin-landing-page/admi
 import { CreateJobadFormComponent } from './user-pages/create-jobad-form/create-jobad-form.component';
 import { JobadDashboardComponent } from './user-pages/jobad-dashboard/jobad-dashboard.component';
 import { CreateInterestDialogComponent } from './handyman-pages/job-ad-dashboard/create-interest-dialog/create-interest-dialog.component';
+import { InterestsDashboardComponent } from './user-pages/interests-dashboard/interests-dashboard.component';
 
 
 
@@ -28,7 +29,8 @@ import { CreateInterestDialogComponent } from './handyman-pages/job-ad-dashboard
     AdminLandingPageComponent,
     CreateJobadFormComponent,
     JobadDashboardComponent,
-    CreateInterestDialogComponent
+    CreateInterestDialogComponent,
+    InterestsDashboardComponent
   ],
   imports: [
     CommonModule,

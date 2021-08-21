@@ -42,7 +42,8 @@ namespace BusinessLogicLayer.services
             {
                 Finished = false,
                 HandyMan = found.HandyMan,
-                JobAd = found.JobAd
+                JobAd = found.JobAd,
+                User = found.JobAd.Owner
             });
 
             if (saved == null)
