@@ -25,7 +25,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { LoginComponent } from './pages/login/login.component';
 import {SharedModule} from './shared/shared.module';
 import {MaterialModule} from './material/material.module';
-import { RegisteringDecideComponent } from './pages/login/registering-decide/registering-decide.component';
+import { RegisteringDecideComponent } from './pages/dialogs/registering-decide/registering-decide.component';
 import { RegisterUserComponent } from './pages/registration/register-user/register-user.component';
 import { RegisterHandymanComponent } from './pages/registration/register-handyman/register-handyman.component';
 import {PagesModule} from './pages/pages.module';

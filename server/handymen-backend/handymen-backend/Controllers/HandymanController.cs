@@ -65,5 +65,17 @@ namespace handymen_backend.Controllers
             return Ok(response);
         }
 
+        [HttpGet("get-handyman-by-id/{handymanId}")]
+        [Authorize(Roles.USER, Roles.HANDYMAN)]
+        public IActionResult GetHandymanById([FromRoute] int handymanId)
+        {
+            ApiResponse response = _personService.GetHandymanByIdApiResponse(handymanId);
+            if (response.Status == 400)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
     }
 }

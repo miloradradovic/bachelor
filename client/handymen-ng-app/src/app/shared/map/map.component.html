@@ -8,7 +8,7 @@
   <agm-circle *ngIf="showCircle" [latitude]="latitude" [longitude]="longitude"
               [radius]="radius"
               [fillColor]="'red'"
-              [editable]="true"
+              [editable]="editable"
               (radiusChange)="radiusChanged($event)">
   </agm-circle>
 </agm-map>

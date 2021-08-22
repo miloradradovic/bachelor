@@ -17,8 +17,8 @@ namespace DataAccessLayer.repositories
         public HandyMan Update(HandyMan toUpdate);
         public bool Delete(HandyMan toDelete);
         public List<HandyMan> GetAll();
-
         public List<HandyMan> Search(SearchParams searchParams, bool searchByFirstName, bool searchByLastName);
+        public Rating GetDetailedRatingProfile(int ratingId);
     }
 
     public class HandymanRepository : IHandymanRepository
@@ -154,6 +154,15 @@ namespace DataAccessLayer.repositories
             }
 
             return result;
+        }
+
+        public Rating GetDetailedRatingProfile(int ratingId)
+        {
+            Rating found = _context.Ratings
+                .Include(rating => rating.RatedJob)
+                .ThenInclude(job => job.User)
+                .SingleOrDefault(rating => rating.Id == ratingId);
+            return found;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.repositories;
+﻿using System;
+using DataAccessLayer.repositories;
 using Model.models;
 
 namespace BusinessLogicLayer.services
@@ -70,6 +71,7 @@ namespace BusinessLogicLayer.services
             }
 
             toCreate.RatedJob = foundJob;
+            toCreate.PublishedDate = DateTime.Now;
             Rating created = _ratingRepository.CreateRating(toCreate);
             
             if (created == null)

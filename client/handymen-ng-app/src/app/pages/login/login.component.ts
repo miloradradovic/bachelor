@@ -9,7 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {UserService} from '../../services/user.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {LogInData} from '../../model/login.model';
-import {RegisteringDecideComponent} from './registering-decide/registering-decide.component';
+import {RegisteringDecideComponent} from '../dialogs/registering-decide/registering-decide.component';
 import {LoggedInModel} from '../../model/logged-in.model';
 import {log} from 'util';
 

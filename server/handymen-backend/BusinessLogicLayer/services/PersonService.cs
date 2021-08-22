@@ -19,6 +19,7 @@ namespace BusinessLogicLayer.services
         public HandyMan UpdateHandyman(HandyMan toUpdate);
         public ApiResponse GetAllHandymen();
         public ApiResponse SearchHandymen(SearchParams searchParams);
+        public ApiResponse GetHandymanByIdApiResponse(int handymanId);
 
     }
     
@@ -167,6 +168,36 @@ namespace BusinessLogicLayer.services
         public ApiResponse SearchHandymen(SearchParams searchParams)
         {
             return _handymanService.Search(searchParams);
+        }
+
+        public ApiResponse GetHandymanByIdApiResponse(int handymanId)
+        {
+            HandyMan found = _handymanService.GetById(handymanId);
+            if (found == null)
+            {
+                return new ApiResponse()
+                {
+                    Message = "Failed to find handyman by id.",
+                    ResponseObject = null,
+                    Status = 400
+                };
+            }
+
+            List<Rating> ratings = new List<Rating>();
+            foreach (Rating rating in found.Ratings)
+            {
+                Rating fullRating = _handymanService.GetDetailedRatingProfile(rating.Id);
+                ratings.Add(fullRating);
+            }
+
+            found.Ratings = ratings;
+
+            return new ApiResponse()
+            {
+                Message = "Successfully found handyman by id.",
+                ResponseObject = found.ToDetailedHandymanDTO(),
+                Status = 200
+            };
         }
     }
 }

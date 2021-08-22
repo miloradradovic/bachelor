@@ -4,6 +4,8 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {InterestService} from '../../../services/interest.service';
 import {JobService} from '../../../services/job.service';
+import {DetailedHandymanDialogComponent} from '../../dialogs/detailed-handyman-dialog/detailed-handyman-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-interests-dashboard',
@@ -19,7 +21,8 @@ export class InterestsDashboardComponent implements OnInit {
     private spinnerService: NgxSpinnerService,
     private snackBar: MatSnackBar,
     private jobService: JobService,
-    private interestService: InterestService
+    private interestService: InterestService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +54,17 @@ export class InterestsDashboardComponent implements OnInit {
   }
 
   handymanDetails($event: number) {
-
+    const dialogRef = this.dialog.open(DetailedHandymanDialogComponent, {
+      width: '60%',
+      height: '80%',
+      data: $event
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'user') {
+        this.router.navigate(['/user/register']);
+      } else if (result === 'handyman') {
+        this.router.navigate(['/handyman/register']);
+      }
+    });
   }
 }

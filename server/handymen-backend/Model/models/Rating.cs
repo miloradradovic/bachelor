@@ -1,4 +1,5 @@
-﻿using Model.dto;
+﻿using System;
+using Model.dto;
 
 namespace Model.models
 {
@@ -8,6 +9,7 @@ namespace Model.models
         public int Rate { get; set; }
         public string Description { get; set; }
         public Job RatedJob { get; set; }
+        public DateTime PublishedDate { get; set; }
 
         public RatingDTO ToRatingDTO(int jobId)
         {

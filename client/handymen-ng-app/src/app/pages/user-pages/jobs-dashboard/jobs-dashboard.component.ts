@@ -5,8 +5,8 @@ import {JobService} from '../../../services/job.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {$e} from 'codelyzer/angular/styles/chars';
 import {MatDialog} from '@angular/material/dialog';
-import {RegisteringDecideComponent} from '../../login/registering-decide/registering-decide.component';
-import {RatingFormComponent} from './rating-form/rating-form.component';
+import {RegisteringDecideComponent} from '../../dialogs/registering-decide/registering-decide.component';
+import {RatingFormComponent} from '../../dialogs/rating-form/rating-form.component';
 import {RatingModel} from '../../../model/rating.model';
 import {RatingService} from '../../../services/rating.service';
 

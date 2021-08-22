@@ -20,6 +20,7 @@ namespace BusinessLogicLayer.services
         public HandyMan Update(HandyMan toUpdate);
         public ApiResponse GetAll();
         public ApiResponse Search(SearchParams searchParams);
+        public Rating GetDetailedRatingProfile(int ratingId);
     }
     
     public class HandymanService : IHandymanService
@@ -308,6 +309,11 @@ namespace BusinessLogicLayer.services
             }
 
             return true;
+        }
+
+        public Rating GetDetailedRatingProfile(int ratingId)
+        {
+            return _handymanRepository.GetDetailedRatingProfile(ratingId);
         }
     }
 }

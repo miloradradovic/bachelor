@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {JobAdService} from '../../../services/job-ad.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
-import {CreateInterestDialogComponent} from './create-interest-dialog/create-interest-dialog.component';
+import {CreateInterestDialogComponent} from '../../dialogs/create-interest-dialog/create-interest-dialog.component';
 import {InterestService} from '../../../services/interest.service';
 import {InterestModel} from '../../../model/interest.model';
 import {Router} from '@angular/router';

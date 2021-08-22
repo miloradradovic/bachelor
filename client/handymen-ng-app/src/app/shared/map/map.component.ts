@@ -17,6 +17,7 @@ export class MapComponent implements OnInit {
   @Input() radius = 500;
   @Input() draggable = true;
   @Input() showCircle = true;
+  @Input() editable = true;
   @Output() DragEnd = new EventEmitter<LocationModel>();
   @Output() RadiusChanged = new EventEmitter<LocationModel>();
   zoom = 15;

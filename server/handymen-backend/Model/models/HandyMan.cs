@@ -13,6 +13,40 @@ namespace Model.models
         
         public double Radius { get; set; }
 
+        public DetailedHandymanDTO ToDetailedHandymanDTO()
+        {
+            return new DetailedHandymanDTO()
+            {
+                Address = Address.ToLocationDTO(),
+                AvgRating = CalculateAverageRate(),
+                Email = Email,
+                Id = Id,
+                Name = FirstName + " " + LastName,
+                Radius = Radius,
+                Ratings = ManageRatings(),
+                Trades = TradesToString()
+            };
+        }
+
+        public List<RatingDTO> ManageRatings()
+        {
+            List<RatingDTO> dtos = new List<RatingDTO>();
+            foreach (Rating rating in Ratings)
+            {
+                dtos.Add(new RatingDTO()
+                {
+                    Description = rating.Description,
+                    Id = rating.Id,
+                    JobId = rating.RatedJob.Id,
+                    Rate = rating.Rate,
+                    UserEmail = rating.RatedJob.User.Email,
+                    PublishedDate = rating.PublishedDate
+                });
+            }
+
+            return dtos;
+        }
+        
         public HandymanDTO ToDtoWithTrades()
         {
             return new HandymanDTO()

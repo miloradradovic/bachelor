@@ -28,7 +28,7 @@
 </div>
 
 <div style="padding-top: 5%; width: 60%; padding-left: 20%">
-  <app-table [columnsToDisplay]="['First name', 'Last name', 'Email', 'Address']"
+  <app-table [columnsToDisplay]="['First name', 'Last name', 'Email', 'Address', 'Handyman details']"
              [columnsToIterate]="['firstName', 'lastName', 'email', 'address']"
-             [dataSource]="handymen"></app-table>
+             [dataSource]="handymen" (HandymanDetails)="clickedRow($event)"></app-table>
 </div>

@@ -25,4 +25,8 @@ export class HandymanService {
   search(searchParams: SearchParams): Observable<any> {
     return this.http.post('https://localhost:5001/api/handymen/search', searchParams, {headers: this.headers, responseType: 'json'});
   }
+
+  getHandymanById(data: number): Observable<any> {
+    return this.http.get('https://localhost:5001/api/handymen/get-handyman-by-id/' + data, {headers: this.headers, responseType: 'json'});
+  }
 }
