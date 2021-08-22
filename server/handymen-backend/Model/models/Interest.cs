@@ -35,7 +35,8 @@ namespace Model.models
                 Id = Id,
                 LastName = HandyMan.LastName,
                 MaxPrice = jobAdDashboardDto.MaxPrice,
-                Title = jobAdDashboardDto.Title
+                Title = jobAdDashboardDto.Title,
+                HandymanId = HandyMan.Id
             };
         }
     }

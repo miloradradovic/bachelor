@@ -221,6 +221,15 @@ namespace BusinessLogicLayer.services
                 }
             }
 
+            bool searchByAddress = false;
+            if (searchParams.Address != null)
+            {
+                if (searchParams.Address != "")
+                {
+                    searchByAddress = true;
+                }
+            }
+
             bool searchByTrades = false;
             if (searchParams.Trades != null)
             {
@@ -238,7 +247,7 @@ namespace BusinessLogicLayer.services
             }
             else
             {
-                result = _handymanRepository.Search(searchParams, searchByFirstName, searchByLastName);
+                result = _handymanRepository.Search(searchParams, searchByFirstName, searchByLastName, searchByAddress);
                 result = FilterByTradesAndAverage(result, searchParams, searchByTrades);
                 
 

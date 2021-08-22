@@ -14,6 +14,7 @@ namespace BusinessLogicLayer.services
         public bool DeleteRemainingInterests(int jobAdId);
         public List<HandyMan> GetRemainingHandymen(int interestId, int jobHandyId);
         public ApiResponse GetByUser(User user);
+        public Interest GetByJobAdAndHandyman(int jobAd, int handyman);
     }
     
     public class InterestService : IInterestService
@@ -122,6 +123,11 @@ namespace BusinessLogicLayer.services
                 ResponseObject = result,
                 Status = 200
             };
+        }
+
+        public Interest GetByJobAdAndHandyman(int jobAd, int handyman)
+        {
+            return _interestRepository.GetByJobAdAndHandymanId(jobAd, handyman);
         }
     }
 }

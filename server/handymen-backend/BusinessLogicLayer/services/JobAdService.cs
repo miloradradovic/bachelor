@@ -14,6 +14,7 @@ namespace BusinessLogicLayer.services
         public ApiResponse GetJobAdsForCurrentHandyman(HandyMan handyMan);
         public JobAd GetById(int id);
         public ApiResponse GetJobAdsByUser(User user);
+        public ApiResponse GetJobAdsByUserNoOffer(User user);
     }
     
     public class JobAdService : IJobAdService
@@ -182,6 +183,27 @@ namespace BusinessLogicLayer.services
             {
                 Message = "Successfully fetched job ads by user.",
                 ResponseObject = jobAdDtos,
+                Status = 200
+            };
+        }
+
+        public ApiResponse GetJobAdsByUserNoOffer(User user)
+        {
+            List<JobAd> userJobAds = user.JobAds;
+            List<JobAdDashboardDTO> jobAdDashboardDtos = new List<JobAdDashboardDTO>();
+            foreach (JobAd jobAd in userJobAds)
+            {
+                if (_jobAdRepository.GetJobByJobAd(jobAd.Id) == null && _jobAdRepository.GetOfferByJobAd(jobAd.Id) == null)
+                {
+                    JobAd fullJobAd = _jobAdRepository.GetById(jobAd.Id);
+                    jobAdDashboardDtos.Add(fullJobAd.ToJobAdDashboardDTO());
+                } 
+            }
+
+            return new ApiResponse()
+            {
+                Message = "Successfully fetched job ads by user.",
+                ResponseObject = jobAdDashboardDtos,
                 Status = 200
             };
         }

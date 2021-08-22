@@ -20,12 +20,14 @@ namespace BusinessLogicLayer.services
         private readonly IJobRepository _jobRepository;
         private readonly IInterestService _interestService;
         private readonly IMailService _mailService;
+        private readonly IOfferService _offerService;
 
-        public JobService(IJobRepository jobRepository, IInterestService interestService, IMailService mailService)
+        public JobService(IJobRepository jobRepository, IInterestService interestService, IMailService mailService, IOfferService offerService)
         {
             _jobRepository = jobRepository;
             _interestService = interestService;
             _mailService = mailService;
+            _offerService = offerService;
         }
 
         public ApiResponse CreateJob(int interest)
@@ -60,13 +62,14 @@ namespace BusinessLogicLayer.services
             }
 
             bool deleted = _interestService.DeleteRemainingInterests(saved.JobAd.Id);
+            bool deleted2 = _offerService.DeleteOffers(saved.JobAd.Id);
 
-            if (!deleted)
+            if (!deleted || !deleted2)
             {
                 return new ApiResponse()
                 {
                     Message =
-                        "Something went wrong with the database while deleting remaining interests. Please try again later.",
+                        "Something went wrong with the database while deleting remaining interests or offers. Please try again later.",
                     ResponseObject = null,
                     Status = 400
                 };

@@ -2,7 +2,7 @@
 
 <div style="padding-left:2%;float: left;padding-top: 5%;width:95%">
   <app-table [dataSource]="interests" [columnsToDisplay]="['Job ad title', 'Handyman first name', 'Handyman last name',
-  'Handyman email', 'Estimated price', 'Estimated days', 'Handyman details', 'Make a job deal']"
+  'Handyman email', 'Estimated price', 'Estimated days', 'Handyman details interest', 'Make a job deal']"
              [columnsToIterate]="['title', 'firstName', 'lastName',
              'email', 'estimatedPrice', 'estimatedDays']" (MakeJobDeal)="makeJobDeal($event)" (HandymanDetails)="handymanDetails($event)"></app-table>
 

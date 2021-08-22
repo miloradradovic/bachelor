@@ -3,6 +3,8 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog
 import {HandymanService} from '../../../services/handyman.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {RegisteringDecideComponent} from '../registering-decide/registering-decide.component';
+import {SelectJobAdDialogComponent} from '../select-job-ad-dialog/select-job-ad-dialog.component';
+import {OfferService} from '../../../services/offer.service';
 
 @Component({
   selector: 'app-detailed-handyman-dialog',
@@ -33,7 +35,8 @@ export class DetailedHandymanDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: number,
               private handymanService: HandymanService,
               private snackBar: MatSnackBar,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private offerService: OfferService) { }
 
   ngOnInit(): void {
     this.getHandymanData();
@@ -93,18 +96,20 @@ export class DetailedHandymanDialogComponent implements OnInit {
   }
 
   offerJob() {
-    /*
-    const dialogRef = this.dialog.open(RegisteringDecideComponent, {
+    const dialogRef = this.dialog.open(SelectJobAdDialogComponent, {
       width: '30%'
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'user') {
-        //this.router.navigate(['/user/register']);
-      } else if (result === 'handyman') {
-        //this.router.navigate(['/handyman/register']);
+      if (result) {
+        this.offerService.makeOffer({jobAd: result, handyMan: this.data}).subscribe(
+          result => {
+            this.snackBar.open(result.message, 'Ok', {duration: 3000});
+          }, error => {
+            this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
+          }
+        )
       }
     });
-     */
   }
 
   cancel() {

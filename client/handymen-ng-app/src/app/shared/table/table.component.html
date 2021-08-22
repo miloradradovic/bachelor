@@ -17,6 +17,12 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="Handyman details interest">
+      <th mat-header-cell *matHeaderCellDef> Handyman details </th>
+      <td mat-cell *matCellDef="let element">  <button mat-raised-button color="primary" (click)="handymanDetails(element.handymanId)">Handyman details</button>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="Make a job deal">
       <th mat-header-cell *matHeaderCellDef> Make a job deal </th>
       <td mat-cell *matCellDef="let element">  <button mat-raised-button color="primary" (click)="makeJobDeal(element.id)">Make a job deal</button>

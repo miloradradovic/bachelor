@@ -39,7 +39,8 @@ export class HandymenDashboardComponent implements OnInit {
       lastName: [null],
       avgRatingFrom: [0],
       avgRatingTo: [5],
-      selectedTrades: [[]]
+      selectedTrades: [[]],
+      address: [null]
     });
   }
 
@@ -85,7 +86,8 @@ export class HandymenDashboardComponent implements OnInit {
       this.form.value.lastName,
       this.form.value.selectedTrades,
       this.form.value.avgRatingFrom,
-      this.form.value.avgRatingTo
+      this.form.value.avgRatingTo,
+      this.form.value.address
     )
     this.handymanService.search(searchParams).subscribe(
       result => {

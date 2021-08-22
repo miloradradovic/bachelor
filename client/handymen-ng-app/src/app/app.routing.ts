@@ -18,6 +18,7 @@ import {JobAdDashboardComponent} from './pages/handyman-pages/job-ad-dashboard/j
 import {InterestsDashboardComponent} from './pages/user-pages/interests-dashboard/interests-dashboard.component';
 import {JobsDashboardComponent} from './pages/user-pages/jobs-dashboard/jobs-dashboard.component';
 import {JobDashboardComponent} from './pages/handyman-pages/job-dashboard/job-dashboard.component';
+import {OfferDashboardComponent} from './pages/handyman-pages/offer-dashboard/offer-dashboard.component';
 
 const routes: Routes = [
 
@@ -77,6 +78,11 @@ const routes: Routes = [
       {
         path: 'jobs-dashboard',
         component: JobDashboardComponent,
+        canActivate: [HandymanGuard]
+      },
+      {
+        path: 'offers-dashboard',
+        component: OfferDashboardComponent,
         canActivate: [HandymanGuard]
       }
     ]

@@ -12,6 +12,7 @@ namespace Model.models
         public Location Address { get; set; }
         
         public double Radius { get; set; }
+        public virtual List<Offer> Offers { get; set; }
 
         public DetailedHandymanDTO ToDetailedHandymanDTO()
         {

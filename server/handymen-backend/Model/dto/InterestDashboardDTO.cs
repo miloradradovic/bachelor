@@ -13,6 +13,7 @@ namespace Model.dto
         public DateTime DateWhen { get; set; }
         
         //handyman data
+        public int HandymanId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

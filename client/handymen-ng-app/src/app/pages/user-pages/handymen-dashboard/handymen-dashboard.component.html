@@ -10,6 +10,10 @@
       <mat-label> Last name</mat-label>
       <input (input)="onInputChange($event.target.valueOf())" matInput placeholder="Last name" [formControl]="form.controls.lastName">
     </mat-form-field>
+    <mat-form-field appearance="outline" style="width: 15%; margin-left: 1%">
+      <mat-label> Address</mat-label>
+      <input (input)="onInputChange($event.target.valueOf())" matInput placeholder="Address" [formControl]="form.controls.address">
+    </mat-form-field>
     <mat-form-field appearance="outline" style="width: 15%;margin-left: 1%">
       <mat-label>Trades</mat-label>
       <mat-select multiple [formControl]="form.controls.selectedTrades" (selectionChange)="selectionChange($event)">

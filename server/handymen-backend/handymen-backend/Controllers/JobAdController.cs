@@ -50,5 +50,13 @@ namespace handymen_backend.Controllers
             ApiResponse response = _jobAdService.GetJobAdsByUser((User) HttpContext.Items["LoggedIn"]);
             return Ok(response);
         }
+
+        [HttpGet("get-job-ads-by-user-no-offer")]
+        [Authorize(Roles.USER)]
+        public IActionResult GetJobAdsByUserWithNoOffer()
+        {
+            ApiResponse response = _jobAdService.GetJobAdsByUserNoOffer((User) HttpContext.Items["LoggedIn"]);
+            return Ok(response);
+        }
     }
 }

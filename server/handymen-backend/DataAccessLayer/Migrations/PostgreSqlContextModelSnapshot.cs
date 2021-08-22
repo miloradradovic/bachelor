@@ -269,6 +269,28 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Locations");
                 });
 
+            modelBuilder.Entity("Model.models.Offer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int?>("HandyManId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("JobAdId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HandyManId");
+
+                    b.HasIndex("JobAdId");
+
+                    b.ToTable("Offers");
+                });
+
             modelBuilder.Entity("Model.models.Profession", b =>
                 {
                     b.Property<int>("Id")
@@ -472,6 +494,21 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Owner");
                 });
 
+            modelBuilder.Entity("Model.models.Offer", b =>
+                {
+                    b.HasOne("Model.models.HandyMan", "HandyMan")
+                        .WithMany("Offers")
+                        .HasForeignKey("HandyManId");
+
+                    b.HasOne("Model.models.JobAd", "JobAd")
+                        .WithMany()
+                        .HasForeignKey("JobAdId");
+
+                    b.Navigation("HandyMan");
+
+                    b.Navigation("JobAd");
+                });
+
             modelBuilder.Entity("Model.models.Profession", b =>
                 {
                     b.HasOne("Model.models.Category", null)
@@ -516,6 +553,8 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("Model.models.HandyMan", b =>
                 {
                     b.Navigation("DoneJobs");
+
+                    b.Navigation("Offers");
 
                     b.Navigation("Ratings");
                 });
