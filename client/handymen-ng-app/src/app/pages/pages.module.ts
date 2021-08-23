@@ -22,6 +22,8 @@ import {NgxStarRatingModule} from 'ngx-star-rating';
 import { DetailedHandymanDialogComponent } from './dialogs/detailed-handyman-dialog/detailed-handyman-dialog.component';
 import { SelectJobAdDialogComponent } from './dialogs/select-job-ad-dialog/select-job-ad-dialog.component';
 import { OfferDashboardComponent } from './handyman-pages/offer-dashboard/offer-dashboard.component';
+import { HandymanProfileComponent } from './handyman-pages/handyman-profile/handyman-profile.component';
+import { UserProfileComponent } from './user-pages/user-profile/user-profile.component';
 
 
 
@@ -43,7 +45,9 @@ import { OfferDashboardComponent } from './handyman-pages/offer-dashboard/offer-
     RatingFormComponent,
     DetailedHandymanDialogComponent,
     SelectJobAdDialogComponent,
-    OfferDashboardComponent
+    OfferDashboardComponent,
+    HandymanProfileComponent,
+    UserProfileComponent
   ],
   imports: [
     CommonModule,

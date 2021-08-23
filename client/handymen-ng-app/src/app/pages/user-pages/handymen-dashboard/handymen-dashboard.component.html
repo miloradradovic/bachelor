@@ -31,7 +31,7 @@
   </form>
 </div>
 
-<div style="padding-top: 5%; width: 60%; padding-left: 20%">
+<div style="padding-top: 5%; width: 80%; padding-left: 10%">
   <app-table [columnsToDisplay]="['First name', 'Last name', 'Email', 'Address', 'Handyman details']"
              [columnsToIterate]="['firstName', 'lastName', 'email', 'address']"
              [dataSource]="handymen" (HandymanDetails)="clickedRow($event)"></app-table>

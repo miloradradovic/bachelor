@@ -12,6 +12,7 @@ namespace BusinessLogicLayer.services
         public User GetByEmail(string email);
         public ApiResponse RegisterUser(User request);
         public ApiResponse VerifyUser(string encrypted);
+        public ApiResponse EditProfile(User toUpdate);
     }
     
     
@@ -144,6 +145,37 @@ namespace BusinessLogicLayer.services
         public User GetByEmail(string email)
         {
             return _userRepository.GetByEmail(email);
+        }
+
+        public ApiResponse EditProfile(User toUpdate)
+        {
+            User foundUser = GetById(toUpdate.Id);
+            Location foundLocation = _locationService.GetByLatAndLng(toUpdate.Address.Latitude, toUpdate.Address.Longitude);
+            if (foundLocation != null)
+            {
+                toUpdate.Address = foundLocation;
+            }
+            foundUser.Address = toUpdate.Address;
+            foundUser.Email = toUpdate.Email;
+            foundUser.FirstName = toUpdate.FirstName;
+            foundUser.LastName = toUpdate.LastName;
+            User updated = _userRepository.Update(foundUser);
+            if (updated == null)
+            {
+                return new ApiResponse()
+                {
+                    Message = "Failed to edit profile.",
+                    ResponseObject = null,
+                    Status = 400
+                };
+            }
+
+            return new ApiResponse()
+            {
+                Message = "Successfully edited profile. Please log in again for actions to take effect.",
+                ResponseObject = updated.ToProfileDataDTO(),
+                Status = 200
+            };
         }
     }
 }

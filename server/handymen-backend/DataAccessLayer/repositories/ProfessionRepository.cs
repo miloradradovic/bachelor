@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Model.models;
 
@@ -8,6 +9,7 @@ namespace DataAccessLayer.repositories
     public interface IProfessionRepository
     {
         public Profession GetById(int id);
+        public List<Profession> GetAll();
     }
     
     public class ProfessionRepository: IProfessionRepository
@@ -25,6 +27,14 @@ namespace DataAccessLayer.repositories
             Profession found = _context.Professions.Include(profession => profession.Trades)
                 .SingleOrDefault(profession => profession.Id == id);
             return found;
+        }
+
+        public List<Profession> GetAll()
+        {
+            List<Profession> result = _context.Professions
+                .Include(profession => profession.Trades)
+                .ToList();
+            return result;
         }
     }
 }

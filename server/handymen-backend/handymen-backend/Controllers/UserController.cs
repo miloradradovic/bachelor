@@ -2,6 +2,7 @@
 using Model.dto;
 using Model.models;
 using BusinessLogicLayer.services;
+using handymen_backend.jwt;
 using Microsoft.AspNetCore.Cors;
 
 namespace handymen_backend.Controllers
@@ -40,6 +41,34 @@ namespace handymen_backend.Controllers
             {
                 return BadRequest(response);
             }
+            return Ok(response);
+        }
+
+        [HttpGet("get-current-user")]
+        [Authorize(Roles.USER)]
+        public IActionResult GetCurrentUser()
+        {
+            User current = (User) HttpContext.Items["LoggedIn"];
+            return Ok(new ApiResponse()
+            {
+                Message = "Successfully fetched current user",
+                ResponseObject = current.ToProfileDataDTO(),
+                Status = 200
+            });
+        }
+
+        [HttpPut("edit-profile")]
+        [Authorize(Roles.USER)]
+        public IActionResult EditProfile([FromBody] ProfileDataDTO profileDataDto)
+        {
+            ApiResponse response =
+                _personService.EditProfile(profileDataDto.ToUser(), profileDataDto.Trades, "user");
+
+            if (response.Status == 400)
+            {
+                return BadRequest(response);
+            }
+
             return Ok(response);
         }
     }

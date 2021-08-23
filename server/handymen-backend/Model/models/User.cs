@@ -25,5 +25,23 @@ namespace Model.models
             };
         }
         
+        public ProfileDataDTO ToProfileDataDTO()
+        {
+            return new ProfileDataDTO()
+            {
+                Email = Email,
+                FirstName = FirstName,
+                Id = Id,
+                LastName = LastName,
+                Location = new LocationDTO()
+                {
+                    Id = Address.Id,
+                    Latitude = Address.Latitude,
+                    Longitude = Address.Longitude,
+                    Name = Address.Name
+                }
+            };
+        }
+        
     }
 }

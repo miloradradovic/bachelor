@@ -77,5 +77,33 @@ namespace handymen_backend.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("get-current-handyman")]
+        [Authorize(Roles.HANDYMAN)]
+        public IActionResult GetCurrentHandyman()
+        {
+            HandyMan current = (HandyMan) HttpContext.Items["LoggedIn"];
+            return Ok(new ApiResponse()
+            {
+                Message = "Successfully fetched current handyman",
+                ResponseObject = current.ToProfileDataDTO(),
+                Status = 200
+            });
+        }
+
+        [HttpPut("edit-profile")]
+        [Authorize(Roles.HANDYMAN)]
+        public IActionResult EditProfile([FromBody] ProfileDataDTO profileDataDto)
+        {
+            ApiResponse response =
+                _personService.EditProfile(profileDataDto.ToHandyman(), profileDataDto.Trades, "handyman");
+
+            if (response.Status == 400)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
     }
 }

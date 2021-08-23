@@ -19,6 +19,8 @@ import {InterestsDashboardComponent} from './pages/user-pages/interests-dashboar
 import {JobsDashboardComponent} from './pages/user-pages/jobs-dashboard/jobs-dashboard.component';
 import {JobDashboardComponent} from './pages/handyman-pages/job-dashboard/job-dashboard.component';
 import {OfferDashboardComponent} from './pages/handyman-pages/offer-dashboard/offer-dashboard.component';
+import {HandymanProfileComponent} from './pages/handyman-pages/handyman-profile/handyman-profile.component';
+import {UserProfileComponent} from './pages/user-pages/user-profile/user-profile.component';
 
 const routes: Routes = [
 
@@ -59,6 +61,11 @@ const routes: Routes = [
         path: 'jobs-dashboard',
         component: JobsDashboardComponent,
         canActivate: [UserGuard]
+      },
+      {
+        path: 'profile',
+        component: UserProfileComponent,
+        canActivate: [UserGuard]
       }
     ]
   },
@@ -83,6 +90,11 @@ const routes: Routes = [
       {
         path: 'offers-dashboard',
         component: OfferDashboardComponent,
+        canActivate: [HandymanGuard]
+      },
+      {
+        path: 'profile',
+        component: HandymanProfileComponent,
         canActivate: [HandymanGuard]
       }
     ]

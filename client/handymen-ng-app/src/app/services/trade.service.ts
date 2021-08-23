@@ -18,4 +18,8 @@ export class TradeService {
   getTradesByProfession(professionId: number): Observable<any> {
     return this.http.get('https://localhost:5001/api/trades/get-trades/' + professionId, {headers: this.headers, responseType: 'json'})
   }
+
+  getCurrentHandymanCategoryAndProfession(): Observable<any> {
+    return this.http.get('https://localhost:5001/api/trades/get-profession-and-category-by-trades', {headers: this.headers, responseType: 'json'});
+  }
 }

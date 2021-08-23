@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BusinessLogicLayer.services;
+using handymen_backend.jwt;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Model.models;
@@ -40,6 +41,14 @@ namespace handymen_backend.Controllers
                 return BadRequest(response);
             }
 
+            return Ok(response);
+        }
+
+        [HttpGet("get-profession-and-category-by-trades")]
+        [Authorize(Roles.HANDYMAN)]
+        public IActionResult GetProfessionAndCategoryByCurrentHandymanTrades()
+        {
+            ApiResponse response = _tradeService.GetCategoryAndProfessionByCurrentHandyman((HandyMan) HttpContext.Items["LoggedIn"]);
             return Ok(response);
         }
     }

@@ -20,6 +20,7 @@ namespace BusinessLogicLayer.services
         public ApiResponse GetAllHandymen();
         public ApiResponse SearchHandymen(SearchParams searchParams);
         public ApiResponse GetHandymanByIdApiResponse(int handymanId);
+        public ApiResponse EditProfile(Person person, List<string> trades, string type);
 
     }
     
@@ -198,6 +199,32 @@ namespace BusinessLogicLayer.services
                 ResponseObject = found.ToDetailedHandymanDTO(),
                 Status = 200
             };
+        }
+
+        public ApiResponse EditProfile(Person person, List<string> trades, string type)
+        {
+            Person foundPerson = GetById(person.Id);
+            if (foundPerson.Email != person.Email)
+            {
+                Person byEmail = GetByEmail(person.Email);
+                if (byEmail != null)
+                {
+                    return new ApiResponse()
+                    {
+                        Message = "Entered email is taken.",
+                        ResponseObject = null,
+                        Status = 400
+                    };
+                }
+            }
+
+            if (type == "handyman")
+            {
+                return _handymanService.EditProfile((HandyMan) person, trades);
+            }
+
+            return _userService.EditProfile((User) person);
+
         }
     }
 }

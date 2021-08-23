@@ -102,7 +102,7 @@ export class HandymenDashboardComponent implements OnInit {
     const dialogRef = this.dialog.open(DetailedHandymanDialogComponent, {
       width: '60%',
       height: '80%',
-      data: $event
+      data: {handymanId: $event, enableOffer: true}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'user') {

@@ -10,6 +10,7 @@ namespace BusinessLogicLayer.services
     {
         public ApiResponse GetCategories();
         public Category GetById(int id);
+        public List<Category> GetAll();
     }
     
     public class CategoryService: ICategoryService
@@ -42,6 +43,11 @@ namespace BusinessLogicLayer.services
         public Category GetById(int id)
         {
             return _categoryRepository.GetById(id);
+        }
+
+        public List<Category> GetAll()
+        {
+            return _categoryRepository.GetCategories();
         }
     }
 }

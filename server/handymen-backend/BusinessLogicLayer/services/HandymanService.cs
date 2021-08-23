@@ -21,6 +21,7 @@ namespace BusinessLogicLayer.services
         public ApiResponse GetAll();
         public ApiResponse Search(SearchParams searchParams);
         public Rating GetDetailedRatingProfile(int ratingId);
+        public ApiResponse EditProfile(HandyMan toUpdate, List<string> trades);
     }
     
     public class HandymanService : IHandymanService
@@ -323,6 +324,45 @@ namespace BusinessLogicLayer.services
         public Rating GetDetailedRatingProfile(int ratingId)
         {
             return _handymanRepository.GetDetailedRatingProfile(ratingId);
+        }
+
+        public ApiResponse EditProfile(HandyMan toUpdate, List<string> tradesStrings)
+        {
+            HandyMan found = GetById(toUpdate.Id);
+            List<Trade> trades = new List<Trade>();
+            foreach (string trade in tradesStrings)
+            {
+                trades.Add(_tradeService.GetByName(trade));
+            }
+
+            Location foundLocation = _locationService.GetByLatAndLng(toUpdate.Address.Latitude, toUpdate.Address.Longitude);
+            if (foundLocation != null)
+            {
+                toUpdate.Address = foundLocation;
+            }
+            found.Address = toUpdate.Address;
+            found.Radius = toUpdate.Radius;
+            found.Trades = trades;
+            found.Email = toUpdate.Email;
+            found.FirstName = toUpdate.FirstName;
+            found.LastName = toUpdate.LastName;
+            HandyMan updated = Update(found);
+            if (updated == null)
+            {
+                return new ApiResponse()
+                {
+                    Message = "Failed to edit profile.",
+                    ResponseObject = null,
+                    Status = 400
+                };
+            }
+
+            return new ApiResponse()
+            {
+                Message = "Successfully edited profile. Please log in again for actions to take effect.",
+                ResponseObject = updated.ToProfileDataDTO(),
+                Status = 200
+            };
         }
     }
 }

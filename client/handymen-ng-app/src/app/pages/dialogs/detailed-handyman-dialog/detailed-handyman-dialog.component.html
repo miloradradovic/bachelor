@@ -23,7 +23,7 @@
       </div>
     </div>
     <div style="padding-top: 30%">
-      <button mat-raised-button color="primary" (click)="offerJob()">Offer job</button>
+      <button [disabled]="!enableOffer" mat-raised-button color="primary" (click)="offerJob()">Offer job</button>
       <button style="margin-left: 5%" mat-raised-button color="primary" (click)="cancel()">Cancel</button>
     </div>
   </div>

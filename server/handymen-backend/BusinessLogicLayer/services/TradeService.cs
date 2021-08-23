@@ -14,6 +14,7 @@ namespace BusinessLogicLayer.services
         public ApiResponse GetAll();
         public void UpdateTrades(HandyMan updatedHandyman);
         public ApiResponse GetTradesByProfession(int professionId);
+        public ApiResponse GetCategoryAndProfessionByCurrentHandyman(HandyMan handyMan);
     }
     
     public class TradeService : ITradeService
@@ -21,11 +22,13 @@ namespace BusinessLogicLayer.services
 
         private readonly ITradeRepository _tradeRepository;
         private readonly IProfessionService _professionService;
+        private readonly ICategoryService _categoryService;
 
-        public TradeService(ITradeRepository tradeRepository, IProfessionService professionService)
+        public TradeService(ITradeRepository tradeRepository, IProfessionService professionService, ICategoryService categoryService)
         {
             _tradeRepository = tradeRepository;
             _professionService = professionService;
+            _categoryService = categoryService;
         }
 
         public Trade GetByName(string name)
@@ -113,6 +116,80 @@ namespace BusinessLogicLayer.services
                 ResponseObject = dtos,
                 Status = 200
             };
+        }
+
+        public ApiResponse GetCategoryAndProfessionByCurrentHandyman(HandyMan handyMan)
+        {
+            List<Trade> trades = handyMan.Trades;
+            List<Category> categories = _categoryService.GetAll();
+            List<Profession> professions = _professionService.GetProfessions();
+            ProfessionDTO professionDto = new ProfessionDTO();
+            CategoryDTO categoryDto = new CategoryDTO();
+
+            foreach (Profession profession in professions)
+            {
+                if (CheckTrades(profession.Trades, handyMan.Trades))
+                {
+                    professionDto = profession.ToProfessionDTO();
+                    break;
+                }
+            }
+
+            foreach (Category category in categories)
+            {
+                if (CheckProfession(category.Professions, professionDto))
+                {
+                    categoryDto = category.ToCategoryDTO();
+                }
+            }
+
+            return new ApiResponse()
+            {
+                Message = "Successfully fetched category and profession for current handyman",
+                ResponseObject = new HandymanCategoryProfessionDTO()
+                {
+                    CategoryDto = categoryDto,
+                    ProfessionDto = professionDto
+                }
+            };
+
+
+        }
+
+        private bool CheckProfession(List<Profession> professions, ProfessionDTO professionDto)
+        {
+            foreach (Profession profession in professions)
+            {
+                if (profession.Name == professionDto.Name)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool CheckTrades(List<Trade> professionTrades, List<Trade> handymanTrades)
+        {
+            foreach (Trade handymanTrade in handymanTrades)
+            {
+                bool check = false;
+                foreach (Trade professionTrade in professionTrades)
+                {
+                    if (handymanTrade.Name == professionTrade.Name)
+                    {
+                        check = true;
+                        break;
+                    }
+                }
+
+                if (!check)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

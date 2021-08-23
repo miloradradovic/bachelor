@@ -29,21 +29,23 @@ export class DetailedHandymanDialogComponent implements OnInit {
   latitude: number = 0;
   longitude: number = 0;
   radius: number = 0;
+  enableOffer: boolean = true;
 
 
   constructor(public dialogRef: MatDialogRef<DetailedHandymanDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: number,
+              @Inject(MAT_DIALOG_DATA) public data: {handymanId: number, enableOffer: boolean},
               private handymanService: HandymanService,
               private snackBar: MatSnackBar,
               public dialog: MatDialog,
               private offerService: OfferService) { }
 
   ngOnInit(): void {
+    this.enableOffer = this.data.enableOffer;
     this.getHandymanData();
   }
 
   getHandymanData() {
-    this.handymanService.getHandymanById(this.data).subscribe(
+    this.handymanService.getHandymanById(this.data.handymanId).subscribe(
       result => {
         let resultObj = result.responseObject;
         this.latitude = resultObj.address.latitude;
@@ -101,7 +103,7 @@ export class DetailedHandymanDialogComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.offerService.makeOffer({jobAd: result, handyMan: this.data}).subscribe(
+        this.offerService.makeOffer({jobAd: result, handyMan: this.data.handymanId}).subscribe(
           result => {
             this.snackBar.open(result.message, 'Ok', {duration: 3000});
           }, error => {

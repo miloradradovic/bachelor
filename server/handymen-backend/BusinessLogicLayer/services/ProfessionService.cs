@@ -10,6 +10,7 @@ namespace BusinessLogicLayer.services
     {
         public ApiResponse GetProfessionsByCategory(int categoryId);
         public Profession GetById(int id);
+        public List<Profession> GetProfessions();
     }
 
     public class ProfessionService: IProfessionService
@@ -22,6 +23,12 @@ namespace BusinessLogicLayer.services
         {
             _professionRepository = professionRepository;
             _categoryService = categoryService;
+        }
+
+        public List<Profession> GetProfessions()
+        {
+            List<Profession> professions = _professionRepository.GetAll();
+            return professions;
         }
 
         public ApiResponse GetProfessionsByCategory(int categoryId)
