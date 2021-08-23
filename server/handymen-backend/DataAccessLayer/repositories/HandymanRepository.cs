@@ -17,7 +17,7 @@ namespace DataAccessLayer.repositories
         public HandyMan Update(HandyMan toUpdate);
         public bool Delete(HandyMan toDelete);
         public List<HandyMan> GetAll();
-        public List<HandyMan> Search(SearchParams searchParams, bool searchByFirstName, bool searchByLastName, bool searchByAddress);
+        public List<HandyMan> Search(SearchParams searchParams, bool searchByFirstName, bool searchByLastName);
         public Rating GetDetailedRatingProfile(int ratingId);
     }
 
@@ -122,22 +122,11 @@ namespace DataAccessLayer.repositories
             return result;
         }
 
-        public List<HandyMan> Search(SearchParams searchParams, bool searchByFirstName, bool searchByLastName, bool searchByAddress)
+        public List<HandyMan> Search(SearchParams searchParams, bool searchByFirstName, bool searchByLastName)
         {
             List<HandyMan> result = new List<HandyMan>();
 
-            if (searchByFirstName && searchByLastName && searchByAddress) //TTT
-            {
-                result = _context.HandyMen.Include(handy => handy.Ratings)
-                    .Include(handy => handy.Trades)
-                    .Include(handy => handy.DoneJobs)
-                    .Include(handy => handy.Address)
-                    .Where(man => man.FirstName.Contains(searchParams.FirstName) &&
-                                  man.LastName.Contains(searchParams.LastName) && 
-                                  man.Address.Name.Contains(searchParams.Address))
-                    .ToList();
-            } 
-            else if (searchByFirstName && searchByLastName && !searchByAddress) //TTF
+            if (searchByFirstName && searchByLastName) //TT
             {
                 result = _context.HandyMen.Include(handy => handy.Ratings)
                     .Include(handy => handy.Trades)
@@ -147,27 +136,7 @@ namespace DataAccessLayer.repositories
                                   man.LastName.Contains(searchParams.LastName))
                     .ToList();
             }
-            else if (searchByFirstName && !searchByLastName && searchByAddress) //TFT
-            {
-                result = _context.HandyMen.Include(handy => handy.Ratings)
-                    .Include(handy => handy.Trades)
-                    .Include(handy => handy.DoneJobs)
-                    .Include(handy => handy.Address)
-                    .Where(man => man.FirstName.Contains(searchParams.FirstName) &&
-                                  man.Address.Name.Contains(searchParams.Address))
-                    .ToList();
-            }
-            else if (!searchByFirstName && searchByLastName && searchByAddress) //FTT
-            {
-                result = _context.HandyMen.Include(handy => handy.Ratings)
-                    .Include(handy => handy.Trades)
-                    .Include(handy => handy.DoneJobs)
-                    .Include(handy => handy.Address)
-                    .Where(man => man.LastName.Contains(searchParams.LastName) && 
-                                  man.Address.Name.Contains(searchParams.Address))
-                    .ToList();
-            }
-            else if (searchByFirstName && !searchByLastName && !searchByAddress) //TFF
+            else if (searchByFirstName && !searchByLastName) //TF
             {
                 result = _context.HandyMen.Include(handy => handy.Ratings)
                     .Include(handy => handy.Trades)
@@ -176,22 +145,13 @@ namespace DataAccessLayer.repositories
                     .Where(man => man.FirstName.Contains(searchParams.FirstName))
                     .ToList();
             }
-            else if (!searchByFirstName && searchByLastName && !searchByAddress) //FTF
+            else if (!searchByFirstName && searchByLastName) //FT
             {
                 result = _context.HandyMen.Include(handy => handy.Ratings)
                     .Include(handy => handy.Trades)
                     .Include(handy => handy.DoneJobs)
                     .Include(handy => handy.Address)
                     .Where(man => man.LastName.Contains(searchParams.LastName))
-                    .ToList();
-            }
-            else if (!searchByFirstName && !searchByLastName && searchByAddress) //FFT
-            {
-                result = _context.HandyMen.Include(handy => handy.Ratings)
-                    .Include(handy => handy.Trades)
-                    .Include(handy => handy.DoneJobs)
-                    .Include(handy => handy.Address)
-                    .Where(man => man.Address.Name.Contains(searchParams.Address))
                     .ToList();
             }
 

@@ -242,14 +242,14 @@ namespace BusinessLogicLayer.services
 
             List<HandyMan> result = new List<HandyMan>();
             if (!searchByTrades && !searchByFirstName && !searchByLastName && searchParams.AvgRatingFrom == 0 &&
-                searchParams.AvgRatingTo == 5)
+                searchParams.AvgRatingTo == 5 && !searchByAddress)
             {
                 result = _handymanRepository.GetAll();
             }
             else
             {
-                result = _handymanRepository.Search(searchParams, searchByFirstName, searchByLastName, searchByAddress);
-                result = FilterByTradesAndAverage(result, searchParams, searchByTrades);
+                result = _handymanRepository.Search(searchParams, searchByFirstName, searchByLastName);
+                result = FilterByTradesAndAverageAndAddress(result, searchParams, searchByTrades, searchByAddress);
                 
 
             }
@@ -268,16 +268,34 @@ namespace BusinessLogicLayer.services
 
         }
 
-        private List<HandyMan> FilterByTradesAndAverage(List<HandyMan> list, SearchParams searchParams, bool searchByTrades)
+        private List<HandyMan> FilterByTradesAndAverageAndAddress(List<HandyMan> list, SearchParams searchParams, bool searchByTrades, bool searchByAddress)
         {
             List<HandyMan> result = new List<HandyMan>();
             
             foreach (HandyMan handyMan in list)
             {
                 double avg = handyMan.CalculateAverageRate();
-                if (searchByTrades)
+                if (searchByTrades && searchByAddress)
                 {
                     if (CheckTrades(handyMan.Trades, searchParams.Trades) &&
+                        avg >= searchParams.AvgRatingFrom &&
+                        avg <= searchParams.AvgRatingTo && CheckAddress(handyMan, searchParams.Address))
+                    {
+                        result.Add(handyMan);
+                    }
+                } 
+                else if (searchByTrades && !searchByAddress)
+                {
+                    if (CheckTrades(handyMan.Trades, searchParams.Trades) &&
+                        avg >= searchParams.AvgRatingFrom &&
+                        avg <= searchParams.AvgRatingTo)
+                    {
+                        result.Add(handyMan);
+                    }
+                }
+                else if (!searchByTrades && searchByAddress)
+                {
+                    if (CheckAddress(handyMan, searchParams.Address) &&
                         avg >= searchParams.AvgRatingFrom &&
                         avg <= searchParams.AvgRatingTo)
                     {
@@ -295,6 +313,29 @@ namespace BusinessLogicLayer.services
             }
 
             return result;
+        }
+
+        private bool CheckAddress(HandyMan handyMan, string address)
+        {
+            Location handymanLocation = _locationService.GetByLatAndLng(handyMan.Address.Latitude, handyMan.Address.Longitude);
+            double handymanRadius = handyMan.Radius;
+
+            List<Location> addressToCheck = _locationService.GetLocationsByName(address);
+            foreach (Location location in addressToCheck)
+            {
+                if (location.Id == handymanLocation.Id && DetermineCircle(handymanLocation, handymanRadius, location))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        
+        private bool DetermineCircle(Location handymanAddress, double handymanRadius, Location adAddress)
+        {
+            return Math.Sqrt(Math.Pow(Math.Abs(handymanAddress.Latitude - adAddress.Latitude), 2) +
+                             Math.Pow(Math.Abs(handymanRadius - adAddress.Longitude), 2)) <= handymanRadius;
         }
 
         private bool CheckTrades(List<Trade> trades, List<string> tradeNames)

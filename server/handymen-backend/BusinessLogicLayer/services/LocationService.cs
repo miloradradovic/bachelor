@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.repositories;
+﻿using System.Collections.Generic;
+using DataAccessLayer.repositories;
 using Model.models;
 
 namespace BusinessLogicLayer.services
@@ -8,6 +9,7 @@ namespace BusinessLogicLayer.services
     {
         public Location GetByLatAndLng(double lat, double lng);
         public ApiResponse GetByUser(User user);
+        public List<Location> GetLocationsByName(string name);
     }
     
     public class LocationService : ILocationService
@@ -32,6 +34,11 @@ namespace BusinessLogicLayer.services
                 ResponseObject = user.Address.ToLocationDTO(),
                 Status = 200
             };
+        }
+
+        public List<Location> GetLocationsByName(string name)
+        {
+            return _locationRepository.GetByName(name);
         }
     }
 }
