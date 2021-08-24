@@ -11,7 +11,6 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {LogInData} from '../../model/login.model';
 import {RegisteringDecideComponent} from '../dialogs/registering-decide/registering-decide.component';
 import {LoggedInModel} from '../../model/logged-in.model';
-import {log} from 'util';
 
 @Component({
   selector: 'app-login',
@@ -65,7 +64,6 @@ export class LoginComponent implements OnInit {
       result => {
         const jwt: JwtHelperService = new JwtHelperService();
         const info = jwt.decodeToken(result.responseObject);
-        console.log(info);
         const loggedIn = new LoggedInModel(info.id, info.email, info.role, result.responseObject);
         this.storageService.setStorageItem('user', JSON.stringify(loggedIn));
         this.spinnerService.hide();
@@ -75,13 +73,13 @@ export class LoginComponent implements OnInit {
         } else if(loggedIn.role === 'HANDYMAN') {
           this.router.navigate(['/handyman/jobad-dashboard']);
         } else {
-          this.router.navigate(['/admin/landing-page']);
+          this.router.navigate(['/admin/registration-requests']);
         }
 
       },
       error => {
-        this.snackBar.open(error.error.message, 'Ok', {duration: 2000});
         this.spinnerService.hide();
+        this.snackBar.open(error.error.message, 'Ok', {duration: 2000});
       }
     );
   }

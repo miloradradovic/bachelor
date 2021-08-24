@@ -105,5 +105,13 @@ namespace handymen_backend.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("get-requests")]
+        [Authorize(Roles.ADMINISTRATOR)]
+        public IActionResult GetRequests()
+        {
+            ApiResponse response = _personService.GetUnverifiedHandymen();
+            return Ok(response);
+        }
     }
 }

@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {RegisterDataModel} from '../model/register-data.model';
 import {SearchParams} from '../model/search-params';
 import {ProfileDataModel} from '../model/profile-data.model';
+import {HandymanVerificationModel} from '../model/handyman-verification.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,13 @@ export class HandymanService {
 
   editProfile(profileData: ProfileDataModel): Observable<any> {
     return this.http.put('https://localhost:5001/api/handymen/edit-profile', profileData, {headers: this.headers, responseType: 'json'});
+  }
+
+  getRequests(): Observable<any> {
+    return this.http.get('https://localhost:5001/api/handymen/get-requests', {headers: this.headers, responseType: 'json'});
+  }
+
+  verify(handymanVerificationModel: HandymanVerificationModel): Observable<any> {
+    return this.http.put('https://localhost:5001/api/handymen/verify', handymanVerificationModel, {headers: this.headers, responseType: 'json'});
   }
 }

@@ -31,13 +31,10 @@ export class JobAdDashboardComponent implements OnInit {
   }
 
   getJobAdsForHandyman() {
-    this.spinnerService.show();
     this.jobAdService.getJobAdsByHandyman().subscribe(
       result => {
-        this.spinnerService.hide();
         this.jobAds = result.responseObject;
       }, error => {
-        this.spinnerService.hide();
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
     )

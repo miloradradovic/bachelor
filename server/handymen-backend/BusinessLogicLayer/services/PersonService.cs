@@ -21,6 +21,7 @@ namespace BusinessLogicLayer.services
         public ApiResponse SearchHandymen(SearchParams searchParams);
         public ApiResponse GetHandymanByIdApiResponse(int handymanId);
         public ApiResponse EditProfile(Person person, List<string> trades, string type);
+        public ApiResponse GetUnverifiedHandymen();
 
     }
     
@@ -225,6 +226,11 @@ namespace BusinessLogicLayer.services
 
             return _userService.EditProfile((User) person);
 
+        }
+
+        public ApiResponse GetUnverifiedHandymen()
+        {
+            return _handymanService.GetUnverifiedHandymen();
         }
     }
 }

@@ -6,6 +6,8 @@ namespace Model.dto
 {
     public class RegistrationRequestDataDTO
     {
+        public int Id { get; set; } // handyman id
+        public double Radius { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         

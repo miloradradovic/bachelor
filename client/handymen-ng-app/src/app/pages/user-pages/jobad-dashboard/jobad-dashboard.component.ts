@@ -24,7 +24,6 @@ export class JobadDashboardComponent implements OnInit {
     this.jobAdService.getJobAdsByUser().subscribe(
       result => {
         this.jobAds = result.responseObject;
-        console.log(this.jobAds);
       }, error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }

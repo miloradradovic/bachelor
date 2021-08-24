@@ -105,7 +105,6 @@ export class RegisterHandymanComponent implements OnInit {
       false,
       this.currentLocation,
       this.form.value.selectedTrades);
-    console.log(registrationData);
     this.handymanService.register(registrationData).subscribe(
       result => {
         this.spinnerService.hide();
@@ -116,7 +115,6 @@ export class RegisterHandymanComponent implements OnInit {
         this.spinnerService.hide();
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       });
-    this.snackBar.open('Please choose your trades.', 'Ok', {duration: 3000});
   }
 
   dragEnd(locationModel: LocationModel) {

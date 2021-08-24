@@ -5,6 +5,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {RegisteringDecideComponent} from '../registering-decide/registering-decide.component';
 import {SelectJobAdDialogComponent} from '../select-job-ad-dialog/select-job-ad-dialog.component';
 import {OfferService} from '../../../services/offer.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-detailed-handyman-dialog',
@@ -37,7 +38,8 @@ export class DetailedHandymanDialogComponent implements OnInit {
               private handymanService: HandymanService,
               private snackBar: MatSnackBar,
               public dialog: MatDialog,
-              private offerService: OfferService) { }
+              private offerService: OfferService,
+              private spinnerService: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.enableOffer = this.data.enableOffer;
@@ -103,10 +105,13 @@ export class DetailedHandymanDialogComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.spinnerService.show();
         this.offerService.makeOffer({jobAd: result, handyMan: this.data.handymanId}).subscribe(
           result => {
+            this.spinnerService.hide();
             this.snackBar.open(result.message, 'Ok', {duration: 3000});
           }, error => {
+            this.spinnerService.hide();
             this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
           }
         )

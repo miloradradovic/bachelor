@@ -44,7 +44,6 @@ export class RegisterUserComponent implements OnInit {
   dragEnd(locationModel: LocationModel) {
     this.currentLocation = locationModel;
     this.currentLocation.radius = 0;
-    console.log(locationModel);
     this.form.controls.address.setValue(locationModel.name);
 
   }
@@ -66,14 +65,14 @@ export class RegisterUserComponent implements OnInit {
         this.router.navigate(['/']);
       },
       error => {
-        this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
         this.spinnerService.hide();
+        this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
     );
   }
 
-  radiusChanged(newRadius: number) {
-    this.currentLocation.radius = newRadius;
+  radiusChanged(currentLocation: LocationModel) {
+    this.currentLocation = currentLocation;
   }
 
 }

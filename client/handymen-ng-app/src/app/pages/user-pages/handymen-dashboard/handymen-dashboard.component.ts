@@ -21,7 +21,6 @@ export class HandymenDashboardComponent implements OnInit {
   form: FormGroup;
   private fb: FormBuilder;
   trades = []
-  //selectedTrades = new FormControl();
   handymen = []
 
   constructor(
@@ -63,7 +62,6 @@ export class HandymenDashboardComponent implements OnInit {
   getHandymen() {
     this.handymanService.getAllHandymen().subscribe(
       result => {
-        console.log(result);
         this.handymen = result.responseObject;
       },
       error => {
@@ -105,11 +103,7 @@ export class HandymenDashboardComponent implements OnInit {
       data: {handymanId: $event, enableOffer: true}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'user') {
-        this.router.navigate(['/user/register']);
-      } else if (result === 'handyman') {
-        this.router.navigate(['/handyman/register']);
-      }
+      this.getHandymen();
     });
   }
 }

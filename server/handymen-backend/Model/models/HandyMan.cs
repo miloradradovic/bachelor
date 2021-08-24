@@ -14,6 +14,19 @@ namespace Model.models
         public double Radius { get; set; }
         public virtual List<Offer> Offers { get; set; }
 
+        public RegistrationRequestDataDTO ToRegistrationRequestDataDTO()
+        {
+            return new RegistrationRequestDataDTO()
+            {
+                Email = Email,
+                FirstName = FirstName,
+                Id = Id,
+                LastName = LastName,
+                Location = Address.ToLocationDTO(),
+                Radius = Radius
+            };
+        }
+        
         public DetailedHandymanDTO ToDetailedHandymanDTO()
         {
             return new DetailedHandymanDTO()

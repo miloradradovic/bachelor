@@ -1,0 +1,14 @@
+<div>
+  <form [formGroup]="form">
+    <mat-form-field>
+      <mat-label for="username">Reason:</mat-label>
+      <textarea matInput rows="5" id="description" name="description" placeholder="Reason for declining." [formControl]="form.controls.reason"></textarea>
+      <mat-error *ngIf="form.controls.reason.touched && form.controls.reason.errors?.required">
+        Reason must be filled!</mat-error >
+    </mat-form-field>
+  </form>
+</div>
+<div>
+  <button [disabled]="form.invalid" mat-raised-button color="primary" (click)="submit()">Submit</button>
+  <button style="margin-left: 2%" mat-raised-button color="primary" (click)="cancel()">Cancel</button>
+</div>

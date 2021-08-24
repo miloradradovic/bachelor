@@ -22,6 +22,7 @@ namespace BusinessLogicLayer.services
         public ApiResponse Search(SearchParams searchParams);
         public Rating GetDetailedRatingProfile(int ratingId);
         public ApiResponse EditProfile(HandyMan toUpdate, List<string> trades);
+        public ApiResponse GetUnverifiedHandymen();
     }
     
     public class HandymanService : IHandymanService
@@ -402,6 +403,23 @@ namespace BusinessLogicLayer.services
             {
                 Message = "Successfully edited profile. Please log in again for actions to take effect.",
                 ResponseObject = updated.ToProfileDataDTO(),
+                Status = 200
+            };
+        }
+
+        public ApiResponse GetUnverifiedHandymen()
+        {
+            List<HandyMan> handyMen = _handymanRepository.GetAllUnverified();
+            List<RegistrationRequestDataDTO> result = new List<RegistrationRequestDataDTO>();
+            foreach (HandyMan handyman in handyMen)
+            {
+                result.Add(handyman.ToRegistrationRequestDataDTO());
+            }
+
+            return new ApiResponse()
+            {
+                Message = "Successfully fetched unverified handymen.",
+                ResponseObject = result,
                 Status = 200
             };
         }

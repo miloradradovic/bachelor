@@ -21,7 +21,7 @@ export class LogInGuard implements CanActivate {
       this.router.navigate(['/user/handymen-dashboard']);
       return false;
     } else if (role === 'ADMINISTRATOR') {
-      this.router.navigate(['/admin/landing-page']);
+      this.router.navigate(['/admin/registration-requests']);
       return false;
     }
     return true;

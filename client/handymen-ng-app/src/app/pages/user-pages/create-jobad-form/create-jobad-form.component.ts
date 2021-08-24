@@ -5,7 +5,6 @@ import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {TradeService} from '../../../services/trade.service';
-import {HandymanService} from '../../../services/handyman.service';
 import {ProfessionService} from '../../../services/profession.service';
 import {CategoryService} from '../../../services/category.service';
 import {MatSelectChange} from '@angular/material/select';
@@ -13,7 +12,6 @@ import {StepperSelectionEvent} from '@angular/cdk/stepper';
 import {JobAdModel} from '../../../model/job-ad.model';
 import {AdditionalJobAdInfoModel} from '../../../model/additional-job-ad-info.model';
 import {JobAdService} from '../../../services/job-ad.service';
-import {UserService} from '../../../services/user.service';
 import {LocationService} from '../../../services/location.service';
 
 @Component({

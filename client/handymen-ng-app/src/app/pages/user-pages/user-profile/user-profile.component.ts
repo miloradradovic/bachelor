@@ -80,7 +80,6 @@ export class UserProfileComponent implements OnInit {
       this.currentLocation,
       []
     )
-    console.log(profileData);
     this.userService.editProfile(profileData).subscribe(
       result => {
         this.spinnerService.hide();

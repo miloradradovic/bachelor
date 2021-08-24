@@ -10,7 +10,6 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HandymenDashboardComponent } from './user-pages/handymen-dashboard/handymen-dashboard.component';
 import { JobAdDashboardComponent } from './handyman-pages/job-ad-dashboard/job-ad-dashboard.component';
-import { AdminLandingPageComponent } from './admin-pages/admin-landing-page/admin-landing-page.component';
 import { CreateJobadFormComponent } from './user-pages/create-jobad-form/create-jobad-form.component';
 import { JobadDashboardComponent } from './user-pages/jobad-dashboard/jobad-dashboard.component';
 import { CreateInterestDialogComponent } from './dialogs/create-interest-dialog/create-interest-dialog.component';
@@ -24,6 +23,8 @@ import { SelectJobAdDialogComponent } from './dialogs/select-job-ad-dialog/selec
 import { OfferDashboardComponent } from './handyman-pages/offer-dashboard/offer-dashboard.component';
 import { HandymanProfileComponent } from './handyman-pages/handyman-profile/handyman-profile.component';
 import { UserProfileComponent } from './user-pages/user-profile/user-profile.component';
+import { RegistrationRequestsDashboardComponent } from './admin-pages/registration-requests-dashboard/registration-requests-dashboard.component';
+import { DeclineReasonDialogComponent } from './dialogs/decline-reason-dialog/decline-reason-dialog.component';
 
 
 
@@ -35,7 +36,6 @@ import { UserProfileComponent } from './user-pages/user-profile/user-profile.com
     RegisteringDecideComponent,
     HandymenDashboardComponent,
     JobAdDashboardComponent,
-    AdminLandingPageComponent,
     CreateJobadFormComponent,
     JobadDashboardComponent,
     CreateInterestDialogComponent,
@@ -47,7 +47,9 @@ import { UserProfileComponent } from './user-pages/user-profile/user-profile.com
     SelectJobAdDialogComponent,
     OfferDashboardComponent,
     HandymanProfileComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    RegistrationRequestsDashboardComponent,
+    DeclineReasonDialogComponent
   ],
   imports: [
     CommonModule,

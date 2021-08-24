@@ -60,11 +60,7 @@ export class InterestsDashboardComponent implements OnInit {
       data: {handymanId: $event, enableOffer: false}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'user') {
-        this.router.navigate(['/user/register']);
-      } else if (result === 'handyman') {
-        this.router.navigate(['/handyman/register']);
-      }
+      this.getInterestsByUser();
     });
   }
 }

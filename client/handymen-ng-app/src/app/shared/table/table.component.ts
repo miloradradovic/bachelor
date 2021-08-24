@@ -17,6 +17,9 @@ export class TableComponent {
   @Output() MakeJobDeal = new EventEmitter<number>();
   @Output() FinishJob = new EventEmitter<number>();
   @Output() RateJob = new EventEmitter<number>();
+  @Output() Verify = new EventEmitter<number>();
+  @Output() Decline = new EventEmitter<number>();
+
   constructor() {
 
   }
@@ -63,5 +66,13 @@ export class TableComponent {
 
   rateJob(id) {
     this.RateJob.emit(id);
+  }
+
+  verify(id) {
+    this.Verify.emit(id);
+  }
+
+  decline(id) {
+    this.Decline.emit(id);
   }
 }
