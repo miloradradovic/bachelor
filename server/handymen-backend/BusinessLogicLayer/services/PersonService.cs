@@ -99,7 +99,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Entered email is taken.",
+                    Message = "Uneti email je zauzet.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -113,7 +113,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Entered email is taken.",
+                    Message = "Uneti email je zauzet.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -138,7 +138,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Entered email is already taken.",
+                    Message = "Uneti email je zauzet.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -179,7 +179,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Failed to find handyman by id.",
+                    Message = "Majstor sa tim id nije pronadjen.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -196,7 +196,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully found handyman by id.",
+                Message = "Uspesno dobavljen majstor.",
                 ResponseObject = found.ToDetailedHandymanDTO(),
                 Status = 200
             };
@@ -212,7 +212,7 @@ namespace BusinessLogicLayer.services
                 {
                     return new ApiResponse()
                     {
-                        Message = "Entered email is taken.",
+                        Message = "Uneti email je zauzet.",
                         ResponseObject = null,
                         Status = 400
                     };

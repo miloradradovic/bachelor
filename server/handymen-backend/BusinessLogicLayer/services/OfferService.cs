@@ -42,7 +42,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Failed to find handyman or location by id.",
+                    Message = "Majstor ili oglas sa tim id nije pronadjen.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -55,14 +55,14 @@ namespace BusinessLogicLayer.services
             
             _mailService.SendEmail(new MailRequest()
             {
-                Body = "Greetings " + foundHandyman.FirstName + "!<br>Someone offered you a job. Check it out in the 'Offers' section and express interest if interested.<br>Best regards,<br>Administrator team",
-                Subject = "New job offer",
+                Body = "Pozdrav " + foundHandyman.FirstName + "!<br>Neko Vam je ponudio posao. Ponuda se nalazi u 'Ponude' sekciji.",
+                Subject = "Nova ponuda za posao",
                 ToEmail = foundHandyman.Email
             });
             
             return new ApiResponse()
             {
-                Message = "Successfully created offer.",
+                Message = "Uspesno kreirana ponuda.",
                 ResponseObject = new OfferDTO()
                 {
                     HandyMan = handymanId,
@@ -92,7 +92,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully fetched all offers.",
+                Message = "Uspesno dobavljene sve ponude.",
                 ResponseObject = dtos,
                 Status = 200
             };

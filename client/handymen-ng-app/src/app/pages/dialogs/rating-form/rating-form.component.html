@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Rating form</h1>
+<h1 mat-dialog-title>Ocenjivanje</h1>
 <form [formGroup]="form">
   <div class="cont">
     <div class="stars">
@@ -6,15 +6,15 @@
     </div>
     <div style="padding-top: 2%">
       <mat-form-field>
-        <mat-label for="commentInput">Comment:</mat-label>
-        <textarea matInput id="commentInput" name="commentInput" placeholder="Insert comment here" [formControl]="form.controls.commentInput"></textarea>
+        <mat-label for="commentInput">Komentar:</mat-label>
+        <textarea matInput id="commentInput" name="commentInput" placeholder="Komentar" [formControl]="form.controls.commentInput"></textarea>
         <mat-error *ngIf="form.controls.commentInput.touched && form.controls.commentInput.errors?.required">
-          This field can't be empty!</mat-error >
+          Ovo polje ne sme biti prazno!</mat-error >
       </mat-form-field>
     </div>
   </div>
 </form>
 <div mat-dialog-actions>
-  <button [disabled]="form.invalid" mat-button (click)="submit()">Submit</button>
-  <button mat-button (click)="cancel()">Cancel</button>
+  <button [disabled]="form.invalid" mat-button (click)="submit()">Posalji</button>
+  <button mat-button (click)="cancel()">Izadji</button>
 </div>

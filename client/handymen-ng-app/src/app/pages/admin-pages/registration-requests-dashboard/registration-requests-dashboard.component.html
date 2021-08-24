@@ -1,7 +1,7 @@
 <div style="padding-left:3%;float: left;padding-top: 1%;width:60%">
 
-  <app-table (Click)="onRowClick($event)" [dataSource]="regReqs" [columnsToDisplay]="['First name',
-  'Last name', 'Email ', 'Address', 'Verify', 'Decline']"
+  <app-table (Click)="onRowClick($event)" [dataSource]="regReqs" [columnsToDisplay]="['Ime',
+  'Prezime', 'Email ', 'Adresa', 'Verify', 'Decline']"
              [columnsToIterate]="['firstName', 'lastName', 'email', 'address']"
   (Verify)="verify($event)" (Decline)="decline($event)"></app-table>
 

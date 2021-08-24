@@ -38,7 +38,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Could not find category by id.",
+                    Message = "Kategorija sa tim id nije pronadjena.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -53,7 +53,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully fetched professions by category.",
+                Message = "Uspesno dobavljene profesije za kategoriju.",
                 ResponseObject = dtos,
                 Status = 200
             };

@@ -36,7 +36,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Bad credentials.",
+                    Message = "Kombinacija emaila i lozinke nije ispravna.",
                     ResponseObject = null,
                     Status = 401
                 };
@@ -46,7 +46,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully logged in.",
+                Message = "Uspesno ste se ulogovali.",
                 ResponseObject = token,
                 Status = 200
             };

@@ -50,7 +50,7 @@ namespace BusinessLogicLayer.services
                 {
                     return new ApiResponse()
                     {
-                        Message = "Something is wrong with one of the trades name.",
+                        Message = "Neko od imena usluga nije validno.",
                         ResponseObject = null,
                         Status = 400
                     };
@@ -73,7 +73,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Something went wrong with the database while creating job ad. Please try again later.",
+                    Message = "Nesto se desilo sa bazom podataka prilikom kreiranja oglasa za posao. Molimo pokusajte ponovo kasnije.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -81,7 +81,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully created job ad.",
+                Message = "Uspesno kreiran oglas za posao.",
                 ResponseObject = created.ToJobAdDTO(),
                 Status = 201
             };
@@ -108,7 +108,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully fetched job ads by handyman.",
+                Message = "Uspesno dobavljeni oglasi za posao za majstora.",
                 ResponseObject = jobAdDtos,
                 Status = 200
             };
@@ -181,7 +181,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully fetched job ads by user.",
+                Message = "Uspesno dobavljeni oglasi za posao za korisnika.",
                 ResponseObject = jobAdDtos,
                 Status = 200
             };
@@ -202,7 +202,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully fetched job ads by user.",
+                Message = "Uspesno dobavljeni oglasi za posao za korisnika.",
                 ResponseObject = jobAdDashboardDtos,
                 Status = 200
             };

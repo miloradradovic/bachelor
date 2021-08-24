@@ -39,7 +39,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Could not find job ad by id.",
+                    Message = "Posao sa tim id nije pronadjen.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -49,7 +49,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "You already notified user about your interest with this job ad.",
+                    Message = "Vec ste iskazali interesovanje za ovaj oglas.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -63,7 +63,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Something went wrong with the database while creating interest. Please try again later.",
+                    Message = "Nesto se desilo sa bazom podataka prilikom kreiranja interesa. Molimo pokusajte ponovo kasnije.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -71,16 +71,16 @@ namespace BusinessLogicLayer.services
             
             _mailService.SendEmail(new MailRequest()
             {
-                Body = "Greetings " + found.Owner.FirstName + "!<br>A handyman " + handyMan.FirstName + " " + handyMan.LastName + " is interested " +
-                       "in your job ad. To see all the interests and accept any, <a href = 'https://localhost:4200'>log in</a> and click the section 'Interests'.<br>Best regards,<br>Administrator team",
-                Subject = "Interest in your job ad titled " + found.Title,
+                Body = "Pozdrav " + found.Owner.FirstName + "!<br>Majstor " + handyMan.FirstName + " " + handyMan.LastName + " je zainteresovan " +
+                       "za Vas oglas za posao. Da biste videli sve majstore koji su zainteresovani i eventualno prihvatite neku od ponuda, <a href = 'https://localhost:4200'>ulogujte se</a> i kliknite sekciju 'Interesi'.",
+                Subject = "Interes za vas oglas pod naslovom " + found.Title,
                 ToEmail = found.Owner.Email
             });
 
             return new ApiResponse()
             {
                 Message =
-                    "Successfully made interest in job ad. Check your email to see if job ad owner is willing to work with you.",
+                    "Uspesno ste iskazali interesovanje za ovaj oglas. Proveravajte email da biste ispratili da vlasnik oglasa zeli da radi sa Vama.",
                 ResponseObject = saved.ToInterestDTO(),
                 Status = 201
             };
@@ -118,7 +118,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully fetched interests by user.",
+                Message = "Uspesno dobavljeni interesi za korisnika.",
                 ResponseObject = result,
                 Status = 200
             };

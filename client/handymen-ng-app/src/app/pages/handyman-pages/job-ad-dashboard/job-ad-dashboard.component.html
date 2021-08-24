@@ -1,7 +1,8 @@
-<h1 class="mat-display-1;" style="text-align: center;  margin-top: 1.5%;">Job advertisements in your area</h1>
+<h1 class="mat-display-1;" style="text-align: center;  margin-top: 1.5%;">Oglasi za posao u Vasoj okolini</h1>
 
 <div style="padding-left:20%;float: left;padding-top: 5%;width:60%">
-  <app-table (MakeInterest)="makeInterest($event)" [dataSource]="jobAds" [columnsToDisplay]="['Title', 'Description', 'Address', 'Urgent', 'Max price', 'Date when', 'Make interest']"
+  <app-table (MakeInterest)="makeInterest($event)" [dataSource]="jobAds" [columnsToDisplay]="['Naslov', 'Opis',
+  'Adresa', 'Hitno', 'Budzet', 'Datum', 'Make interest']"
              [columnsToIterate]="['title', 'description', 'address', 'urgent', 'maxPrice', 'dateWhen']"></app-table>
 
 </div>

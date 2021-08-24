@@ -51,7 +51,7 @@ namespace handymen_backend.Controllers
             User current = (User) HttpContext.Items["LoggedIn"];
             return Ok(new ApiResponse()
             {
-                Message = "Successfully fetched current user",
+                Message = "Uspesno dobavljen trenutno ulogovani korisnik.",
                 ResponseObject = current.ToProfileDataDTO(),
                 Status = 200
             });

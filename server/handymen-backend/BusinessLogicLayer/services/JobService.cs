@@ -37,7 +37,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Could not find interest by id.",
+                    Message = "Interes sa tim id nije pronadjen.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -55,7 +55,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Something went wrong with the database while creating job. Please try again later.",
+                    Message = "Nesto se desilo sa bazom podataka prilikom kreiranja posla. Molimo pokusajte ponovo kasnije.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -69,7 +69,7 @@ namespace BusinessLogicLayer.services
                 return new ApiResponse()
                 {
                     Message =
-                        "Something went wrong with the database while deleting remaining interests or offers. Please try again later.",
+                        "Nesto se desilo sa bazom podataka prilikom brisanja ponuda i interesa za posao. Molimo pokusajte ponovo kasnije.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -80,29 +80,29 @@ namespace BusinessLogicLayer.services
             {
                 _mailService.SendEmail(new MailRequest()
                 {
-                    Body = "Greetings " + handyman.FirstName + "!<br>Unfortunately, one of your interests refused you.<br>Best regards,<br>Administrator team",
-                    Subject = "Sucks :(",
+                    Body = "Pozdrav " + handyman.FirstName + "!<br>Na zalost, jedan od vlasnika oglasa za koji ste bili zainteresovani je odbio Vasu ponudu.",
+                    Subject = "Odbijena ponuda",
                     ToEmail = handyman.Email
                 });
             }
             
             _mailService.SendEmail(new MailRequest()
             {
-                Body = "Greetings " + saved.JobAd.Owner.FirstName + "!<br>Congrats on striking a deal with your job ad. When job is finished, please verify it on your account, so that you can leave your review.<br>Best regards,<br>Administrator team",
-                Subject = "Congrats on Job!",
+                Body = "Pozdrav " + saved.JobAd.Owner.FirstName + "!<br>Cestitamo na dogovoru za novi posao. Kada taj posao bude zavrsen, azurirajte status da biste mogli da ostavite komentar i ocenu.",
+                Subject = "Cestitamo na poslu!",
                 ToEmail = saved.JobAd.Owner.Email
             });
             
             _mailService.SendEmail(new MailRequest()
             {
-                Body = "Greetings " + saved.HandyMan.FirstName + "!<br>Congrats on striking a new job. When job is finished, please verify it on your account, so that job ad owner can leave a review.<br>Best regards,<br>Administrator team",
-                Subject = "Congrats on Job!",
+                Body = "Pozdrav " + saved.HandyMan.FirstName + "!<br>Cestitamo na dogovoru za novi posao. Kada taj posao bude zavrsen, azurirajte status da bi vlasnik oglasa mogao da ostavi komentar i ocenu.",
+                Subject = "Cestitamo na poslu!",
                 ToEmail = saved.HandyMan.Email
             });
 
             return new ApiResponse()
             {
-                Message = "Successfully created a new job.",
+                Message = "Uspesno kreiran posao.",
                 ResponseObject = saved.ToJobDTO(),
                 Status = 201
             };
@@ -117,7 +117,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Could not find job by id",
+                    Message = "Posao sa tim id nije pronadjen.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -130,7 +130,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Something went wrong with the database while updating your job. Please try again later.",
+                    Message = "Nesto se desilo sa bazom podataka prilikom azuriranja statusa posla. Molimo pokusajte ponovo kasnije.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -138,7 +138,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully updated job.",
+                Message = "Uspesno azuriran status posla.",
                 ResponseObject = updated.ToJobDTO(),
                 Status = 200
             };
@@ -160,7 +160,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully fetched jobs by user.",
+                Message = "Uspesno dobavljeni poslovi za korisnika.",
                 ResponseObject = jobAdDashboardDtos,
                 Status = 200
             };
@@ -177,7 +177,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully fetched jobs by handyman.",
+                Message = "Uspesno dobavljeni poslovi za majstora.",
                 ResponseObject = jobAdDashboardDtos,
                 Status = 200
             };

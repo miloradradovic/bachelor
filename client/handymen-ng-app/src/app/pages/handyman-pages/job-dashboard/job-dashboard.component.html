@@ -1,8 +1,8 @@
-<h1 class="mat-display-1;" style="text-align: center;  margin-top: 1.5%;">Your jobs</h1>
+<h1 class="mat-display-1;" style="text-align: center;  margin-top: 1.5%;">Vasi poslovi</h1>
 
 <div style="padding-left:2%;float: left;padding-top: 5%;width:95%">
-  <app-table [dataSource]="jobs" [columnsToDisplay]="['Title', 'Handyman first name', 'Handyman last name',
-  'Handyman email', 'User first name', 'User last name', 'User email', 'Finished', 'Finish job']"
+  <app-table [dataSource]="jobs" [columnsToDisplay]="['Naslov', 'Ime majstora', 'Prezime majstora',
+  'Email majstora', 'Ime korisnika', 'Prezime korisnika', 'Email korisnika', 'Zavrseno', 'Finish job']"
              [columnsToIterate]="['title', 'handymanFirstName', 'handymanLastName',
              'handymanEmail', 'userFirstName' , 'userLastName', 'userEmail', 'finished']" (FinishJob)="finishJob($event)"></app-table>
 

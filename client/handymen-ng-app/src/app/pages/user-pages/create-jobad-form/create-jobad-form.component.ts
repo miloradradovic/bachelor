@@ -32,7 +32,7 @@ export class CreateJobadFormComponent implements OnInit {
   currentLocation: LocationModel = new LocationModel(45.259452102126545, 19.848492145538334, 'Aleksandra Tisme 3, 21101 Novi Sad City, Serbia', 0);
   secondFormClicked = false;
   fillOutAdditionalData = false;
-  urgents = [{boolVal: true, name: 'Yes'}, {boolVal: false, name: 'No'}];
+  urgents = [{boolVal: true, name: 'Da'}, {boolVal: false, name: 'Ne'}];
   fiveDaysAhead: Date;
 
   constructor(fb: FormBuilder,

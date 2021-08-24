@@ -1,24 +1,24 @@
-<h1 mat-dialog-title>Please fill out interest data</h1>
+<h1 mat-dialog-title>Molimo popunite podatke vezane za ponudu</h1>
 <div>
   <form [formGroup]="form"  (ngSubmit)="submit()" style="display: inline-block; width: 100%">
     <div>
       <mat-form-field>
-        <mat-label for="price">Estimated price:</mat-label>
-        <input matInput id="price" name="price" placeholder="price" [formControl]="form.controls.price" type="number">
+        <mat-label for="price">Procenjena cena:</mat-label>
+        <input matInput id="price" name="price" placeholder="Procenjena cena" [formControl]="form.controls.price" type="number">
         <mat-error *ngIf="form.controls.price.touched && form.controls.price.errors?.required">
-          This field can't be empty!</mat-error >
+          Ovo polje ne sme biti prazno!</mat-error >
       </mat-form-field>
     </div>
 
     <div>
       <mat-form-field>
-        <mat-label for="days">Estimated days:</mat-label>
-        <input matInput  type="number" id="days" name="days" placeholder="days" [formControl]="form.controls.days">
+        <mat-label for="days">Procenjeni dani:</mat-label>
+        <input matInput  type="number" id="days" name="days" placeholder="Procenjeni dani" [formControl]="form.controls.days">
         <mat-error *ngIf="form.controls.days.touched && form.controls.days.errors?.required">
-          This field can't be empty!</mat-error>
+          Ovo polje ne sme biti prazno!</mat-error>
       </mat-form-field>
     </div>
-    <button mat-button (click)="cancel()">Cancel</button>
-    <button [disabled]="form.invalid" mat-button type="submit">Finish</button>
+    <button mat-button (click)="cancel()">Izadji</button>
+    <button [disabled]="form.invalid" mat-button type="submit">Posalji</button>
   </form>
 </div>

@@ -8,40 +8,40 @@
         <mat-label> Email </mat-label>
         <input [formControl]="form.controls.email" matInput id="email" name="email" placeholder="Email">
         <mat-error *ngIf="form.controls.email.touched && form.controls.email.errors?.required">
-          Name must be filled!</mat-error >
+          Ovo polje ne sme biti prazno!</mat-error >
         <mat-error *ngIf="form.controls.email.touched && form.controls.email.errors?.email">
-          Email is invalid!</mat-error >
+          Email nije validan!</mat-error >
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
-        <mat-label> Password </mat-label>
-        <input type="password" [formControl]="form.controls.password" matInput id="password" name="password" placeholder="Password">
+        <mat-label> Lozinka </mat-label>
+        <input type="password" [formControl]="form.controls.password" matInput id="password" name="password" placeholder="Lozinka">
         <mat-error *ngIf="form.controls.password.touched && form.controls.password.errors?.required">
-          Name must be filled!</mat-error >
+          Ovo polje ne sme biti prazno!</mat-error >
         <mat-error *ngIf="form.controls.password.touched && form.controls.password.errors?.minLength">
-          Password must be at least 8 characters long!</mat-error >
+          Lozinka mora biti barem 8 karaktera duga!</mat-error >
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
-        <mat-label> First name </mat-label>
-        <input [formControl]="form.controls.firstName" matInput id="firstName" name="firstName" placeholder="First name">
+        <mat-label> Ime </mat-label>
+        <input [formControl]="form.controls.firstName" matInput id="firstName" name="firstName" placeholder="Ime">
         <mat-error *ngIf="form.controls.firstName.touched && form.controls.firstName.errors?.required">
-          First name must be filled!</mat-error >
+          Ovo polje ne sme biti prazno!</mat-error >
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
-        <mat-label> Last name </mat-label>
-        <input [formControl]="form.controls.lastName" matInput id="lastName" name="lastName" placeholder="Last name">
+        <mat-label> Prezime </mat-label>
+        <input [formControl]="form.controls.lastName" matInput id="lastName" name="lastName" placeholder="Prezime">
         <mat-error *ngIf="form.controls.lastName.touched && form.controls.lastName.errors?.required">
-          Last name must be filled!</mat-error >
+          Ovo polje ne sme biti prazno!</mat-error >
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
-        <mat-label> Address </mat-label>
+        <mat-label> Adresa </mat-label>
         <input [readonly]="true" [formControl]="form.controls.address" matInput id="address" name="address" placeholder="Address">
       </mat-form-field>
 
-      <button id="saveButton" [disabled]="form.invalid" style="margin-top: 5%;float:right;background-color: green" mat-raised-button type="submit">Register</button>
+      <button id="saveButton" [disabled]="form.invalid" style="margin-top: 5%;float:right;background-color: green" mat-raised-button type="submit">Registruj se</button>
 
     </form>
 

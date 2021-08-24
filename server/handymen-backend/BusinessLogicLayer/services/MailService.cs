@@ -23,6 +23,7 @@ namespace BusinessLogicLayer.services
 
         public async void SendEmail(MailRequest mailRequest)
         {
+            mailRequest.Body = mailRequest.Body + "<br>Srdacno,<br>Administrator tim";
             var email = new MimeMessage();
             email.Sender = MailboxAddress.Parse(_emailSenderData.Mail);
             email.To.Add(MailboxAddress.Parse(mailRequest.ToEmail));

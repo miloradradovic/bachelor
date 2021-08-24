@@ -53,7 +53,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Something went wrong with the database while fetching trades. Please try again later.",
+                    Message = "Nesto se desilo sa bazom podataka prilikom dobavljanja usluga. Molimo pokusajte ponovo kasnije.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -67,7 +67,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully fetched all trades.",
+                Message = "Uspesno dobavljene sve usluge.",
                 ResponseObject = tradeDtos,
                 Status = 200
             };
@@ -98,7 +98,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Could not find profession by id.",
+                    Message = "Profesija sa tim id nije pronadjena.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -112,7 +112,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully fetched trades by profession.",
+                Message = "Uspesno dobavljene usluge za profesiju.",
                 ResponseObject = dtos,
                 Status = 200
             };
@@ -145,7 +145,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully fetched category and profession for current handyman",
+                Message = "Uspesno dobavljena kategorija i profesija za majstora.",
                 ResponseObject = new HandymanCategoryProfessionDTO()
                 {
                     CategoryDto = categoryDto,

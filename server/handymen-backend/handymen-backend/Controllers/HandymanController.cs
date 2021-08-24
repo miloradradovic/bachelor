@@ -85,7 +85,7 @@ namespace handymen_backend.Controllers
             HandyMan current = (HandyMan) HttpContext.Items["LoggedIn"];
             return Ok(new ApiResponse()
             {
-                Message = "Successfully fetched current handyman",
+                Message = "Uspesno dobavljen trenutno ulogovani majstor.",
                 ResponseObject = current.ToProfileDataDTO(),
                 Status = 200
             });

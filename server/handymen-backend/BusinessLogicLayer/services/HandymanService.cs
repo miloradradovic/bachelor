@@ -72,7 +72,7 @@ namespace BusinessLogicLayer.services
                 {
                     return new ApiResponse()
                     {
-                        Message = "One of the trade names is invalid.",
+                        Message = "Neko od imena usluga nije validno.",
                         ResponseObject = null,
                         Status = 400
                     };
@@ -96,7 +96,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Something went wrong with the database. Please try again later.",
+                    Message = "Nesto se desilo sa bazom podataka prilikom registracije. Molimo pokusajte ponovo kasnije.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -105,7 +105,7 @@ namespace BusinessLogicLayer.services
             return new ApiResponse()
             {
                 Message =
-                    "Successfully created registration request. We will email you when your account is verified by our administrators",
+                    "Uspesno kreiran zahtev za registraciju. Poslacemo Vam email kada administrator verifikuje vas zahtev.",
                 ResponseObject = saved.ToDtoWithTrades(),
                 Status = 201
             };
@@ -118,7 +118,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Could not find handyman account by id.",
+                    Message = "Majstor sa tim id nije pronadjen.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -133,21 +133,21 @@ namespace BusinessLogicLayer.services
                     return new ApiResponse()
                     {
                         Message =
-                            "Something went wrong with the database while verifying handyman account. Please try again later.",
+                            "Nesto se desilo sa bazom podataka prilikom verifikacije zahteva za registraciju. Molimo pokusajte ponovo kasnije.",
                         ResponseObject = null,
                         Status = 400
                     };
                 }
                 _mailService.SendEmail(new MailRequest()
                 {
-                    Body = "Greetings!<br>Your account has been verified. Now you can log in following this <a href='https://localhost:4200'>LINK</a><br>Best regards,<br>Administrator team",
-                    Subject = "Account verified",
+                    Body = "Pozdrav!<br>Vas nalog je verifikovan. Sada se mozete ulogovati klikom na <a href='https://localhost:4200'>LINK</a>",
+                    Subject = "Nalog je verifikovan",
                     ToEmail = updated.Email
                 });
 
                 return new ApiResponse()
                 {
-                    Message = "Successfully verified handyman account.",
+                    Message = "Uspesno verifikovan nalog majstora.",
                     ResponseObject = updated.ToDtoWithoutLists(),
                     Status = 200
                 };
@@ -159,7 +159,7 @@ namespace BusinessLogicLayer.services
                 return new ApiResponse()
                 {
                     Message =
-                        "Something went wrong with the database while deleting the handyman registration request. Please try again later.",
+                        "Nesto se desilo sa bazom podataka prilikom brisanja zahteva za registraciju. Molimo pokusajte ponovo kasnije.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -167,14 +167,14 @@ namespace BusinessLogicLayer.services
             
             _mailService.SendEmail(new MailRequest()
             {
-                Body = "Greetings!<br>Your account has not been approved by our administrators. The reason: \n" + handymanVerificationData.Message + ".<br>Best regards,<br>Administrator team",
-                Subject = "Account not approved",
+                Body = "Pozdrav!<br>Vas nalog na zalost nije odobren od strane nasih administratora. Razlog: \n" + handymanVerificationData.Message + ".",
+                Subject = "Nalog nije odobren",
                 ToEmail = found.Email
             });
 
             return new ApiResponse()
             {
-                Message = "Successfully deleted handyman registration request.",
+                Message = "Uspesno obrisan zahtev za registraciju.",
                 ResponseObject = found.ToDtoWithoutLists(),
                 Status = 200
             };
@@ -187,7 +187,7 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetAll()
         {
-            List<HandyMan> result = _handymanRepository.GetAll();
+            List<HandyMan> result = _handymanRepository.GetAllVerified();
             List<HandymanDashboardDTO> handymanDashboardDtos = new List<HandymanDashboardDTO>();
 
             foreach (HandyMan handyman in result)
@@ -197,7 +197,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully fetched all handymen for dashboard.",
+                Message = "Uspesno dobavljeni svi majstori za prikaz.",
                 ResponseObject = handymanDashboardDtos,
                 Status = 200
             };
@@ -262,7 +262,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully did searching.",
+                Message = "Uspesno odradjena pretraga.",
                 ResponseObject = handymanDashboardDtos,
                 Status = 200
             };
@@ -393,7 +393,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Failed to edit profile.",
+                    Message = "Doslo je do greske prilikom izmene profila.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -401,7 +401,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully edited profile. Please log in again for actions to take effect.",
+                Message = "Uspesno izmenjen profil. Molimo da se ulogujete ponovo da bi promena imala efekat.",
                 ResponseObject = updated.ToProfileDataDTO(),
                 Status = 200
             };
@@ -418,7 +418,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully fetched unverified handymen.",
+                Message = "Uspesno dobavljeni svi neverifikovani majstori.",
                 ResponseObject = result,
                 Status = 200
             };

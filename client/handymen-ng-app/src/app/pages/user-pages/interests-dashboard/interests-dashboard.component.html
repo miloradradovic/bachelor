@@ -1,8 +1,8 @@
-<h1 class="mat-display-1;" style="text-align: center;  margin-top: 1.5%;">Your job advertisements</h1>
+<h1 class="mat-display-1;" style="text-align: center;  margin-top: 1.5%;">Ponude majstora</h1>
 
 <div style="padding-left:2%;float: left;padding-top: 5%;width:95%">
-  <app-table [dataSource]="interests" [columnsToDisplay]="['Job ad title', 'Handyman first name', 'Handyman last name',
-  'Handyman email', 'Estimated price', 'Estimated days', 'Handyman details interest', 'Make a job deal']"
+  <app-table [dataSource]="interests" [columnsToDisplay]="['Naslov oglasa', 'Ime majstora', 'Prezime majstora',
+  'Email majstora', 'Procenjena cena', 'Procenjeni dani', 'Handyman details interest', 'Make a job deal']"
              [columnsToIterate]="['title', 'firstName', 'lastName',
              'email', 'estimatedPrice', 'estimatedDays']" (MakeJobDeal)="makeJobDeal($event)" (HandymanDetails)="handymanDetails($event)"></app-table>
 

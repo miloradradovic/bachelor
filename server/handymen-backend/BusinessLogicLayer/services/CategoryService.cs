@@ -34,7 +34,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully fetched all categories.",
+                Message = "Uspesno dobavljene sve kategorije.",
                 ResponseObject = dtos,
                 Status = 200
             };

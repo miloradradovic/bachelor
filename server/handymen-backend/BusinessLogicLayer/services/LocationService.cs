@@ -30,7 +30,7 @@ namespace BusinessLogicLayer.services
         {
             return new ApiResponse()
             {
-                Message = "Successfully fetched location by user.",
+                Message = "Uspesno dobavljena lokacija za korisnika.",
                 ResponseObject = user.Address.ToLocationDTO(),
                 Status = 200
             };

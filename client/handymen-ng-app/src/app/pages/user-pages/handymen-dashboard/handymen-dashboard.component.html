@@ -1,38 +1,38 @@
-<h1 style="margin-left: 40%; margin-top: 2%;">Handyman dashboard</h1>
+<h1 style="margin-left: 40%; margin-top: 2%;">Prikaz majstora</h1>
 
 <div style="width: 90%; padding-left: 10%; margin-top: 5%">
   <form [formGroup]="form">
     <mat-form-field appearance="outline" style="width: 15%">
-      <mat-label> First name</mat-label>
-      <input (input)="onInputChange($event.target.valueOf())" matInput placeholder="First name" [formControl]="form.controls.firstName">
+      <mat-label> Ime</mat-label>
+      <input (input)="onInputChange($event.target.valueOf())" matInput placeholder="Ime" [formControl]="form.controls.firstName">
     </mat-form-field>
     <mat-form-field appearance="outline" style="width: 15%; margin-left: 1%">
-      <mat-label> Last name</mat-label>
-      <input (input)="onInputChange($event.target.valueOf())" matInput placeholder="Last name" [formControl]="form.controls.lastName">
+      <mat-label> Prezime</mat-label>
+      <input (input)="onInputChange($event.target.valueOf())" matInput placeholder="Prezime" [formControl]="form.controls.lastName">
     </mat-form-field>
     <mat-form-field appearance="outline" style="width: 15%; margin-left: 1%">
-      <mat-label> Address</mat-label>
-      <input (input)="onInputChange($event.target.valueOf())" matInput placeholder="Address" [formControl]="form.controls.address">
+      <mat-label> Adresa</mat-label>
+      <input (input)="onInputChange($event.target.valueOf())" matInput placeholder="Adresa" [formControl]="form.controls.address">
     </mat-form-field>
     <mat-form-field appearance="outline" style="width: 15%;margin-left: 1%">
-      <mat-label>Trades</mat-label>
+      <mat-label>Usluge</mat-label>
       <mat-select multiple [formControl]="form.controls.selectedTrades" (selectionChange)="selectionChange($event)">
         <mat-option *ngFor="let trade of trades" [value]="trade.name">{{trade.name}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="outline" style="width:15%;margin-left: 1%">
-      <mat-label>Average rating from:</mat-label>
+      <mat-label>Prosecna ocena od:</mat-label>
       <input (input)="onInputChange($event.target.valueOf())" min="0" max="5" type="number" matInput placeholder="From" [formControl]="form.controls.avgRatingFrom">
     </mat-form-field>
     <mat-form-field appearance="outline" style="width:15%;margin-left: 1%">
-      <mat-label>Average rating to:</mat-label>
+      <mat-label>Prosecna ocena do:</mat-label>
       <input (input)="onInputChange($event.target.valueOf())" min="0" max="5" type="number" matInput placeholder="To" [formControl]="form.controls.avgRatingTo">
     </mat-form-field>
   </form>
 </div>
 
 <div style="padding-top: 5%; width: 80%; padding-left: 10%">
-  <app-table [columnsToDisplay]="['First name', 'Last name', 'Email', 'Address', 'Handyman details']"
+  <app-table [columnsToDisplay]="['Ime', 'Prezime', 'Email', 'Adresa', 'Handyman details']"
              [columnsToIterate]="['firstName', 'lastName', 'email', 'address']"
              [dataSource]="handymen" (HandymanDetails)="clickedRow($event)"></app-table>
 </div>

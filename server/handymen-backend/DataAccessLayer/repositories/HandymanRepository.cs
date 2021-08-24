@@ -20,6 +20,7 @@ namespace DataAccessLayer.repositories
         public List<HandyMan> Search(SearchParams searchParams, bool searchByFirstName, bool searchByLastName);
         public Rating GetDetailedRatingProfile(int ratingId);
         public List<HandyMan> GetAllUnverified();
+        public List<HandyMan> GetAllVerified();
     }
 
     public class HandymanRepository : IHandymanRepository
@@ -125,7 +126,7 @@ namespace DataAccessLayer.repositories
 
         public List<HandyMan> Search(SearchParams searchParams, bool searchByFirstName, bool searchByLastName)
         {
-            List<HandyMan> result = new List<HandyMan>();
+            List<HandyMan> result = GetAll();
 
             if (searchByFirstName && searchByLastName) //TT
             {
@@ -176,6 +177,18 @@ namespace DataAccessLayer.repositories
                 .Include(handy => handy.DoneJobs)
                 .Include(handy => handy.Address)
                 .Where(man => man.Verified == false)
+                .ToList();
+            return result;
+        }
+
+        public List<HandyMan> GetAllVerified()
+        {
+            List<HandyMan> result = _context.HandyMen
+                .Include(handy => handy.Ratings)
+                .Include(handy => handy.Trades)
+                .Include(handy => handy.DoneJobs)
+                .Include(handy => handy.Address)
+                .Where(man => man.Verified)
                 .ToList();
             return result;
         }

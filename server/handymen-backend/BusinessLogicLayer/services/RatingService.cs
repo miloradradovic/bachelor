@@ -32,7 +32,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Could not find job by id.",
+                    Message = "Posao sa tim id nije pronadjen.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -42,7 +42,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "You already rated handyman for this job.",
+                    Message = "Vec ste ocenili majstora za ovaj posao.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -52,7 +52,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Job is not finished.",
+                    Message = "Posao nije zavrsen.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -64,7 +64,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Could not find handyman by id.",
+                    Message = "Majstor sa tim id nije pronadjen.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -79,7 +79,7 @@ namespace BusinessLogicLayer.services
                 return new ApiResponse()
                 {
                     Message =
-                        "Something went wrong with the database while creating a new rate. Please try again later.",
+                        "Nesto se desilo sa bazom podataka prilikom kreiranja ocene. Molimo pokusajte ponovo kasnije.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -92,7 +92,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Something went wrong with the database while updating handyman. Please try again later.",
+                    Message = "Nesto se desilo sa bazom prilikom azuriranja podataka o majstoru. Molimo pokusajte ponovo kasnije.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -100,7 +100,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully created new rating.",
+                Message = "Uspesno kreirana nova ocena.",
                 ResponseObject = created.ToRatingDTO(jobId),
                 Status = 201
             };

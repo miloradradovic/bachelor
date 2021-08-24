@@ -5,36 +5,36 @@
     <mat-horizontal-stepper linear (selectionChange)="changedMatStep($event)">
       <mat-step [stepControl]="firstForm">
         <form [formGroup]="firstForm">
-          <ng-template matStepLabel>Title and description</ng-template>
+          <ng-template matStepLabel>Naslov i opis</ng-template>
           <mat-form-field appearance="outline" style="display: block">
-            <mat-label> Title </mat-label>
-            <input [formControl]="firstForm.controls.title" matInput id="title" name="title" placeholder="Title">
+            <mat-label> Naslov </mat-label>
+            <input [formControl]="firstForm.controls.title" matInput id="title" name="title" placeholder="Naslov">
             <mat-error *ngIf="firstForm.controls.title.touched && firstForm.controls.title.errors?.required">
-              Title must be filled!</mat-error >
+              Ovo polje ne sme biti prazno!</mat-error >
           </mat-form-field>
 
           <mat-form-field appearance="outline" style="display: block">
-            <mat-label> Description </mat-label>
-            <textarea matInput rows="15" id="description" name="description" placeholder="Description of your job. Please be as detailed as possible so handymen can offer appropriate sum of money." [formControl]="firstForm.controls.description"></textarea>
+            <mat-label> Opis </mat-label>
+            <textarea matInput rows="15" id="description" name="description" placeholder="Opis posla. Molimo da budete sto detaljniji da bi majstori znali koju sumu novca da predloze." [formControl]="firstForm.controls.description"></textarea>
             <mat-error *ngIf="firstForm.controls.description.touched && firstForm.controls.description.errors?.required">
-              Description must be filled!</mat-error >
+              Ovo polje ne sme biti prazno!</mat-error >
           </mat-form-field>
 
           <div>
-            <button [disabled]="firstForm.invalid" mat-button matStepperNext (click)="clicked('firstFormNext')">Next</button>
+            <button [disabled]="firstForm.invalid" mat-button matStepperNext (click)="clicked('firstFormNext')">Sledece</button>
           </div>
         </form>
       </mat-step>
       <mat-step [stepControl]="secondForm">
         <form [formGroup]="secondForm">
-          <ng-template matStepLabel>Address and date</ng-template>
+          <ng-template matStepLabel>Adresa i datum</ng-template>
           <mat-form-field appearance="outline" style="display: block">
-            <mat-label> Address </mat-label>
-            <input [readonly]="true" [formControl]="secondForm.controls.address" matInput id="address" name="address" placeholder="Address">
+            <mat-label> Adresa </mat-label>
+            <input [readonly]="true" [formControl]="secondForm.controls.address" matInput id="address" name="address" placeholder="Adresa">
           </mat-form-field>
 
           <mat-form-field appearance="outline" style="display: block">
-            <mat-label>Choose date:</mat-label>
+            <mat-label>Izaberi datum:</mat-label>
             <input [readonly]="true" [formControl]="secondForm.controls.date" [min]="fiveDaysAhead" id="date"
                    matInput [matDatepicker]="picker">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -42,61 +42,61 @@
           </mat-form-field>
 
           <div>
-            <button mat-button (click)="clicked('secondFormBack')" matStepperPrevious>Back</button>
-            <button [disabled]="secondForm.invalid" mat-button (click)="clicked('secondFormNext')" matStepperNext>Next</button>
+            <button mat-button (click)="clicked('secondFormBack')" matStepperPrevious>Nazad</button>
+            <button [disabled]="secondForm.invalid" mat-button (click)="clicked('secondFormNext')" matStepperNext>Sledece</button>
           </div>
         </form>
       </mat-step>
       <mat-step [stepControl]="thirdForm">
         <form [formGroup]="thirdForm">
-          <ng-template matStepLabel>Type of job</ng-template>
+          <ng-template matStepLabel>Tip posla</ng-template>
           <mat-form-field appearance="outline" style="display: block">
-            <mat-label>Categories</mat-label>
+            <mat-label>Kategorije</mat-label>
             <mat-select [formControl]="thirdForm.controls.category" (selectionChange)="selectionChange($event, 'category')">
               <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="outline" style="display: block">
-            <mat-label>Professions</mat-label>
+            <mat-label>Profesije</mat-label>
             <mat-select [formControl]="thirdForm.controls.profession" (selectionChange)="selectionChange($event, 'profession')">
               <mat-option *ngFor="let profession of professions" [value]="profession.id">{{profession.name}}</mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="outline" style="display: block">
-            <mat-label>Trades</mat-label>
+            <mat-label>Usluge</mat-label>
             <mat-select [formControl]="thirdForm.controls.selectedTrades" multiple>
               <mat-option *ngFor="let trade of trades" [value]="trade.name">{{trade.name}}</mat-option>
             </mat-select>
           </mat-form-field>
 
           <div>
-            <button (click)="clicked('thirdFormBack')" mat-button matStepperPrevious>Back</button>
-            <button [disabled]="thirdForm.invalid" (click)="clicked('thirdFormNext')" mat-button matStepperNext>Next</button>
+            <button (click)="clicked('thirdFormBack')" mat-button matStepperPrevious>Nazad</button>
+            <button [disabled]="thirdForm.invalid" (click)="clicked('thirdFormNext')" mat-button matStepperNext>Sledece</button>
           </div>
 
         </form>
       </mat-step>
       <mat-step>
         <form [formGroup]="fourthForm">
-          <ng-template matStepLabel>Additional data?</ng-template>
+          <ng-template matStepLabel>Dodatni podaci</ng-template>
           <div *ngIf="fillOutAdditionalData">
             <mat-form-field appearance="outline" style="display: block">
-              <mat-label>Urgent?</mat-label>
+              <mat-label>Hitno?</mat-label>
               <mat-select [formControl]="fourthForm.controls.urgent" (selectionChange)="selectionChange($event, 'urgent')">
                 <mat-option *ngFor="let urgent of urgents" [value]="urgent.boolVal">{{urgent.name}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline" style="display: block">
-              <mat-label> Max price </mat-label>
-              <input type="number" [formControl]="fourthForm.controls.maxPrice" matInput id="maxPrice" name="maxPrice" placeholder="Max price">
+              <mat-label> Budzet </mat-label>
+              <input type="number" [formControl]="fourthForm.controls.maxPrice" matInput id="maxPrice" name="maxPrice" placeholder="Budzet">
             </mat-form-field>
           </div>
           <div>
-            <button (click)="clicked('additionalDataGiveUp')" mat-button matStepperPrevious>Back</button>
-            <button [disabled]="fillOutAdditionalData" mat-button (click)="clicked('additionalData')" matStepperNext>Fill out additional data</button>
-            <button mat-button (click)="createJobAd()">Finish</button>
+            <button (click)="clicked('additionalDataGiveUp')" mat-button matStepperPrevious>Nazad</button>
+            <button [disabled]="fillOutAdditionalData" mat-button (click)="clicked('additionalData')" matStepperNext>Popuni dodatne podatke</button>
+            <button mat-button (click)="createJobAd()">Posalji</button>
           </div>
         </form>
       </mat-step>

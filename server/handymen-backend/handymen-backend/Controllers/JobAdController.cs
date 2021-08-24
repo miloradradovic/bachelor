@@ -14,12 +14,10 @@ namespace handymen_backend.Controllers
     {
 
         private readonly IJobAdService _jobAdService;
-        //private readonly UserManager<Person> _userManager;
 
         public JobAdController(IJobAdService jobAdService) 
         {
             _jobAdService = jobAdService;
-            //_userManager = userManager;
         }
 
         [HttpPost("create-job-ad")]

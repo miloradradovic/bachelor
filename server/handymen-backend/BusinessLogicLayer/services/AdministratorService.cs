@@ -47,7 +47,7 @@ namespace BusinessLogicLayer.services
                 return new ApiResponse()
                 {
                     Message =
-                        "Something went wrong with the database while creating administrator. Please try again later.",
+                        "Nesto se desilo sa bazom podataka prilikom kreiranja administratora. Molimo pokusajte ponovo kasnije.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -55,7 +55,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully created administrator.",
+                Message = "Uspesno kreiran administrator.",
                 ResponseObject = created.ToDto(),
                 Status = 201
             };

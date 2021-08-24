@@ -1,7 +1,7 @@
 <div>
   <form [formGroup]="form">
     <mat-form-field appearance="outline" style="display: block">
-      <mat-label>Your job ads</mat-label>
+      <mat-label>Vasi oglasi za posao</mat-label>
       <mat-select [formControl]="form.controls.selectedJobAd">
         <mat-option *ngFor="let jobAd of jobAds" [value]="jobAd.id">{{jobAd.title}}</mat-option>
       </mat-select>
@@ -9,6 +9,6 @@
   </form>
 </div>
 <div>
-  <button mat-raised-button color="primary" (click)="cancel()">Cancel</button>
-  <button mat-raised-button color="primary" (click)="finish()">Finish</button>
+  <button mat-raised-button color="primary" (click)="finish()">Posalji</button>
+  <button style="margin-left: 2%" mat-raised-button color="primary" (click)="cancel()">Izadji</button>
 </div>

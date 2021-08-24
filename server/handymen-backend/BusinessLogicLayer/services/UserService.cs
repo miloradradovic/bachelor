@@ -62,7 +62,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Something went wrong with the database. Please, try again later.",
+                    Message = "Nesto se desilo sa bazom podataka prilikom registracije. Molimo pokusajte ponovo kasnije.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -70,14 +70,14 @@ namespace BusinessLogicLayer.services
             
             _mailService.SendEmail(new MailRequest()
             {
-                Body = "Greetings " + created.FirstName + "!<br>Please verify your account by following this <a href='https://localhost:4200/?id=" + _cryptingService.Encrypt(created.Id.ToString()) + "'>LINK</a><br>Best regards,<br>Administrator team",
-                Subject = "Account verification",
+                Body = "Pozdrav " + created.FirstName + "!<br>Molimo verifikujte Vas nalog klikom na sledeci <a href='https://localhost:4200/?id=" + _cryptingService.Encrypt(created.Id.ToString()) + "'>LINK</a>.",
+                Subject = "Verifikacija naloga",
                 ToEmail = created.Email
             });
             
             return new ApiResponse()
             {
-                Message = "Registration request successfully created. Verification link has been sent to your email.",
+                Message = "Zahtev za registraciju je uspesno kreiran. Na Vas email poslali smo Vam verifikacioni link.",
                 ResponseObject = created.ToDtoWithoutLists(),
                 Status = 201
             };
@@ -91,7 +91,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Something is wrong with encrypted id. Please try again.",
+                    Message = "Nesto nije u redu sa kriptovanim id. Molimo pokusajte ponovo.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -103,7 +103,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Could not find your account.",
+                    Message = "Vas nalog nije pronadjen.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -113,7 +113,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "You already verified your account.",
+                    Message = "Vec ste verifikovali nalog.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -126,7 +126,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Something went wrong while updating your account. Please try again later.",
+                    Message = "Nesto se desilo sa bazom podataka prilikom azuriranja Vaseg naloga. Molimo pokusajte ponovo kasnije.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -134,7 +134,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully verified your account. Now you can log in!",
+                Message = "Uspesno ste verifikovali nalog. Sada mozete da se ulogujete!",
                 ResponseObject = updated.ToDtoWithoutLists(),
                 Status = 200
             };
@@ -164,7 +164,7 @@ namespace BusinessLogicLayer.services
             {
                 return new ApiResponse()
                 {
-                    Message = "Failed to edit profile.",
+                    Message = "Nesto se desilo sa bazom podataka prilikom azuriranja Vaseg profila. Molimo pokusajte ponovo kasnije.",
                     ResponseObject = null,
                     Status = 400
                 };
@@ -172,7 +172,7 @@ namespace BusinessLogicLayer.services
 
             return new ApiResponse()
             {
-                Message = "Successfully edited profile. Please log in again for actions to take effect.",
+                Message = "Uspesno azuriran profil. Molimo da se ulogujete ponovo da bi promene imale efekat.",
                 ResponseObject = updated.ToProfileDataDTO(),
                 Status = 200
             };
