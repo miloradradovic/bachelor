@@ -55,7 +55,7 @@ namespace BusinessLogicLayer.services
             
             _mailService.SendEmail(new MailRequest()
             {
-                Body = "Greetings " + foundHandyman.FirstName + ". Someone offered you a job. Check it out in the 'Offers' section and express interest if interested. Best regards!",
+                Body = "Greetings " + foundHandyman.FirstName + "!<br>Someone offered you a job. Check it out in the 'Offers' section and express interest if interested.<br>Best regards,<br>Administrator team",
                 Subject = "New job offer",
                 ToEmail = foundHandyman.Email
             });

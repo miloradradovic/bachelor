@@ -70,7 +70,7 @@ namespace BusinessLogicLayer.services
             
             _mailService.SendEmail(new MailRequest()
             {
-                Body = "Greetings " + created.FirstName + ". Please verify your account by following this <a href='https://localhost:4200/?id=" + _cryptingService.Encrypt(created.Id.ToString()) + "'>LINK</a>",
+                Body = "Greetings " + created.FirstName + "!<br>Please verify your account by following this <a href='https://localhost:4200/?id=" + _cryptingService.Encrypt(created.Id.ToString()) + "'>LINK</a><br>Best regards,<br>Administrator team",
                 Subject = "Account verification",
                 ToEmail = created.Email
             });

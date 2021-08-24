@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DataAccessLayer.Migrations;
 using DataAccessLayer.repositories;
 using Model.dto;
 using Model.models;
@@ -73,7 +72,7 @@ namespace BusinessLogicLayer.services
             _mailService.SendEmail(new MailRequest()
             {
                 Body = "Greetings " + found.Owner.FirstName + "!<br>A handyman " + handyMan.FirstName + " " + handyMan.LastName + " is interested " +
-                       "in your job ad. To see all the interests and accept any, <a href = 'https://localhost:4200'>log in</a> and click the section 'Interests'",
+                       "in your job ad. To see all the interests and accept any, <a href = 'https://localhost:4200'>log in</a> and click the section 'Interests'.<br>Best regards,<br>Administrator team",
                 Subject = "Interest in your job ad titled " + found.Title,
                 ToEmail = found.Owner.Email
             });

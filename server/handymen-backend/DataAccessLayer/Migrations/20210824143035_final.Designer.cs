@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(PostgreSqlContext))]
-    [Migration("20210805190039_model2")]
-    partial class model2
+    [Migration("20210824143035_final")]
+    partial class final
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,10 +60,7 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<double>("PriceFrom")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("PriceTo")
+                    b.Property<double>("PriceMax")
                         .HasColumnType("double precision");
 
                     b.Property<bool>("Urgent")
@@ -128,7 +125,7 @@ namespace DataAccessLayer.Migrations
                         .HasAnnotation("Npgsql:HiLoSequenceName", "person_seq")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SequenceHiLo);
 
-                    b.Property<int?>("CircleId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Email")
@@ -143,6 +140,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("text");
 
+                    b.Property<double>("Radius")
+                        .HasColumnType("double precision");
+
                     b.Property<int>("Role")
                         .HasColumnType("integer");
 
@@ -151,9 +151,37 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CircleId");
+                    b.HasIndex("AddressId");
 
                     b.ToTable("HandyMen");
+                });
+
+            modelBuilder.Entity("Model.models.Interest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("DaysEstimated")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("HandyManId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("JobAdId")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("PriceEstimated")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HandyManId");
+
+                    b.HasIndex("JobAdId");
+
+                    b.ToTable("Interests");
                 });
 
             modelBuilder.Entity("Model.models.Job", b =>
@@ -199,10 +227,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<int?>("AddressId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("DateFrom")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("DateTo")
+                    b.Property<DateTime>("DateWhen")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")
@@ -241,12 +266,31 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int>("Radius")
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
+                });
+
+            modelBuilder.Entity("Model.models.Offer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int?>("HandyManId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("JobAdId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations");
+                    b.HasIndex("HandyManId");
+
+                    b.HasIndex("JobAdId");
+
+                    b.ToTable("Offers");
                 });
 
             modelBuilder.Entity("Model.models.Profession", b =>
@@ -282,12 +326,20 @@ namespace DataAccessLayer.Migrations
                     b.Property<int?>("HandyManId")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("PublishedDate")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<int>("Rate")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("RatedJobId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("HandyManId");
+
+                    b.HasIndex("RatedJobId");
 
                     b.ToTable("Ratings");
                 });
@@ -320,6 +372,9 @@ namespace DataAccessLayer.Migrations
                         .HasAnnotation("Npgsql:HiLoSequenceName", "person_seq")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SequenceHiLo);
 
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
@@ -339,6 +394,8 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("boolean");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
 
                     b.ToTable("Users");
                 });
@@ -375,11 +432,26 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("Model.models.HandyMan", b =>
                 {
-                    b.HasOne("Model.models.Location", "Circle")
+                    b.HasOne("Model.models.Location", "Address")
                         .WithMany()
-                        .HasForeignKey("CircleId");
+                        .HasForeignKey("AddressId");
 
-                    b.Navigation("Circle");
+                    b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("Model.models.Interest", b =>
+                {
+                    b.HasOne("Model.models.HandyMan", "HandyMan")
+                        .WithMany()
+                        .HasForeignKey("HandyManId");
+
+                    b.HasOne("Model.models.JobAd", "JobAd")
+                        .WithMany()
+                        .HasForeignKey("JobAdId");
+
+                    b.Navigation("HandyMan");
+
+                    b.Navigation("JobAd");
                 });
 
             modelBuilder.Entity("Model.models.Job", b =>
@@ -392,13 +464,15 @@ namespace DataAccessLayer.Migrations
                         .WithMany()
                         .HasForeignKey("JobAdId");
 
-                    b.HasOne("Model.models.User", null)
+                    b.HasOne("Model.models.User", "User")
                         .WithMany("Jobs")
                         .HasForeignKey("UserId");
 
                     b.Navigation("HandyMan");
 
                     b.Navigation("JobAd");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Model.models.JobAd", b =>
@@ -422,6 +496,21 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Owner");
                 });
 
+            modelBuilder.Entity("Model.models.Offer", b =>
+                {
+                    b.HasOne("Model.models.HandyMan", "HandyMan")
+                        .WithMany("Offers")
+                        .HasForeignKey("HandyManId");
+
+                    b.HasOne("Model.models.JobAd", "JobAd")
+                        .WithMany()
+                        .HasForeignKey("JobAdId");
+
+                    b.Navigation("HandyMan");
+
+                    b.Navigation("JobAd");
+                });
+
             modelBuilder.Entity("Model.models.Profession", b =>
                 {
                     b.HasOne("Model.models.Category", null)
@@ -434,6 +523,12 @@ namespace DataAccessLayer.Migrations
                     b.HasOne("Model.models.HandyMan", null)
                         .WithMany("Ratings")
                         .HasForeignKey("HandyManId");
+
+                    b.HasOne("Model.models.Job", "RatedJob")
+                        .WithMany()
+                        .HasForeignKey("RatedJobId");
+
+                    b.Navigation("RatedJob");
                 });
 
             modelBuilder.Entity("Model.models.Trade", b =>
@@ -441,6 +536,15 @@ namespace DataAccessLayer.Migrations
                     b.HasOne("Model.models.Profession", null)
                         .WithMany("Trades")
                         .HasForeignKey("ProfessionId");
+                });
+
+            modelBuilder.Entity("Model.models.User", b =>
+                {
+                    b.HasOne("Model.models.Location", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Model.models.Category", b =>
@@ -451,6 +555,8 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("Model.models.HandyMan", b =>
                 {
                     b.Navigation("DoneJobs");
+
+                    b.Navigation("Offers");
 
                     b.Navigation("Ratings");
                 });

@@ -1,3 +1,1 @@
-insert into "Users" ("Id", "FirstName", "LastName", "Role", "Email", "Password", "Verified") values (nextval('person_seq'), 'ImeUser', 'PrezimeUser', 2, 'useremail', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true);
 insert into "Administrators" ("Id", "FirstName", "LastName", "Role", "Email", "Password", "Verified") values (nextval('person_seq'), 'ImeAdmin', 'PrezimeAdmin', 0, 'adminemail', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true);
-insert into "HandyMen" ("Id", "FirstName", "LastName", "Role", "Email", "Password", "Verified") values (nextval('person_seq'), 'ImeHandy', 'PrezimeHandy', 1, 'handyemail', '$2y$12$NFN7DJUX1lFfaDX1tc9/6uBtgls9SZOU9iwjhrlXJc0xr471vgKAK', true);

@@ -80,7 +80,7 @@ namespace BusinessLogicLayer.services
             {
                 _mailService.SendEmail(new MailRequest()
                 {
-                    Body = "Greetings " + handyman.FirstName + ". Unfortunately, one of your interests refused you. Best regards!",
+                    Body = "Greetings " + handyman.FirstName + "!<br>Unfortunately, one of your interests refused you.<br>Best regards,<br>Administrator team",
                     Subject = "Sucks :(",
                     ToEmail = handyman.Email
                 });
@@ -88,14 +88,14 @@ namespace BusinessLogicLayer.services
             
             _mailService.SendEmail(new MailRequest()
             {
-                Body = "Greetings " + saved.JobAd.Owner.FirstName + ". Congrats on striking a deal with your job ad. When job is finished, please verify it on your account, so that you can leave your review. Best regards!",
+                Body = "Greetings " + saved.JobAd.Owner.FirstName + "!<br>Congrats on striking a deal with your job ad. When job is finished, please verify it on your account, so that you can leave your review.<br>Best regards,<br>Administrator team",
                 Subject = "Congrats on Job!",
                 ToEmail = saved.JobAd.Owner.Email
             });
             
             _mailService.SendEmail(new MailRequest()
             {
-                Body = "Greetings " + saved.HandyMan.FirstName + ". Congrats on striking a new job. When job is finished, please verify it on your account, so that job ad owner can leave a review. Best regards!",
+                Body = "Greetings " + saved.HandyMan.FirstName + "!<br>Congrats on striking a new job. When job is finished, please verify it on your account, so that job ad owner can leave a review.<br>Best regards,<br>Administrator team",
                 Subject = "Congrats on Job!",
                 ToEmail = saved.HandyMan.Email
             });

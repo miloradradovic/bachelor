@@ -140,7 +140,7 @@ namespace BusinessLogicLayer.services
                 }
                 _mailService.SendEmail(new MailRequest()
                 {
-                    Body = "Your account has been verified. Now you can log in following this <a href='https://localhost:4200'>LINK</a>",
+                    Body = "Greetings!<br>Your account has been verified. Now you can log in following this <a href='https://localhost:4200'>LINK</a><br>Best regards,<br>Administrator team",
                     Subject = "Account verified",
                     ToEmail = updated.Email
                 });
@@ -167,7 +167,7 @@ namespace BusinessLogicLayer.services
             
             _mailService.SendEmail(new MailRequest()
             {
-                Body = "Your account has not been approved by our administrators. The reason: \n" + handymanVerificationData.Message,
+                Body = "Greetings!<br>Your account has not been approved by our administrators. The reason: \n" + handymanVerificationData.Message + ".<br>Best regards,<br>Administrator team",
                 Subject = "Account not approved",
                 ToEmail = found.Email
             });

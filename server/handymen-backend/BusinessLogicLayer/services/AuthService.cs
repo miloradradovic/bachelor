@@ -21,9 +21,6 @@ namespace BusinessLogicLayer.services
 
         private readonly IConfiguration _configuration;
         private readonly IPersonService _personService;
-        //private readonly IUserService _userService;
-        //private readonly IAdministratorService _administratorService;
-        //private readonly IHandymanService _handymanService;
 
         public AuthService(IPersonService personService, IConfiguration configuration)
         {
