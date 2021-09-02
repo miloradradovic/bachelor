@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class final : Migration
+    public partial class migr : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -100,6 +100,8 @@ namespace DataAccessLayer.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SequenceHiLo),
                     AddressId = table.Column<int>(type: "integer", nullable: true),
                     Radius = table.Column<double>(type: "double precision", nullable: false),
+                    AverageRate = table.Column<double>(type: "double precision", nullable: false),
+                    City = table.Column<string>(type: "text", nullable: true),
                     FirstName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
                     Email = table.Column<string>(type: "text", nullable: true),

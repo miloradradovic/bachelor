@@ -1,0 +1,6 @@
+browse po kategorijama i profesijama
+budzet 0 urgent false // done
+slike za oglas za posao
+pri ponudi poslova moraju da se poklope usluge
+prosecna ocjena za majstora na profilu // done
+mjesto kod majstora // done

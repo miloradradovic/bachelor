@@ -9,7 +9,7 @@ namespace Model.dto
         public string Description { get; set; }
         public string Address { get; set; }
         public double MaxPrice { get; set; }
-        public bool Urgent { get; set; }
+        public string Urgent { get; set; }
         public DateTime DateWhen { get; set; }
     }
 }

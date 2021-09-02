@@ -33,6 +33,11 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
+        <mat-label> Prosecna ocena </mat-label>
+        <input [readonly]="true" [formControl]="form.controls.averageRate" matInput id="avgRate" name="avgRate" placeholder="Prosecna ocena">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="display: block">
         <mat-label>Kategorije</mat-label>
         <mat-select [formControl]="form.controls.category" (selectionChange)="selectionChange($event, 'category')">
           <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>

@@ -11,6 +11,7 @@ namespace Model.dto
         public string Email { get; set; }
         public LocationDTO Location { get; set; }
         public List<string> Trades { get; set; }
+        public double AverageRate { get; set; }
 
         public HandyMan ToHandyman()
         {

@@ -89,15 +89,10 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetJobAdsForCurrentHandyman(HandyMan handyMan)
         {
-            List<JobAd> jobAds = _jobAdRepository.GetAll();
-            List<JobAd> fullJobAds = new List<JobAd>();
+            List<JobAd> jobAds = _jobAdRepository.GetAllByCity(handyMan.City);
             List<JobAdDashboardDTO> jobAdDtos = new List<JobAdDashboardDTO>();
-            foreach (JobAd jobAd in jobAds)
-            {
-                fullJobAds.Add(_jobAdRepository.GetById(jobAd.Id));
-            }
 
-            foreach (JobAd ad in fullJobAds)
+            foreach (JobAd ad in jobAds)
             {
                 if (CheckTrades(handyMan.Trades, ad.Trades) && DetermineCircle(handyMan.Address, handyMan.Radius, ad.Address)
                 && !InterestExists(ad.Id, handyMan.Id) && !ExistsJob(ad.Id, handyMan.Id))

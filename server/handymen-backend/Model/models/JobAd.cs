@@ -54,7 +54,7 @@ namespace Model.models
                     Id = Id,
                     MaxPrice = 0,
                     Title = Title,
-                    Urgent = false
+                    Urgent = "Ne"
                 };
             }
 
@@ -66,8 +66,18 @@ namespace Model.models
                 Id = Id,
                 MaxPrice = AdditionalJobAdInfo.PriceMax,
                 Title = Title,
-                Urgent = AdditionalJobAdInfo.Urgent
+                Urgent = ManageUrgent()
             };
+        }
+
+        private string ManageUrgent()
+        {
+            if (AdditionalJobAdInfo.Urgent)
+            {
+                return "Da";
+            }
+
+            return "Ne";
         }
 
         private List<string> ConvertTradesToStrings()

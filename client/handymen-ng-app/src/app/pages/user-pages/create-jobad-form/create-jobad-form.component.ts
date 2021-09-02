@@ -146,6 +146,7 @@ export class CreateJobadFormComponent implements OnInit {
   }
 
   createJobAd() {
+    console.log(this.fourthForm.value.urgent);
     this.spinnerService.show();
     let jobAd: JobAdModel;
     if (!this.fourthForm.value.maxPrice && !this.fourthForm.value.urgent) {
@@ -169,6 +170,8 @@ export class CreateJobadFormComponent implements OnInit {
         this.thirdForm.value.selectedTrades
       )
     }
+
+    console.log(jobAd);
 
     this.jobAdService.createJobAd(jobAd).subscribe(
       result => {

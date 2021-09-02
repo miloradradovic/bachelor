@@ -86,6 +86,7 @@ namespace BusinessLogicLayer.services
             }
             
             found.Ratings.Add(created);
+            found.CalculateAverageRate();
             HandyMan updated = _personService.UpdateHandyman(found);
 
             if (updated == null)

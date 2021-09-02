@@ -126,7 +126,7 @@ namespace DataAccessLayer.repositories
 
         public List<HandyMan> Search(SearchParams searchParams, bool searchByFirstName, bool searchByLastName)
         {
-            List<HandyMan> result = GetAll();
+            List<HandyMan> result = GetAllVerified();
 
             if (searchByFirstName && searchByLastName) //TT
             {
@@ -135,7 +135,7 @@ namespace DataAccessLayer.repositories
                     .Include(handy => handy.DoneJobs)
                     .Include(handy => handy.Address)
                     .Where(man => man.FirstName.Contains(searchParams.FirstName) &&
-                                  man.LastName.Contains(searchParams.LastName))
+                                  man.LastName.Contains(searchParams.LastName) && man.Verified)
                     .ToList();
             }
             else if (searchByFirstName && !searchByLastName) //TF
@@ -144,7 +144,7 @@ namespace DataAccessLayer.repositories
                     .Include(handy => handy.Trades)
                     .Include(handy => handy.DoneJobs)
                     .Include(handy => handy.Address)
-                    .Where(man => man.FirstName.Contains(searchParams.FirstName))
+                    .Where(man => man.FirstName.Contains(searchParams.FirstName) && man.Verified)
                     .ToList();
             }
             else if (!searchByFirstName && searchByLastName) //FT
@@ -153,7 +153,7 @@ namespace DataAccessLayer.repositories
                     .Include(handy => handy.Trades)
                     .Include(handy => handy.DoneJobs)
                     .Include(handy => handy.Address)
-                    .Where(man => man.LastName.Contains(searchParams.LastName))
+                    .Where(man => man.LastName.Contains(searchParams.LastName) && man.Verified)
                     .ToList();
             }
 

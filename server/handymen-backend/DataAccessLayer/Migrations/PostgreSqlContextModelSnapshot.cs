@@ -126,6 +126,12 @@ namespace DataAccessLayer.Migrations
                     b.Property<int?>("AddressId")
                         .HasColumnType("integer");
 
+                    b.Property<double>("AverageRate")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("City")
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
                         .HasColumnType("text");
 

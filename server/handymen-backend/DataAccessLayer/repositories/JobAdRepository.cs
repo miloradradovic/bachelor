@@ -17,6 +17,7 @@ namespace DataAccessLayer.repositories
         public Job GetJobByJobAdAndHandyman(int jobAd, int handyman);
         public Job GetJobByJobAd(int jobAd);
         public Offer GetOfferByJobAd(int jobAd);
+        public List<JobAd> GetAllByCity(string city);
     }
     
     public class JobAdRepository : IJobAdRepository
@@ -55,6 +56,17 @@ namespace DataAccessLayer.repositories
                 .Include(ad => ad.Address)
                 .SingleOrDefault(jobad => jobad.Id == id);
             return found;
+        }
+
+        public List<JobAd> GetAllByCity(string city)
+        {
+            List<JobAd> result = _context.JobAd.Include(ad => ad.Address)
+                .Include(ad => ad.Owner)
+                .Include(ad => ad.Trades)
+                .Include(ad => ad.AdditionalJobAdInfo)
+                .Where(ad => ad.Address.Name.Contains(city))
+                .ToList();
+            return result;
         }
 
         public List<JobAd> GetAll()

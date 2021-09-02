@@ -30,9 +30,16 @@ namespace Model.dto
                 Role = Role.HANDYMAN,
                 Verified = false,
                 Radius = Location.Radius,
-                Address = Location.ToLocation()
+                Address = Location.ToLocation(),
+                City = GetCity()
                 // list of trades will be mapped later
             };
+        }
+
+        private string GetCity()
+        {
+            string[] splitted = Location.Name.Split(',');
+            return splitted[splitted.Length - 2].Trim();
         }
         
         public User ToUser()

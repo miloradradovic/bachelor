@@ -13,6 +13,8 @@ namespace Model.models
         
         public double Radius { get; set; }
         public virtual List<Offer> Offers { get; set; }
+        public double AverageRate { get; set; }
+        public string City { get; set; }
 
         public RegistrationRequestDataDTO ToRegistrationRequestDataDTO()
         {
@@ -32,7 +34,7 @@ namespace Model.models
             return new DetailedHandymanDTO()
             {
                 Address = Address.ToLocationDTO(),
-                AvgRating = CalculateAverageRate(),
+                AvgRating = AverageRate,
                 Email = Email,
                 Id = Id,
                 Name = FirstName + " " + LastName,
@@ -114,7 +116,7 @@ namespace Model.models
             return trades;
         }
 
-        public double CalculateAverageRate()
+        public void CalculateAverageRate()
         {
             int sum = 0;
             foreach (Rating rating in Ratings)
@@ -124,9 +126,9 @@ namespace Model.models
 
             if (Ratings.Count == 0)
             {
-                return 0.0;
+                AverageRate = 0.0;
             }
-            return sum / Ratings.Count;
+            AverageRate = sum / Ratings.Count;
             
         }
 
@@ -146,7 +148,8 @@ namespace Model.models
                     Name = Address.Name,
                     Radius = Radius
                 },
-                Trades = TradesToString()
+                Trades = TradesToString(),
+                AverageRate = AverageRate
             };
         }
     }

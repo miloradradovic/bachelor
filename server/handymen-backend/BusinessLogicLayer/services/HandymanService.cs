@@ -90,6 +90,7 @@ namespace BusinessLogicLayer.services
             }
 
             request.Password = BC.HashPassword(request.Password);
+            request.AverageRate = 0.0;
             HandyMan saved = _handymanRepository.Create(request);
 
             if (saved == null)
@@ -245,7 +246,7 @@ namespace BusinessLogicLayer.services
             if (!searchByTrades && !searchByFirstName && !searchByLastName && searchParams.AvgRatingFrom == 0 &&
                 searchParams.AvgRatingTo == 5 && !searchByAddress)
             {
-                result = _handymanRepository.GetAll();
+                result = _handymanRepository.GetAllVerified();
             }
             else
             {
@@ -275,12 +276,12 @@ namespace BusinessLogicLayer.services
             
             foreach (HandyMan handyMan in list)
             {
-                double avg = handyMan.CalculateAverageRate();
+                double avg = handyMan.AverageRate;
                 if (searchByTrades && searchByAddress)
                 {
                     if (CheckTrades(handyMan.Trades, searchParams.Trades) &&
                         avg >= searchParams.AvgRatingFrom &&
-                        avg <= searchParams.AvgRatingTo && CheckAddress(handyMan, searchParams.Address))
+                        avg <= searchParams.AvgRatingTo && CheckAddress(handyMan, searchParams.Address) && handyMan.Verified)
                     {
                         result.Add(handyMan);
                     }
@@ -289,7 +290,7 @@ namespace BusinessLogicLayer.services
                 {
                     if (CheckTrades(handyMan.Trades, searchParams.Trades) &&
                         avg >= searchParams.AvgRatingFrom &&
-                        avg <= searchParams.AvgRatingTo)
+                        avg <= searchParams.AvgRatingTo && handyMan.Verified)
                     {
                         result.Add(handyMan);
                     }
@@ -298,7 +299,7 @@ namespace BusinessLogicLayer.services
                 {
                     if (CheckAddress(handyMan, searchParams.Address) &&
                         avg >= searchParams.AvgRatingFrom &&
-                        avg <= searchParams.AvgRatingTo)
+                        avg <= searchParams.AvgRatingTo && handyMan.Verified)
                     {
                         result.Add(handyMan);
                     }
@@ -306,7 +307,7 @@ namespace BusinessLogicLayer.services
                 else
                 {
                     if (avg >= searchParams.AvgRatingFrom &&
-                        avg <= searchParams.AvgRatingTo)
+                        avg <= searchParams.AvgRatingTo && handyMan.Verified)
                     {
                         result.Add(handyMan);
                     }

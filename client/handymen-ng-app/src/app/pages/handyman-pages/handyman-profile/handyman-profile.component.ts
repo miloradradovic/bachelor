@@ -50,7 +50,8 @@ export class HandymanProfileComponent implements OnInit {
       address: ['Aleksandra Tisme 3, 21101 Novi Sad City, Serbia', [Validators.required]],
       category: [null],
       profession: [null],
-      selectedTrades: [[]]
+      selectedTrades: [[]],
+      averageRate: [null, Validators.required]
     });
   }
 
@@ -76,6 +77,7 @@ export class HandymanProfileComponent implements OnInit {
         this.form.controls.firstName.setValue(result.responseObject.firstName);
         this.form.controls.lastName.setValue(result.responseObject.lastName);
         this.form.controls.address.setValue(result.responseObject.location.name);
+        this.form.controls.averageRate.setValue(result.responseObject.averageRate);
         this.currentLocation = new LocationModel(result.responseObject.location.latitude, result.responseObject.location.longitude,
           result.responseObject.location.name, result.responseObject.location.radius);
         this.currentTrades = result.responseObject.trades;

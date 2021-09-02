@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(PostgreSqlContext))]
-    [Migration("20210824143035_final")]
-    partial class final
+    [Migration("20210902203016_migr")]
+    partial class migr
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -127,6 +127,12 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<int?>("AddressId")
                         .HasColumnType("integer");
+
+                    b.Property<double>("AverageRate")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("City")
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .HasColumnType("text");
