@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.services;
+using handymen_backend.jwt;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Model.models;
@@ -22,6 +23,14 @@ namespace handymen_backend.Controllers
         public IActionResult GetCategories()
         {
             ApiResponse response = _categoryService.GetCategories();
+            return Ok(response);
+        }
+
+        [HttpGet("get-categories-with-professions")]
+        [Authorize(Roles.USER)]
+        public IActionResult GetCategoriesWithProfessions()
+        {
+            ApiResponse response = _categoryService.GetCategoriesWithProfessions();
             return Ok(response);
         }
     }

@@ -14,8 +14,20 @@ namespace Model.models
             return new CategoryDTO()
             {
                 Id = Id,
-                Name = Name
+                Name = Name,
+                Professions = ManageProfessions()
             };
+        }
+
+        private List<string> ManageProfessions()
+        {
+            List<string> professions = new List<string>();
+            foreach (Profession profession in Professions)
+            {
+                professions.Add(profession.Name);
+            }
+
+            return professions;
         }
     }
 }

@@ -14,4 +14,8 @@ export class CategoryService {
   getCategories(): Observable<any> {
     return this.http.get('https://localhost:5001/api/categories', {headers: this.headers, responseType: 'json'})
   }
+
+  getCategoriesWithProfessions(): Observable<any> {
+    return this.http.get('https://localhost:5001/api/categories/get-categories-with-professions', {headers: this.headers, responseType: 'json'})
+  }
 }

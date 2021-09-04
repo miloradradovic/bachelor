@@ -7,9 +7,25 @@ import {TradeService} from '../../../services/trade.service';
 import {HandymanService} from '../../../services/handyman.service';
 import {MatSelectChange} from '@angular/material/select';
 import {SearchParams} from '../../../model/search-params';
-import {RegisteringDecideComponent} from '../../dialogs/registering-decide/registering-decide.component';
 import {MatDialog} from '@angular/material/dialog';
 import {DetailedHandymanDialogComponent} from '../../dialogs/detailed-handyman-dialog/detailed-handyman-dialog.component';
+import {FlatTreeControl} from '@angular/cdk/tree';
+import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import {CategoryService} from '../../../services/category.service';
+
+
+interface Node {
+  name: string;
+  children?: Node[]
+}
+
+/** Flat node with expandable and level information */
+interface ExampleFlatNode {
+  expandable: boolean;
+  name: string;
+  level: number;
+}
+
 
 @Component({
   selector: 'app-handymen-dashboard',
@@ -18,10 +34,27 @@ import {DetailedHandymanDialogComponent} from '../../dialogs/detailed-handyman-d
 })
 export class HandymenDashboardComponent implements OnInit {
 
+  private _transformer = (node: Node, level: number) => {
+    return {
+      expandable: !!node.children && node.children.length > 0,
+      name: node.name,
+      level: level,
+    };
+  }
+
+  treeControl = new FlatTreeControl<ExampleFlatNode>(
+    node => node.level, node => node.expandable);
+
+  treeFlattener = new MatTreeFlattener(
+    this._transformer, node => node.level, node => node.expandable, node => node.children);
+
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
   form: FormGroup;
   private fb: FormBuilder;
   trades = []
   handymen = []
+  handymanProfession = '';
 
   constructor(
     fb: FormBuilder,
@@ -30,7 +63,8 @@ export class HandymenDashboardComponent implements OnInit {
     private snackBar: MatSnackBar,
     private tradeService: TradeService,
     private handymanService: HandymanService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private categoryService: CategoryService
   ) {
     this.fb = fb;
     this.form = this.fb.group({
@@ -42,10 +76,30 @@ export class HandymenDashboardComponent implements OnInit {
       address: [null]
     });
   }
+  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   ngOnInit(): void {
     this.getHandymen();
     this.getTrades();
+    this.getCategoriesWithProfessions();
+  }
+
+  getCategoriesWithProfessions() {
+    this.categoryService.getCategoriesWithProfessions().subscribe(
+      result => {
+        let treeData = [];
+        result.responseObject.forEach((item, index) => {
+          let node = {name: item.name, children: []};
+          item.professions.forEach((item, index) => {
+            node.children.push({name: item, children: [], selected: false})
+          })
+          treeData.push(node);
+        })
+        this.dataSource.data = treeData;
+      }, error => {
+
+      }
+    )
   }
 
   getTrades() {
@@ -105,5 +159,19 @@ export class HandymenDashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.getHandymen();
     });
+  }
+
+  getTradesByProfession(profession: string) {
+    /*
+    this.tradeService.getTradesByProfessionName(profession).subscribe(
+      result => {
+        this.trades = result.responseObject;
+      },
+      error => {
+        this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
+      }
+    );
+    
+     */
   }
 }

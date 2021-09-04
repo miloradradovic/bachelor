@@ -11,6 +11,7 @@ namespace BusinessLogicLayer.services
         public ApiResponse GetCategories();
         public Category GetById(int id);
         public List<Category> GetAll();
+        public ApiResponse GetCategoriesWithProfessions();
     }
     
     public class CategoryService: ICategoryService
@@ -48,6 +49,23 @@ namespace BusinessLogicLayer.services
         public List<Category> GetAll()
         {
             return _categoryRepository.GetCategories();
+        }
+
+        public ApiResponse GetCategoriesWithProfessions()
+        {
+            List<Category> categories = GetAll();
+            List<CategoryDTO> dtos = new List<CategoryDTO>();
+            foreach (Category category in categories)
+            {
+                dtos.Add(category.ToCategoryDTO());
+            }
+
+            return new ApiResponse()
+            {
+                Message = "Uspesno dobavljene kategorije sa profesijama.",
+                ResponseObject = dtos,
+                Status = 200
+            };
         }
     }
 }

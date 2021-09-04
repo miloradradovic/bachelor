@@ -1,6 +1,6 @@
-browse po kategorijama i profesijama
+browse po kategorijama i profesijama - treba izmijeniti da dobavi samo majstore izabrane profesije i usluge te profesije, i inicijalni odabir
 budzet 0 urgent false // done
-slike za oglas za posao
-pri ponudi poslova moraju da se poklope usluge
+slike za oglas za posao // done
+pri ponudi poslova moraju da se poklope usluge // done
 prosecna ocjena za majstora na profilu // done
 mjesto kod majstora // done
