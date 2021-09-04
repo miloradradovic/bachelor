@@ -19,9 +19,15 @@
             <mat-error *ngIf="firstForm.controls.description.touched && firstForm.controls.description.errors?.required">
               Ovo polje ne sme biti prazno!</mat-error >
           </mat-form-field>
+          <div style="display: inline-block" *ngFor="let picture of pictures">
+            <img [title]="'Klik da biste obrisali'" (click)="clickedPicture(picture)" class="picture" style="max-width:400px;max-height:200px;" [src] = picture alt="https://via.placeholder.com/200"/>
+          </div>
+          <br>
+          <button [disabled]="pictures.length === 5" style="margin-right: 3%;" type="button" mat-raised-button (click)="fileInput.click()">Dodaj slike</button>
+          <input (change)="onFileChanged($event)" hidden #fileInput type="file" id="file">
 
-          <div>
-            <button [disabled]="firstForm.invalid" mat-button matStepperNext (click)="clicked('firstFormNext')">Sledece</button>
+          <div style="padding-top: 5%">
+            <button [disabled]="firstForm.invalid || pictures.length < 5" mat-button matStepperNext (click)="clicked('firstFormNext')">Sledece</button>
           </div>
         </form>
       </mat-step>

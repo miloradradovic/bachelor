@@ -8,6 +8,7 @@ import {InterestService} from '../../../services/interest.service';
 import {CreateInterestDialogComponent} from '../../dialogs/create-interest-dialog/create-interest-dialog.component';
 import {InterestModel} from '../../../model/interest.model';
 import {OfferService} from '../../../services/offer.service';
+import {PicturesDialogComponent} from '../../dialogs/pictures-dialog/pictures-dialog.component';
 
 @Component({
   selector: 'app-offer-dashboard',
@@ -65,6 +66,13 @@ export class OfferDashboardComponent implements OnInit {
       }
     });
 
+  }
+
+  viewPics(pictures) {
+    const dialogRef = this.dialog.open(PicturesDialogComponent, {
+      width: '80%',
+      data: {pictures: pictures}
+    });
   }
 
 }

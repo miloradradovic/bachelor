@@ -24,7 +24,7 @@ export class JobAdService {
     return this.http.get('https://localhost:5001/api/job-ads/get-job-ads-by-handyman', {headers: this.headers, responseType: 'json'});
   }
 
-  getJobAdsWithNoOfferByUser(): Observable<any> {
-    return this.http.get('https://localhost:5001/api/job-ads/get-job-ads-by-user-no-offer', {headers: this.headers, responseType: 'json'})
+  getJobAdsWithNoOfferByUser(data: { handyTrades: [] }): Observable<any> {
+    return this.http.post('https://localhost:5001/api/job-ads/get-job-ads-by-user-no-offer', data, {headers: this.headers, responseType: 'json'})
   }
 }

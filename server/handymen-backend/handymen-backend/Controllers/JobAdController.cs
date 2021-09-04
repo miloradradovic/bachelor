@@ -24,7 +24,7 @@ namespace handymen_backend.Controllers
         [Authorize(Roles.USER)]
         public IActionResult CreateJobAd([FromBody] JobAdDTO jobAdDto)
         {
-            ApiResponse response = _jobAdService.CreateJobAd(jobAdDto.ToJobAd(), jobAdDto.Trades, (User) HttpContext.Items["LoggedIn"]);
+            ApiResponse response = _jobAdService.CreateJobAd(jobAdDto.ToJobAd(), jobAdDto.Trades, (User) HttpContext.Items["LoggedIn"], jobAdDto.Pictures);
             if (response.Status == 400)
             {
                 return BadRequest(response);
@@ -49,11 +49,11 @@ namespace handymen_backend.Controllers
             return Ok(response);
         }
 
-        [HttpGet("get-job-ads-by-user-no-offer")]
+        [HttpPost("get-job-ads-by-user-no-offer")]
         [Authorize(Roles.USER)]
-        public IActionResult GetJobAdsByUserWithNoOffer()
+        public IActionResult GetJobAdsByUserWithNoOffer([FromBody] TradesDTO tradesDto)
         {
-            ApiResponse response = _jobAdService.GetJobAdsByUserNoOffer((User) HttpContext.Items["LoggedIn"]);
+            ApiResponse response = _jobAdService.GetJobAdsByUserNoOffer((User) HttpContext.Items["LoggedIn"], tradesDto.HandyTrades);
             return Ok(response);
         }
     }

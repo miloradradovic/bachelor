@@ -63,7 +63,6 @@ export class HandymenDashboardComponent implements OnInit {
     this.handymanService.getAllHandymen().subscribe(
       result => {
         this.handymen = result.responseObject;
-        console.log(this.handymen);
       },
       error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});

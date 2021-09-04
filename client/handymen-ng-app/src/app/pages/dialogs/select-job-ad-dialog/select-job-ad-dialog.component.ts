@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {JobAdService} from '../../../services/job-ad.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-select-job-ad-dialog',
@@ -19,7 +19,8 @@ export class SelectJobAdDialogComponent implements OnInit {
     fb: FormBuilder,
     private jobAdService: JobAdService,
     public snackBar: MatSnackBar,
-    public dialogRef: MatDialogRef<SelectJobAdDialogComponent>
+    public dialogRef: MatDialogRef<SelectJobAdDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {handyTrades: []}
   ) {
     this.fb = fb;
     this.form = this.fb.group({
@@ -32,7 +33,7 @@ export class SelectJobAdDialogComponent implements OnInit {
   }
 
   getJobAds() {
-    this.jobAdService.getJobAdsWithNoOfferByUser().subscribe(
+    this.jobAdService.getJobAdsWithNoOfferByUser(this.data).subscribe(
       result => {
         this.jobAds = result.responseObject;
       }, error => {

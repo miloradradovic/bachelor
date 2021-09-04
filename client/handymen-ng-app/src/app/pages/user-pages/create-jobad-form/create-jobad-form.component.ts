@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LocationModel} from '../../../model/location.model';
 import {Router} from '@angular/router';
@@ -34,6 +34,8 @@ export class CreateJobadFormComponent implements OnInit {
   fillOutAdditionalData = false;
   urgents = [{boolVal: true, name: 'Da'}, {boolVal: false, name: 'Ne'}];
   fiveDaysAhead: Date;
+  pictures = [];
+  @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(fb: FormBuilder,
               public router: Router,
@@ -157,7 +159,8 @@ export class CreateJobadFormComponent implements OnInit {
         this.currentLocation,
         null,
         this.secondForm.value.date,
-        this.thirdForm.value.selectedTrades
+        this.thirdForm.value.selectedTrades,
+        this.pictures
       )
     } else {
       jobAd = new JobAdModel(
@@ -167,7 +170,8 @@ export class CreateJobadFormComponent implements OnInit {
         this.currentLocation,
         new AdditionalJobAdInfoModel(0, this.fourthForm.value.urgent, this.fourthForm.value.maxPrice),
         this.secondForm.value.date,
-        this.thirdForm.value.selectedTrades
+        this.thirdForm.value.selectedTrades,
+        this.pictures
       )
     }
 
@@ -189,5 +193,35 @@ export class CreateJobadFormComponent implements OnInit {
 
   changedMatStep($event: StepperSelectionEvent) {
     this.secondFormClicked = $event.selectedIndex === 1;
+  }
+
+  onFileChanged = (event: any) => {
+    const file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
+    const pattern = /image-*/;
+    const reader = new FileReader();
+    if (!file) {
+      return;
+    }
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      return;
+    }
+    reader.onload = this.handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+    this.fileInput.nativeElement.value = '';
+  }
+  handleReaderLoaded = (event: any) => {
+    const reader = event.target;
+    const picture = reader.result.replace(/(\r\n\t|\n|\r\t)/gm, '');
+    this.pictures.push(picture);
+  }
+
+  clickedPicture(picture: any) {
+    this.pictures.forEach((item, index) => {
+      if(item === picture) {
+        this.pictures.splice(index, 1);
+        return;
+      }
+    })
   }
 }

@@ -10,11 +10,11 @@ namespace BusinessLogicLayer.services
 
     public interface IJobAdService
     {
-        public ApiResponse CreateJobAd(JobAd jobAd, List<string> Trades, User loggedIn);
+        public ApiResponse CreateJobAd(JobAd jobAd, List<string> Trades, User loggedIn, List<string> pictures);
         public ApiResponse GetJobAdsForCurrentHandyman(HandyMan handyMan);
         public JobAd GetById(int id);
         public ApiResponse GetJobAdsByUser(User user);
-        public ApiResponse GetJobAdsByUserNoOffer(User user);
+        public ApiResponse GetJobAdsByUserNoOffer(User user, List<string> trades);
     }
     
     public class JobAdService : IJobAdService
@@ -34,7 +34,7 @@ namespace BusinessLogicLayer.services
             _locationService = locationService;
         }
 
-        public ApiResponse CreateJobAd(JobAd jobAd, List<string> trades, User loggedIn)
+        public ApiResponse CreateJobAd(JobAd jobAd, List<string> trades, User loggedIn, List<string> pictures)
         {
             jobAd.Owner = loggedIn;
             Location foundLocation = _locationService.GetByLatAndLng(jobAd.Address.Latitude, jobAd.Address.Longitude);
@@ -66,6 +66,17 @@ namespace BusinessLogicLayer.services
                     jobAd.Trades.Add(found);
                 }
             }
+
+            List<Picture> picturesObj = new List<Picture>();
+            foreach (string picture in pictures)
+            {
+                picturesObj.Add(new Picture()
+                {
+                    Name = picture
+                });
+            }
+
+            jobAd.Pictures = picturesObj;
 
             JobAd created = _jobAdRepository.CreateJobAd(jobAd);
 
@@ -154,6 +165,29 @@ namespace BusinessLogicLayer.services
             return true;
         }
 
+        private bool CheckTradesString(List<string> handyTrades, List<Trade> adTrades)
+        {
+            foreach (Trade adTrade in adTrades)
+            {
+                bool check = false;
+                foreach (string handymanTrade in handyTrades)
+                {
+                    if (handymanTrade == adTrade.Name)
+                    {
+                        check = true;
+                        break;
+                    }
+                }
+
+                if (!check)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private bool DetermineCircle(Location handymanAddress, double handymanRadius, Location adAddress)
         {
             return Math.Sqrt(Math.Pow(Math.Abs(handymanAddress.Latitude - adAddress.Latitude), 2) +
@@ -182,7 +216,7 @@ namespace BusinessLogicLayer.services
             };
         }
 
-        public ApiResponse GetJobAdsByUserNoOffer(User user)
+        public ApiResponse GetJobAdsByUserNoOffer(User user, List<string> trades)
         {
             List<JobAd> userJobAds = user.JobAds;
             List<JobAdDashboardDTO> jobAdDashboardDtos = new List<JobAdDashboardDTO>();
@@ -191,7 +225,10 @@ namespace BusinessLogicLayer.services
                 if (_jobAdRepository.GetJobByJobAd(jobAd.Id) == null && _jobAdRepository.GetOfferByJobAd(jobAd.Id) == null)
                 {
                     JobAd fullJobAd = _jobAdRepository.GetById(jobAd.Id);
-                    jobAdDashboardDtos.Add(fullJobAd.ToJobAdDashboardDTO());
+                    if (CheckTradesString(trades, fullJobAd.Trades))
+                    {
+                        jobAdDashboardDtos.Add(fullJobAd.ToJobAdDashboardDTO());
+                    }
                 } 
             }
 

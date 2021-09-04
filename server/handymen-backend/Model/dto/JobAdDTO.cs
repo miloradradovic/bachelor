@@ -13,7 +13,8 @@ namespace Model.dto
         public AdditionalJobAdInfoDTO AdditionalJobAdInfo { get; set; }
         public DateTime DateWhen { get; set; }
         public List<string> Trades { get; set; }
-
+        public List<string> Pictures { get; set; }
+ 
         public JobAd ToJobAd()
         {
             if (AdditionalJobAdInfo == null)

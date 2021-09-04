@@ -9,8 +9,9 @@ export class JobAdModel {
   public additionalJobAdInfo: AdditionalJobAdInfoModel
   public dateWhen: Date
   public trades: string[]
+  public pictures: string[]
 
-  constructor(id: number, title: string, description: string, address: LocationModel, additionalJobAdInfo: AdditionalJobAdInfoModel, dateWhen: Date, trades: string[]) {
+  constructor(id: number, title: string, description: string, address: LocationModel, additionalJobAdInfo: AdditionalJobAdInfoModel, dateWhen: Date, trades: string[], pictures: string[]) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -18,5 +19,6 @@ export class JobAdModel {
     this.additionalJobAdInfo = additionalJobAdInfo;
     this.dateWhen = dateWhen;
     this.trades = trades;
+    this.pictures = pictures;
   }
 }

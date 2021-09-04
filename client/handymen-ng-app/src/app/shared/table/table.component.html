@@ -53,6 +53,12 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="Pictures">
+      <th mat-header-cell *matHeaderCellDef> Slike </th>
+      <td mat-cell *matCellDef="let element">  <button mat-raised-button color="primary" (click)="viewPics(element.pictures)">Vidi slike</button>
+      </td>
+    </ng-container>
+
     <tr  mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
   </table>

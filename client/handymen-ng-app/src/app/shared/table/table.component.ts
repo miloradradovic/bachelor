@@ -19,6 +19,7 @@ export class TableComponent {
   @Output() RateJob = new EventEmitter<number>();
   @Output() Verify = new EventEmitter<number>();
   @Output() Decline = new EventEmitter<number>();
+  @Output() ViewPics = new EventEmitter<any>();
 
   constructor() {
 
@@ -74,5 +75,9 @@ export class TableComponent {
 
   decline(id) {
     this.Decline.emit(id);
+  }
+
+  viewPics(pics) {
+    this.ViewPics.emit(pics);
   }
 }

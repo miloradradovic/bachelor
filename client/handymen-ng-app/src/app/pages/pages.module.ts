@@ -25,6 +25,7 @@ import { HandymanProfileComponent } from './handyman-pages/handyman-profile/hand
 import { UserProfileComponent } from './user-pages/user-profile/user-profile.component';
 import { RegistrationRequestsDashboardComponent } from './admin-pages/registration-requests-dashboard/registration-requests-dashboard.component';
 import { DeclineReasonDialogComponent } from './dialogs/decline-reason-dialog/decline-reason-dialog.component';
+import { PicturesDialogComponent } from './dialogs/pictures-dialog/pictures-dialog.component';
 
 
 
@@ -49,7 +50,8 @@ import { DeclineReasonDialogComponent } from './dialogs/decline-reason-dialog/de
     HandymanProfileComponent,
     UserProfileComponent,
     RegistrationRequestsDashboardComponent,
-    DeclineReasonDialogComponent
+    DeclineReasonDialogComponent,
+    PicturesDialogComponent
   ],
   imports: [
     CommonModule,

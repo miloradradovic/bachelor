@@ -9,6 +9,11 @@ html { background-color: #323232; color: snow}
   cursor: pointer;
 }
 
+.picture:hover {
+  cursor: pointer;
+  border: #EEEEEE solid;
+}
+
 .background{
   background-image: url(assets/img/background.jpg);
   filter: brightness(30%);

@@ -31,6 +31,7 @@ export class DetailedHandymanDialogComponent implements OnInit {
   longitude: number = 0;
   radius: number = 0;
   enableOffer: boolean = true;
+  trades = [];
 
 
   constructor(public dialogRef: MatDialogRef<DetailedHandymanDialogComponent>,
@@ -59,6 +60,7 @@ export class DetailedHandymanDialogComponent implements OnInit {
         this.handymanName = resultObj.name;
         this.radius = resultObj.radius;
         this.comments = resultObj.ratings;
+        this.trades = resultObj.trades;
         if (this.comments.length == 0) {
           this.commentsEmpty = true;
         } else {
@@ -101,7 +103,8 @@ export class DetailedHandymanDialogComponent implements OnInit {
 
   offerJob() {
     const dialogRef = this.dialog.open(SelectJobAdDialogComponent, {
-      width: '30%'
+      width: '30%',
+      data: {handyTrades: this.trades}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

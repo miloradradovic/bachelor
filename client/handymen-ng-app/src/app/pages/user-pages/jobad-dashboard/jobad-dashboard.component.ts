@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {JobAdService} from '../../../services/job-ad.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {PicturesDialogComponent} from '../../dialogs/pictures-dialog/pictures-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-jobad-dashboard',
@@ -13,7 +15,8 @@ export class JobadDashboardComponent implements OnInit {
 
   constructor(
     private jobAdService: JobAdService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -28,6 +31,13 @@ export class JobadDashboardComponent implements OnInit {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
     )
+  }
+
+  viewPics(pictures) {
+    const dialogRef = this.dialog.open(PicturesDialogComponent, {
+      width: '80%',
+      data: {pictures: pictures}
+    });
   }
 
 }

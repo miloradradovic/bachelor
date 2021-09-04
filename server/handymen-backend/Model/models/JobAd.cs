@@ -14,6 +14,7 @@ namespace Model.models
         public AdditionalJobAdInfo AdditionalJobAdInfo { get; set; }
         public DateTime DateWhen { get; set; }
         public virtual List<Trade> Trades { get; set; }
+        public virtual List<Picture> Pictures { get; set; }
 
         public JobAdDTO ToJobAdDTO()
         {
@@ -54,7 +55,8 @@ namespace Model.models
                     Id = Id,
                     MaxPrice = 0,
                     Title = Title,
-                    Urgent = "Ne"
+                    Urgent = "Ne",
+                    Pictures = ManagePictures()
                 };
             }
 
@@ -66,8 +68,20 @@ namespace Model.models
                 Id = Id,
                 MaxPrice = AdditionalJobAdInfo.PriceMax,
                 Title = Title,
-                Urgent = ManageUrgent()
+                Urgent = ManageUrgent(),
+                Pictures = ManagePictures()
             };
+        }
+
+        private List<string> ManagePictures()
+        {
+            List<string> pictures = new List<string>();
+            foreach (Picture picture in Pictures)
+            {
+                pictures.Add(picture.Name);
+            }
+
+            return pictures;
         }
 
         private string ManageUrgent()

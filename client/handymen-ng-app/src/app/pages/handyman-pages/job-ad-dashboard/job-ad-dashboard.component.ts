@@ -7,6 +7,7 @@ import {InterestService} from '../../../services/interest.service';
 import {InterestModel} from '../../../model/interest.model';
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {PicturesDialogComponent} from '../../dialogs/pictures-dialog/pictures-dialog.component';
 
 @Component({
   selector: 'app-job-ad-dashboard',
@@ -62,5 +63,12 @@ export class JobAdDashboardComponent implements OnInit {
       }
     });
 
+  }
+
+  viewPics(pictures) {
+    const dialogRef = this.dialog.open(PicturesDialogComponent, {
+      width: '80%',
+      data: {pictures: pictures}
+    });
   }
 }

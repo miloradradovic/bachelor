@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Model.dto
 {
@@ -11,5 +12,6 @@ namespace Model.dto
         public double MaxPrice { get; set; }
         public string Urgent { get; set; }
         public DateTime DateWhen { get; set; }
+        public List<string> Pictures { get; set; }
     }
 }

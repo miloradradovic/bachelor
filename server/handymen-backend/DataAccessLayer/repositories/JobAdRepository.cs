@@ -39,7 +39,7 @@ namespace DataAccessLayer.repositories
 
         public List<JobAd> GetJobAdsForCurrentHandyman(HandyMan handyMan)
         {
-            List<JobAd> result = (from jobad in _context.JobAd.Include(jobad => jobad.Trades).Include(jobad => jobad.Owner).Include(jobad => jobad.AdditionalJobAdInfo)
+            List<JobAd> result = (from jobad in _context.JobAd.Include(jobad => jobad.Pictures).Include(jobad => jobad.Trades).Include(jobad => jobad.Owner).Include(jobad => jobad.AdditionalJobAdInfo)
                 where (handyMan.Trades.Any(item => jobad.Trades.Contains(item))) && 
                       (Math.Sqrt(Math.Pow(Math.Abs(handyMan.Address.Latitude - jobad.Address.Latitude), 2) + 
                                  Math.Pow(Math.Abs(handyMan.Radius - jobad.Address.Longitude), 2)) <= handyMan.Radius)
@@ -54,6 +54,7 @@ namespace DataAccessLayer.repositories
                 .Include(ad => ad.Owner)
                 .Include(ad => ad.AdditionalJobAdInfo)
                 .Include(ad => ad.Address)
+                .Include(jobad => jobad.Pictures)
                 .SingleOrDefault(jobad => jobad.Id == id);
             return found;
         }
@@ -64,6 +65,7 @@ namespace DataAccessLayer.repositories
                 .Include(ad => ad.Owner)
                 .Include(ad => ad.Trades)
                 .Include(ad => ad.AdditionalJobAdInfo)
+                .Include(jobad => jobad.Pictures)
                 .Where(ad => ad.Address.Name.Contains(city))
                 .ToList();
             return result;
@@ -75,6 +77,7 @@ namespace DataAccessLayer.repositories
                 .Include(ad => ad.Owner)
                 .Include(ad => ad.Trades)
                 .Include(ad => ad.AdditionalJobAdInfo)
+                .Include(jobad => jobad.Pictures)
                 .ToList();
             return result;
         }
