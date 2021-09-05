@@ -58,9 +58,19 @@ namespace handymen_backend.Controllers
         }
         
         [HttpPost("search")]
+        [Authorize(Roles.USER)]
         public IActionResult Search([FromBody] SearchParams searchParams)
         {
             ApiResponse response = _personService.SearchHandymen(searchParams);
+
+            return Ok(response);
+        }
+        
+        [HttpPost("filter")]
+        [Authorize(Roles.USER)]
+        public IActionResult Filter([FromBody] SearchParams searchParams)
+        {
+            ApiResponse response = _personService.FilterHandymen(searchParams);
 
             return Ok(response);
         }
@@ -111,6 +121,14 @@ namespace handymen_backend.Controllers
         public IActionResult GetRequests()
         {
             ApiResponse response = _personService.GetUnverifiedHandymen();
+            return Ok(response);
+        }
+
+        [HttpGet("get-by-profession/{professionName}")]
+        [Authorize(Roles.USER)]
+        public IActionResult GetByProfession([FromRoute] string professionName)
+        {
+            ApiResponse response = _personService.GetHandymenByProfessionName(professionName);
             return Ok(response);
         }
     }

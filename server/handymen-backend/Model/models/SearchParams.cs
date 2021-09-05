@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Model.dto;
 
 namespace Model.models
 {
@@ -10,5 +11,6 @@ namespace Model.models
         public int AvgRatingFrom { get; set; }
         public int AvgRatingTo { get; set; }
         public string Address { get; set; }
+        public List<HandymanDashboardDTO> Handymen { get; set; }
     }
 }

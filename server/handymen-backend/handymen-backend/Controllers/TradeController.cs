@@ -44,6 +44,18 @@ namespace handymen_backend.Controllers
             return Ok(response);
         }
 
+        [HttpGet("get-trades-by-profname/{professionName}")]
+        public IActionResult GetTradesByProfessionName([FromRoute] string professionName)
+        {
+            ApiResponse response = _tradeService.GetTradesByProfessionName(professionName);
+            if (response.Status == 400)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
         [HttpGet("get-profession-and-category-by-trades")]
         [Authorize(Roles.HANDYMAN)]
         public IActionResult GetProfessionAndCategoryByCurrentHandymanTrades()

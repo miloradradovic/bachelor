@@ -1,10 +1,8 @@
-<div class="mattreediv" style="float: left">
+<div class="mattreediv" style="float: left; height: 50%">
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
     <!-- This is the tree node template for leaf nodes -->
     <mat-tree-node *matTreeNodeDef="let node;" matTreeNodePadding>
-      <!-- use a disabled button to provide padding for tree leaf -->
-      <button (click)="getTradesByProfession(node.name)" mat-icon-button>Pregled </button>
-      {{node.name}}
+      <button style="font-size: smaller" (click)="getTradesByProfession(node.name)" mat-icon-button>{{node.name}}</button>
     </mat-tree-node>
     <!-- This is the tree node template for expandable nodes -->
     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>

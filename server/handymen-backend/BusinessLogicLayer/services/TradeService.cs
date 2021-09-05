@@ -14,6 +14,7 @@ namespace BusinessLogicLayer.services
         public ApiResponse GetAll();
         public void UpdateTrades(HandyMan updatedHandyman);
         public ApiResponse GetTradesByProfession(int professionId);
+        public ApiResponse GetTradesByProfessionName(string professionName);
         public ApiResponse GetCategoryAndProfessionByCurrentHandyman(HandyMan handyMan);
     }
     
@@ -99,6 +100,33 @@ namespace BusinessLogicLayer.services
                 return new ApiResponse()
                 {
                     Message = "Profesija sa tim id nije pronadjena.",
+                    ResponseObject = null,
+                    Status = 400
+                };
+            }
+
+            List<TradeDTO> dtos = new List<TradeDTO>();
+            foreach (Trade trade in profession.Trades)
+            {
+                dtos.Add(trade.ToTradeDTO());
+            }
+
+            return new ApiResponse()
+            {
+                Message = "Uspesno dobavljene usluge za profesiju.",
+                ResponseObject = dtos,
+                Status = 200
+            };
+        }
+
+        public ApiResponse GetTradesByProfessionName(string professionName)
+        {
+            Profession profession = _professionService.GetByName(professionName);
+            if (profession == null)
+            {
+                return new ApiResponse()
+                {
+                    Message = "Profesija sa tim imenom nije pronadjena.",
                     ResponseObject = null,
                     Status = 400
                 };

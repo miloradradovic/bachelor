@@ -10,7 +10,6 @@ import { MapComponent } from './map/map.component';
 import {RouterModule} from '@angular/router';
 import { NavbarAdminComponent } from './navbar/navbar-admin/navbar-admin.component';
 import { TableComponent } from './table/table.component';
-import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 
@@ -31,8 +30,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyA299mClrC7nDZzy92CQ4X47y7FmaBKMj4'
         }),
-        RouterModule,
-        MatPaginatorModule
+        RouterModule
     ],
   exports: [
     NavbarComponent,

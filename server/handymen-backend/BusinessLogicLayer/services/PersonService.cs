@@ -22,6 +22,8 @@ namespace BusinessLogicLayer.services
         public ApiResponse GetHandymanByIdApiResponse(int handymanId);
         public ApiResponse EditProfile(Person person, List<string> trades, string type);
         public ApiResponse GetUnverifiedHandymen();
+        public ApiResponse GetHandymenByProfessionName(string professionName);
+        public ApiResponse FilterHandymen(SearchParams searchParams);
 
     }
     
@@ -37,6 +39,11 @@ namespace BusinessLogicLayer.services
             _administratorService = administratorService;
             _handymanService = handymanService;
             _userService = userService;
+        }
+
+        public ApiResponse GetHandymenByProfessionName(string professionName)
+        {
+            return _handymanService.GetByProfessionName(professionName);
         }
 
         public Person GetById(int id)
@@ -170,6 +177,11 @@ namespace BusinessLogicLayer.services
         public ApiResponse SearchHandymen(SearchParams searchParams)
         {
             return _handymanService.Search(searchParams);
+        }
+
+        public ApiResponse FilterHandymen(SearchParams searchParams)
+        {
+            return _handymanService.Filter(searchParams);
         }
 
         public ApiResponse GetHandymanByIdApiResponse(int handymanId)

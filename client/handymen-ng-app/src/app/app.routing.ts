@@ -6,7 +6,7 @@ import {NgModule} from '@angular/core';
 import {LoginComponent} from './pages/login/login.component';
 import {RegisterUserComponent} from './pages/registration/register-user/register-user.component';
 import {RegisterHandymanComponent} from './pages/registration/register-handyman/register-handyman.component';
-import {HandymenDashboardComponent} from './pages/user-pages/handymen-dashboard/handymen-dashboard.component';
+import {HandymenDashboardComponent} from './pages/user-pages/handymen-dashboard-browse/handymen-dashboard.component';
 import {LogInGuard} from './guards/log-in-guard.service';
 import {UserGuard} from './guards/user-guard.service';
 import {HandymanGuard} from './guards/handyman-guard.service';
@@ -21,6 +21,7 @@ import {OfferDashboardComponent} from './pages/handyman-pages/offer-dashboard/of
 import {HandymanProfileComponent} from './pages/handyman-pages/handyman-profile/handyman-profile.component';
 import {UserProfileComponent} from './pages/user-pages/user-profile/user-profile.component';
 import {RegistrationRequestsDashboardComponent} from './pages/admin-pages/registration-requests-dashboard/registration-requests-dashboard.component';
+import {AllHandymenDashboardComponent} from './pages/user-pages/all-handymen-dashboard/all-handymen-dashboard.component';
 
 const routes: Routes = [
 
@@ -38,7 +39,7 @@ const routes: Routes = [
         canActivate: [LogInGuard]
       },
       {
-        path: 'handymen-dashboard',
+        path: 'handymen-dashboard-browse',
         component: HandymenDashboardComponent,
         canActivate: [UserGuard]
       },
@@ -65,6 +66,11 @@ const routes: Routes = [
       {
         path: 'profile',
         component: UserProfileComponent,
+        canActivate: [UserGuard]
+      },
+      {
+        path: 'all-handymen',
+        component: AllHandymenDashboardComponent,
         canActivate: [UserGuard]
       }
     ]

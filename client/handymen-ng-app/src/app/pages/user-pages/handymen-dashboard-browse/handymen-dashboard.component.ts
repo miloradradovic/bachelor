@@ -53,7 +53,8 @@ export class HandymenDashboardComponent implements OnInit {
   form: FormGroup;
   private fb: FormBuilder;
   trades = []
-  handymen = []
+  handymen: [] = []
+  ogHandymen: [] = [];
   handymanProfession = '';
 
   constructor(
@@ -79,8 +80,6 @@ export class HandymenDashboardComponent implements OnInit {
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   ngOnInit(): void {
-    this.getHandymen();
-    this.getTrades();
     this.getCategoriesWithProfessions();
   }
 
@@ -95,53 +94,39 @@ export class HandymenDashboardComponent implements OnInit {
           })
           treeData.push(node);
         })
+        this.handymanProfession = treeData[0].children[0].name;
+        this.getHandymenByProfession(this.handymanProfession);
+        this.getTradesByProfession(this.handymanProfession);
         this.dataSource.data = treeData;
       }, error => {
-
-      }
-    )
-  }
-
-  getTrades() {
-    this.tradeService.getTrades().subscribe(
-      result => {
-        this.trades = result.responseObject;
-      },
-      error => {
-        this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
-      }
-    )
-  }
-
-  getHandymen() {
-    this.handymanService.getAllHandymen().subscribe(
-      result => {
-        this.handymen = result.responseObject;
-      },
-      error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
     )
   }
 
   selectionChange($event: MatSelectChange) {
-    this.search();
+    this.filter();
   }
 
   onInputChange(object: Object) {
-    this.search();
+    this.filter();
   }
 
-  search() {
+  filter() {
     let searchParams: SearchParams = new SearchParams(
       this.form.value.firstName,
       this.form.value.lastName,
       this.form.value.selectedTrades,
       this.form.value.avgRatingFrom,
       this.form.value.avgRatingTo,
-      this.form.value.address
+      this.form.value.address,
+      this.ogHandymen
     )
-    this.handymanService.search(searchParams).subscribe(
+    if (searchParams.firstName === '' && searchParams.address === '' && searchParams.trades.length === 0 && searchParams.avgRatingTo === 5 && searchParams.avgRatingFrom === 0 && searchParams.lastName === '') {
+      this.getHandymenByProfession(this.handymanProfession);
+      return;
+    }
+    this.handymanService.filter(searchParams).subscribe(
       result => {
         this.handymen = result.responseObject;
       }, error => {
@@ -156,22 +141,36 @@ export class HandymenDashboardComponent implements OnInit {
       height: '80%',
       data: {handymanId: $event, enableOffer: true}
     });
-    dialogRef.afterClosed().subscribe(result => {
-      this.getHandymen();
-    });
   }
 
   getTradesByProfession(profession: string) {
-    /*
+    this.handymanProfession = profession;
     this.tradeService.getTradesByProfessionName(profession).subscribe(
       result => {
         this.trades = result.responseObject;
+        this.getHandymenByProfession(profession);
       },
       error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
     );
-    
-     */
+  }
+
+  private getHandymenByProfession(profession) {
+    this.form.controls.firstName.setValue('');
+    this.form.controls.lastName.setValue('');
+    this.form.controls.selectedTrades.setValue([]);
+    this.form.controls.avgRatingFrom.setValue(0);
+    this.form.controls.avgRatingTo.setValue(5);
+    this.form.controls.address.setValue('');
+
+    this.handymanService.getHandymenByProfession(profession).subscribe(
+      result => {
+        this.ogHandymen = result.responseObject;
+        this.handymen = result.responseObject;
+      }, error => {
+        this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
+      }
+    )
   }
 }

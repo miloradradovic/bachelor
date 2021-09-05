@@ -20,9 +20,11 @@ namespace BusinessLogicLayer.services
         public HandyMan Update(HandyMan toUpdate);
         public ApiResponse GetAll();
         public ApiResponse Search(SearchParams searchParams);
+        public ApiResponse Filter(SearchParams searchParams);
         public Rating GetDetailedRatingProfile(int ratingId);
         public ApiResponse EditProfile(HandyMan toUpdate, List<string> trades);
         public ApiResponse GetUnverifiedHandymen();
+        public ApiResponse GetByProfessionName(string professionName);
     }
     
     public class HandymanService : IHandymanService
@@ -31,13 +33,49 @@ namespace BusinessLogicLayer.services
         private readonly ITradeService _tradeService;
         private readonly IMailService _mailService;
         private readonly ILocationService _locationService;
+        private readonly IProfessionService _professionService;
 
-        public HandymanService(IHandymanRepository handymanRepository, ITradeService tradeService, IMailService mailService, ILocationService locationService)
+        public HandymanService(IHandymanRepository handymanRepository, ITradeService tradeService, IMailService mailService, ILocationService locationService, IProfessionService professionService)
         {
             _handymanRepository = handymanRepository;
             _tradeService = tradeService;
             _mailService = mailService;
             _locationService = locationService;
+            _professionService = professionService;
+        }
+
+        public ApiResponse GetByProfessionName(string professionName)
+        {
+            List<HandyMan> handymen = _handymanRepository.GetAllVerified();
+            List<HandymanDashboardDTO> handymanDashboardDtos = new List<HandymanDashboardDTO>();
+            foreach (HandyMan handy in handymen)
+            {
+                if (FindProfessionByTrade(handy.Trades[0], professionName) == professionName)
+                {
+                    handymanDashboardDtos.Add(handy.ToDahboardDTO());
+                }
+            }
+
+            return new ApiResponse()
+            {
+                Message = "Uspesno dobavljeni majstori po profesiji.",
+                ResponseObject = handymanDashboardDtos,
+                Status = 200
+            };
+        }
+
+        private string FindProfessionByTrade(Trade trade, string professionName)
+        {
+            Profession professions = _professionService.GetByName(professionName);
+            foreach (Trade trade2 in professions.Trades)
+            {
+                if (trade2.Name == trade.Name)
+                {
+                    return professions.Name;
+                }
+            }
+
+            return "";
         }
 
         public HandyMan GetById(int id)
@@ -265,6 +303,101 @@ namespace BusinessLogicLayer.services
             {
                 Message = "Uspesno odradjena pretraga.",
                 ResponseObject = handymanDashboardDtos,
+                Status = 200
+            };
+
+        }
+
+        public ApiResponse Filter(SearchParams searchParams)
+        {
+            bool filterByFirstName = false;
+            if (searchParams.FirstName != null)
+            {
+                if (searchParams.FirstName != "")
+                {
+                    filterByFirstName = true;
+                }
+            }
+
+            bool filterByLastName = false;
+            if (searchParams.LastName != null)
+            {
+                if (searchParams.LastName != "")
+                {
+                    filterByLastName = true;
+                }
+            }
+
+            bool filterByAddress = false;
+            if (searchParams.Address != null)
+            {
+                if (searchParams.Address != "")
+                {
+                    filterByAddress = true;
+                }
+            }
+
+            bool filterByTrades = false;
+            if (searchParams.Trades != null)
+            {
+                if (searchParams.Trades.Count != 0)
+                {
+                    filterByTrades = true;
+                }
+            }
+
+            List<HandyMan> handymen = new List<HandyMan>();
+            foreach (HandymanDashboardDTO dto in searchParams.Handymen)
+            {
+                handymen.Add(_handymanRepository.GetByEmail(dto.Email));
+            }
+
+            if (filterByFirstName)
+            {
+                int i = 0;
+                while (i < handymen.Count)
+                {
+                    if (handymen[i].FirstName.Contains(searchParams.FirstName) == false)
+                    {
+                        handymen.Remove(handymen[i]);
+                    }
+                    else
+                    {
+                        i = i + 1;
+                    }
+                }
+            }
+
+            if (filterByLastName)
+            {
+                int i = 0;
+                while (i < handymen.Count)
+                {
+                    if (handymen[i].LastName.Contains(searchParams.LastName) == false)
+                    {
+                        handymen.Remove(handymen[i]);
+                    }
+                    else
+                    {
+                        i = i + 1;
+                    }
+                }
+            }
+
+            List<HandyMan> result =
+                FilterByTradesAndAverageAndAddress(handymen, searchParams, filterByTrades, filterByAddress);
+
+            List<HandymanDashboardDTO> dtos = new List<HandymanDashboardDTO>();
+
+            foreach (HandyMan filtered in result)
+            {
+                dtos.Add(filtered.ToDahboardDTO());
+            }
+
+            return new ApiResponse()
+            {
+                Message = "Uspesno filtrirani majstori.",
+                ResponseObject = dtos,
                 Status = 200
             };
 

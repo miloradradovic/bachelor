@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
         this.spinnerService.hide();
         this.snackBar.open(result.message, 'Ok', {duration: 2000});
         if(loggedIn.role === 'USER') {
-          this.router.navigate(['/user/handymen-dashboard']);
+          this.router.navigate(['/user/handymen-dashboard-browse']);
         } else if(loggedIn.role === 'HANDYMAN') {
           this.router.navigate(['/handyman/jobad-dashboard']);
         } else {

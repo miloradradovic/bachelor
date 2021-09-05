@@ -10,6 +10,7 @@ namespace DataAccessLayer.repositories
     {
         public Profession GetById(int id);
         public List<Profession> GetAll();
+        public Profession GetByName(string name);
     }
     
     public class ProfessionRepository: IProfessionRepository
@@ -26,6 +27,13 @@ namespace DataAccessLayer.repositories
         {
             Profession found = _context.Professions.Include(profession => profession.Trades)
                 .SingleOrDefault(profession => profession.Id == id);
+            return found;
+        }
+
+        public Profession GetByName(string name)
+        {
+            Profession found = _context.Professions.Include(profession => profession.Trades)
+                .SingleOrDefault(profession => profession.Name == name);
             return found;
         }
 

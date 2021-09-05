@@ -8,7 +8,7 @@ import {SharedModule} from '../shared/shared.module';
 import {MaterialModule} from '../material/material.module';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HandymenDashboardComponent } from './user-pages/handymen-dashboard/handymen-dashboard.component';
+import { HandymenDashboardComponent } from './user-pages/handymen-dashboard-browse/handymen-dashboard.component';
 import { JobAdDashboardComponent } from './handyman-pages/job-ad-dashboard/job-ad-dashboard.component';
 import { CreateJobadFormComponent } from './user-pages/create-jobad-form/create-jobad-form.component';
 import { JobadDashboardComponent } from './user-pages/jobad-dashboard/jobad-dashboard.component';
@@ -26,6 +26,7 @@ import { UserProfileComponent } from './user-pages/user-profile/user-profile.com
 import { RegistrationRequestsDashboardComponent } from './admin-pages/registration-requests-dashboard/registration-requests-dashboard.component';
 import { DeclineReasonDialogComponent } from './dialogs/decline-reason-dialog/decline-reason-dialog.component';
 import { PicturesDialogComponent } from './dialogs/pictures-dialog/pictures-dialog.component';
+import { AllHandymenDashboardComponent } from './user-pages/all-handymen-dashboard/all-handymen-dashboard.component';
 
 
 
@@ -51,7 +52,8 @@ import { PicturesDialogComponent } from './dialogs/pictures-dialog/pictures-dial
     UserProfileComponent,
     RegistrationRequestsDashboardComponent,
     DeclineReasonDialogComponent,
-    PicturesDialogComponent
+    PicturesDialogComponent,
+    AllHandymenDashboardComponent
   ],
   imports: [
     CommonModule,

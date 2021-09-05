@@ -47,4 +47,12 @@ export class HandymanService {
   verify(handymanVerificationModel: HandymanVerificationModel): Observable<any> {
     return this.http.put('https://localhost:5001/api/handymen/verify', handymanVerificationModel, {headers: this.headers, responseType: 'json'});
   }
+
+  getHandymenByProfession(profession): Observable<any> {
+    return this.http.get('https://localhost:5001/api/handymen/get-by-profession/' + profession, {headers: this.headers, responseType: 'json'});
+  }
+
+  filter(searchParams: SearchParams): Observable<any> {
+    return this.http.post('https://localhost:5001/api/handymen/filter', searchParams, {headers: this.headers, responseType: 'json'});
+  }
 }
