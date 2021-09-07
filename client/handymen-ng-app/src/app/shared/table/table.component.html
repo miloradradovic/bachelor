@@ -31,13 +31,13 @@
 
     <ng-container matColumnDef="Finish job">
       <th mat-header-cell *matHeaderCellDef> Zavrsi posao </th>
-      <td mat-cell *matCellDef="let element">  <button [disabled]="element.finished" mat-raised-button color="primary" (click)="finishJob(element.id)">Zavrsi</button>
+      <td mat-cell *matCellDef="let element">  <button [disabled]="element.finished === 'Da'" mat-raised-button color="primary" (click)="finishJob(element.id)">Zavrsi</button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="Rate job">
       <th mat-header-cell *matHeaderCellDef> Ocena posla </th>
-      <td mat-cell *matCellDef="let element">  <button [disabled]="!element.finished || element.rated" mat-raised-button color="primary" (click)="rateJob(element.id)">Oceni</button>
+      <td mat-cell *matCellDef="let element">  <button [disabled]="element.finished === 'Ne' || element.rated" mat-raised-button color="primary" (click)="rateJob(element.id)">Oceni</button>
       </td>
     </ng-container>
 

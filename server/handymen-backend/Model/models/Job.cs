@@ -23,7 +23,7 @@ namespace Model.models
         {
             return new JobDashboardDTO()
             {
-                Finished = Finished,
+                Finished = ManageFinished(),
                 HandymanEmail = HandyMan.Email,
                 HandymanFirstName = HandyMan.FirstName,
                 HandymanLastName = HandyMan.LastName,
@@ -34,6 +34,16 @@ namespace Model.models
                 UserLastName = User.LastName,
                 Rated = rated
             };
+        }
+
+        private string ManageFinished()
+        {
+            if (Finished)
+            {
+                return "Da";
+            }
+
+            return "Ne";
         }
     }
 }

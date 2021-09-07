@@ -4,3 +4,10 @@ slike za oglas za posao // done
 pri ponudi poslova moraju da se poklope usluge // done
 prosecna ocjena za majstora na profilu // done
 mjesto kod majstora // done
+
+1. Mjesto kod majstora
+2. Browse po kategorijama i profesijama
+3. Slike za oglas za posao
+4. Pri ponudi posla da se poklope usluge
+5. Budzet 0 urgent false
+6. Prosecna ocjena kod majstora

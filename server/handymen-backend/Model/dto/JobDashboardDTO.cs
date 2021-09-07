@@ -10,7 +10,7 @@
         public string UserFirstName { get; set; }
         public string UserLastName { get; set; }
         public string UserEmail { get; set; }
-        public bool Finished { get; set; }
+        public string Finished { get; set; }
         public bool Rated { get; set; }
     }
 }

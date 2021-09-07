@@ -119,7 +119,7 @@ namespace Model.models
 
         public void CalculateAverageRate()
         {
-            int sum = 0;
+            double sum = 0.0;
             foreach (Rating rating in Ratings)
             {
                 sum = sum + rating.Rate;
