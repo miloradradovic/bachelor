@@ -7,7 +7,7 @@
 
 </div>
 
-<div style="padding-right: 3%;float: right;padding-top: 1%;width: 32%;">
+<div [hidden]="this.regReqs.length === 0" style="padding-right: 3%;float: right;padding-top: 1%;width: 32%;">
 
   <app-map [latitude]="currentLocation.latitude" [longitude]="currentLocation.longitude" [radius]="currentLocation.radius"
   [showCircle]="true"></app-map>

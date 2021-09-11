@@ -32,5 +32,39 @@ namespace handymen_backend.Controllers
 
             return Created(response.Message, response);
         }
+
+        [HttpGet("get-unverified-ratings")]
+        [Authorize(Roles.ADMINISTRATOR)]
+        public IActionResult GetUnverifiedRatings()
+        {
+            ApiResponse response = _ratingService.GetRatings(false);
+            return Ok(response);
+        }
+
+        [HttpPut("verify-rating/{ratingId}")]
+        [Authorize(Roles.ADMINISTRATOR)]
+        public IActionResult VerifyRating([FromRoute] int ratingId)
+        {
+            ApiResponse response = _ratingService.VerifyRating(ratingId);
+            if (response.Status == 400)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpDelete("delete-rating/{ratingId}")]
+        [Authorize(Roles.ADMINISTRATOR)]
+        public IActionResult DeleteRating([FromRoute] int ratingId)
+        {
+            ApiResponse response = _ratingService.DeleteRating(ratingId);
+            if (response.Status == 400)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
     }
 }

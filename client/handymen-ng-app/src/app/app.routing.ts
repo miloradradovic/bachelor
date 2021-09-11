@@ -22,6 +22,7 @@ import {HandymanProfileComponent} from './pages/handyman-pages/handyman-profile/
 import {UserProfileComponent} from './pages/user-pages/user-profile/user-profile.component';
 import {RegistrationRequestsDashboardComponent} from './pages/admin-pages/registration-requests-dashboard/registration-requests-dashboard.component';
 import {AllHandymenDashboardComponent} from './pages/user-pages/all-handymen-dashboard/all-handymen-dashboard.component';
+import {RatingRequestsDashboardComponent} from './pages/admin-pages/rating-requests-dashboard/rating-requests-dashboard.component';
 
 const routes: Routes = [
 
@@ -111,6 +112,11 @@ const routes: Routes = [
       {
         path: 'registration-requests',
         component: RegistrationRequestsDashboardComponent,
+        canActivate: [AdministratorGuard]
+      },
+      {
+        path: 'rating-requests',
+        component: RatingRequestsDashboardComponent,
         canActivate: [AdministratorGuard]
       }
     ]

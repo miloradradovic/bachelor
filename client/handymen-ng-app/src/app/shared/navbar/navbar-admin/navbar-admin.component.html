@@ -1,7 +1,10 @@
 <mat-toolbar color="primary">
 
-  <a routerLink="/admin/registration-requests" id="home-nav" style="margin-left: 0.1%;" ><mat-icon [ngStyle]="{'color':'white'}">home</mat-icon></a>
+  <a routerLink="/" id="home-nav" style="margin-left: 0.1%;" ><mat-icon [ngStyle]="{'color':'white'}">home</mat-icon></a>
   <span style="padding-left: 2%">eKnjigaZuteStrane</span>
+  <span style="padding-left:2%" class="example-spacer"> </span>
+  <a routerLink="/admin/registration-requests" style="padding-left: 1%" ><button style="margin-bottom: 5%" mat-flat-button color="primary">Zahtevi za registraciju</button></a>
+  <a routerLink="/admin/rating-requests" style="padding-left: 1%" ><button style="margin-bottom: 5%" mat-flat-button color="primary">Zahtevi za ocjene</button></a>
   <span style="width: 90%"></span>
 
   <a routerLink="/" style="margin-left: 0.5%;" ><mat-icon (click)="logOutAdmin()" [ngStyle]="{'color':'white'}">exit_to_app</mat-icon></a>

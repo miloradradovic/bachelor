@@ -10,6 +10,7 @@ namespace Model.models
         public string Description { get; set; }
         public Job RatedJob { get; set; }
         public DateTime PublishedDate { get; set; }
+        public bool Verified { get; set; }
 
         public RatingDTO ToRatingDTO(int jobId)
         {

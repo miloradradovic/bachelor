@@ -200,8 +200,11 @@ namespace BusinessLogicLayer.services
             List<Rating> ratings = new List<Rating>();
             foreach (Rating rating in found.Ratings)
             {
-                Rating fullRating = _handymanService.GetDetailedRatingProfile(rating.Id);
-                ratings.Add(fullRating);
+                if (rating.Verified)
+                {
+                    Rating fullRating = _handymanService.GetDetailedRatingProfile(rating.Id);
+                    ratings.Add(fullRating);
+                }
             }
 
             found.Ratings = ratings;

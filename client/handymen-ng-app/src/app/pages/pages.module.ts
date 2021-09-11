@@ -27,6 +27,7 @@ import { RegistrationRequestsDashboardComponent } from './admin-pages/registrati
 import { DeclineReasonDialogComponent } from './dialogs/decline-reason-dialog/decline-reason-dialog.component';
 import { PicturesDialogComponent } from './dialogs/pictures-dialog/pictures-dialog.component';
 import { AllHandymenDashboardComponent } from './user-pages/all-handymen-dashboard/all-handymen-dashboard.component';
+import { RatingRequestsDashboardComponent } from './admin-pages/rating-requests-dashboard/rating-requests-dashboard.component';
 
 
 
@@ -53,7 +54,8 @@ import { AllHandymenDashboardComponent } from './user-pages/all-handymen-dashboa
     RegistrationRequestsDashboardComponent,
     DeclineReasonDialogComponent,
     PicturesDialogComponent,
-    AllHandymenDashboardComponent
+    AllHandymenDashboardComponent,
+    RatingRequestsDashboardComponent
   ],
   imports: [
     CommonModule,

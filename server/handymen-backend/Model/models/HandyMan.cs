@@ -120,16 +120,21 @@ namespace Model.models
         public void CalculateAverageRate()
         {
             double sum = 0.0;
+            int sizeRatings = 0;
             foreach (Rating rating in Ratings)
             {
-                sum = sum + rating.Rate;
+                if (rating.Verified)
+                {
+                    sum = sum + rating.Rate;
+                    sizeRatings = sizeRatings + 1;
+                }
             }
 
-            if (Ratings.Count == 0)
+            if (sizeRatings == 0)
             {
                 AverageRate = 0.0;
             }
-            AverageRate = sum / Ratings.Count;
+            AverageRate = sum / sizeRatings;
             
         }
 

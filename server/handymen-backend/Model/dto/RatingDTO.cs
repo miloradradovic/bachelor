@@ -18,7 +18,8 @@ namespace Model.dto
             {
                 Id = Id,
                 Description = Description,
-                Rate = Rate
+                Rate = Rate,
+                Verified = false
             };
         }
     }
