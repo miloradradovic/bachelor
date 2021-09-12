@@ -12,11 +12,11 @@ export class TradeService {
   constructor(private http: HttpClient) { }
 
   getTrades(): Observable<any> {
-    return this.http.get('https://localhost:5001/api/trades/get-trades', {headers: this.headers, responseType: 'json'})
+    return this.http.get('https://localhost:5001/api/trades/get-trades', {headers: this.headers, responseType: 'json'});
   }
 
   getTradesByProfession(professionId: number): Observable<any> {
-    return this.http.get('https://localhost:5001/api/trades/get-trades/' + professionId, {headers: this.headers, responseType: 'json'})
+    return this.http.get('https://localhost:5001/api/trades/get-trades/' + professionId, {headers: this.headers, responseType: 'json'});
   }
 
   getCurrentHandymanCategoryAndProfession(): Observable<any> {

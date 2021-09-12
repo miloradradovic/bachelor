@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NavbarNonSignedInComponent } from './navbar-non-signed-in.component';
+import {NavbarNonSignedInComponent} from './navbar-non-signed-in.component';
 
 describe('NavbarNonSignedInComponent', () => {
   let component: NavbarNonSignedInComponent;
@@ -8,9 +8,9 @@ describe('NavbarNonSignedInComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NavbarNonSignedInComponent ]
+      declarations: [NavbarNonSignedInComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

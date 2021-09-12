@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
@@ -8,16 +8,17 @@ import {MatDialogRef} from '@angular/material/dialog';
 })
 export class RegisteringDecideComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<RegisteringDecideComponent>) { }
+  constructor(public dialogRef: MatDialogRef<RegisteringDecideComponent>) {
+  }
 
   ngOnInit(): void {
   }
 
-  clickedHandyman() {
+  clickedHandyman(): void {
     this.dialogRef.close('handyman');
   }
 
-  clickedUser() {
+  clickedUser(): void {
     this.dialogRef.close('user');
   }
 }

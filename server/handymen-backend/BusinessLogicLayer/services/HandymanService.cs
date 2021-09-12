@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using DataAccessLayer.repositories;
-using Microsoft.EntityFrameworkCore;
 using Model.dto;
 using Model.models;
 using BC = BCrypt.Net.BCrypt;

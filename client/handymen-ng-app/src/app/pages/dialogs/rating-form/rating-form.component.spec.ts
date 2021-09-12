@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RatingFormComponent } from './rating-form.component';
+import {RatingFormComponent} from './rating-form.component';
 
 describe('RatingFormComponent', () => {
   let component: RatingFormComponent;
@@ -8,9 +8,9 @@ describe('RatingFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RatingFormComponent ]
+      declarations: [RatingFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

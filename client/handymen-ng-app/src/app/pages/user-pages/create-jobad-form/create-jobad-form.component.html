@@ -2,32 +2,42 @@
 
   <div style="float: left; width: 90%; padding-left: 2%;">
 
-    <mat-horizontal-stepper linear (selectionChange)="changedMatStep($event)">
+    <mat-horizontal-stepper (selectionChange)="changedMatStep($event)" linear>
       <mat-step [stepControl]="firstForm">
         <form [formGroup]="firstForm">
           <ng-template matStepLabel>Naslov i opis</ng-template>
           <mat-form-field appearance="outline" style="display: block">
-            <mat-label> Naslov </mat-label>
-            <input [formControl]="firstForm.controls.title" matInput id="title" name="title" placeholder="Naslov">
+            <mat-label> Naslov</mat-label>
+            <input [formControl]="firstForm.controls.title" id="title" matInput name="title" placeholder="Naslov">
             <mat-error *ngIf="firstForm.controls.title.touched && firstForm.controls.title.errors?.required">
-              Ovo polje ne sme biti prazno!</mat-error >
+              Ovo polje ne sme biti prazno!
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline" style="display: block">
-            <mat-label> Opis </mat-label>
-            <textarea matInput rows="15" id="description" name="description" placeholder="Opis posla. Molimo da budete sto detaljniji da bi majstori znali koju sumu novca da predloze." [formControl]="firstForm.controls.description"></textarea>
-            <mat-error *ngIf="firstForm.controls.description.touched && firstForm.controls.description.errors?.required">
-              Ovo polje ne sme biti prazno!</mat-error >
+            <mat-label> Opis</mat-label>
+            <textarea [formControl]="firstForm.controls.description" id="description" matInput name="description"
+                      placeholder="Opis posla. Molimo da budete sto detaljniji da bi majstori znali koju sumu novca da predloze."
+                      rows="15"></textarea>
+            <mat-error
+              *ngIf="firstForm.controls.description.touched && firstForm.controls.description.errors?.required">
+              Ovo polje ne sme biti prazno!
+            </mat-error>
           </mat-form-field>
-          <div style="display: inline-block" *ngFor="let picture of pictures">
-            <img [title]="'Klik da biste obrisali'" (click)="clickedPicture(picture)" class="picture" style="max-width:400px;max-height:200px;" [src] = picture alt="https://via.placeholder.com/200"/>
+          <div *ngFor="let picture of pictures" style="display: inline-block">
+            <img (click)="clickedPicture(picture)" [src]=picture [title]="'Klik da biste obrisali'"
+                 alt="https://via.placeholder.com/200" class="picture" style="max-width:400px;max-height:200px;"/>
           </div>
           <br>
-          <button [disabled]="pictures.length === 5" style="margin-right: 3%;" type="button" mat-raised-button (click)="fileInput.click()">Dodaj slike</button>
-          <input (change)="onFileChanged($event)" hidden #fileInput type="file" id="file">
+          <button (click)="fileInput.click()" [disabled]="pictures.length === 5" mat-raised-button style="margin-right: 3%;"
+                  type="button">Dodaj slike
+          </button>
+          <input #fileInput (change)="onFileChanged($event)" hidden id="file" type="file">
 
           <div style="padding-top: 5%">
-            <button [disabled]="firstForm.invalid || pictures.length < 5" mat-button matStepperNext (click)="clicked('firstFormNext')">Sledece</button>
+            <button (click)="clicked('firstFormNext')" [disabled]="firstForm.invalid || pictures.length < 5" mat-button
+                    matStepperNext>Sledece
+            </button>
           </div>
         </form>
       </mat-step>
@@ -35,21 +45,24 @@
         <form [formGroup]="secondForm">
           <ng-template matStepLabel>Adresa i datum</ng-template>
           <mat-form-field appearance="outline" style="display: block">
-            <mat-label> Adresa </mat-label>
-            <input [readonly]="true" [formControl]="secondForm.controls.address" matInput id="address" name="address" placeholder="Adresa">
+            <mat-label> Adresa</mat-label>
+            <input [formControl]="secondForm.controls.address" [readonly]="true" id="address" matInput name="address"
+                   placeholder="Adresa">
           </mat-form-field>
 
           <mat-form-field appearance="outline" style="display: block">
             <mat-label>Izaberi datum:</mat-label>
-            <input [readonly]="true" [formControl]="secondForm.controls.date" [min]="fiveDaysAhead" id="date"
-                   matInput [matDatepicker]="picker">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <input [formControl]="secondForm.controls.date" [matDatepicker]="picker" [min]="fiveDaysAhead" [readonly]="true"
+                   id="date" matInput>
+            <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
 
           <div>
-            <button mat-button (click)="clicked('secondFormBack')" matStepperPrevious>Nazad</button>
-            <button [disabled]="secondForm.invalid" mat-button (click)="clicked('secondFormNext')" matStepperNext>Sledece</button>
+            <button (click)="clicked('secondFormBack')" mat-button matStepperPrevious>Nazad</button>
+            <button (click)="clicked('secondFormNext')" [disabled]="secondForm.invalid" mat-button matStepperNext>
+              Sledece
+            </button>
           </div>
         </form>
       </mat-step>
@@ -58,15 +71,18 @@
           <ng-template matStepLabel>Tip posla</ng-template>
           <mat-form-field appearance="outline" style="display: block">
             <mat-label>Kategorije</mat-label>
-            <mat-select [formControl]="thirdForm.controls.category" (selectionChange)="selectionChange($event, 'category')">
+            <mat-select (selectionChange)="selectionChange($event, 'category')"
+                        [formControl]="thirdForm.controls.category">
               <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="outline" style="display: block">
             <mat-label>Profesije</mat-label>
-            <mat-select [formControl]="thirdForm.controls.profession" (selectionChange)="selectionChange($event, 'profession')">
-              <mat-option *ngFor="let profession of professions" [value]="profession.id">{{profession.name}}</mat-option>
+            <mat-select (selectionChange)="selectionChange($event, 'profession')"
+                        [formControl]="thirdForm.controls.profession">
+              <mat-option *ngFor="let profession of professions"
+                          [value]="profession.id">{{profession.name}}</mat-option>
             </mat-select>
           </mat-form-field>
 
@@ -79,7 +95,9 @@
 
           <div>
             <button (click)="clicked('thirdFormBack')" mat-button matStepperPrevious>Nazad</button>
-            <button [disabled]="thirdForm.invalid" (click)="clicked('thirdFormNext')" mat-button matStepperNext>Sledece</button>
+            <button (click)="clicked('thirdFormNext')" [disabled]="thirdForm.invalid" mat-button matStepperNext>
+              Sledece
+            </button>
           </div>
 
         </form>
@@ -90,19 +108,23 @@
           <div *ngIf="fillOutAdditionalData">
             <mat-form-field appearance="outline" style="display: block">
               <mat-label>Hitno?</mat-label>
-              <mat-select [formControl]="fourthForm.controls.urgent" (selectionChange)="selectionChange($event, 'urgent')">
+              <mat-select (selectionChange)="selectionChange($event, 'urgent')"
+                          [formControl]="fourthForm.controls.urgent">
                 <mat-option *ngFor="let urgent of urgents" [value]="urgent.boolVal">{{urgent.name}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline" style="display: block">
-              <mat-label> Budzet </mat-label>
-              <input type="number" [formControl]="fourthForm.controls.maxPrice" matInput id="maxPrice" name="maxPrice" placeholder="Budzet">
+              <mat-label> Budzet</mat-label>
+              <input [formControl]="fourthForm.controls.maxPrice" id="maxPrice" matInput name="maxPrice" placeholder="Budzet"
+                     type="number">
             </mat-form-field>
           </div>
           <div>
             <button (click)="clicked('additionalDataGiveUp')" mat-button matStepperPrevious>Nazad</button>
-            <button [disabled]="fillOutAdditionalData" mat-button (click)="clicked('additionalData')" matStepperNext>Popuni dodatne podatke</button>
-            <button mat-button (click)="createJobAd()">Posalji</button>
+            <button (click)="clicked('additionalData')" [disabled]="fillOutAdditionalData" mat-button matStepperNext>
+              Popuni dodatne podatke
+            </button>
+            <button (click)="createJobAd()" mat-button>Posalji</button>
           </div>
         </form>
       </mat-step>
@@ -115,15 +137,16 @@
 
 <div [hidden]="!secondFormClicked" style="padding-right: 3%;float: right;padding-top: 2%;width: 30%;">
 
-  <app-map [latitude]="currentLocation.latitude" [longitude]="currentLocation.longitude" [radius]="currentLocation.radius"
-           (DragEnd)="dragEnd($event)" [draggable]="true" [showCircle]="false" >
+  <app-map (DragEnd)="dragEnd($event)" [draggable]="true"
+           [latitude]="currentLocation.latitude"
+           [longitude]="currentLocation.longitude" [radius]="currentLocation.radius" [showCircle]="false">
   </app-map>
 
 </div>
 
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
-  size="medium"
   color="#fff"
+  size="medium"
   type="ball-atom">
 </ngx-spinner>

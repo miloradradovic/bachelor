@@ -10,8 +10,7 @@ import {LogInData} from '../model/login.model';
 export class AuthService {
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-  constructor(private http: HttpClient, private storageService: StorageService
-  ) {
+  constructor(private http: HttpClient, private storageService: StorageService) {
   }
 
   logIn(auth: LogInData): Observable<any> {

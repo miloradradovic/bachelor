@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
 
@@ -25,11 +25,11 @@ export class CreateInterestDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  submit() {
+  submit(): void {
     this.dialogRef.close({price: this.form.value.price, days: this.form.value.days});
   }
 
-  cancel() {
+  cancel(): void {
     this.dialogRef.close();
   }
 }

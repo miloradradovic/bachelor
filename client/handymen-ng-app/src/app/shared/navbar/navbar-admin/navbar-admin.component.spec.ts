@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NavbarAdminComponent } from './navbar-admin.component';
+import {NavbarAdminComponent} from './navbar-admin.component';
 
 describe('NavbarAdminComponent', () => {
   let component: NavbarAdminComponent;
@@ -8,9 +8,9 @@ describe('NavbarAdminComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NavbarAdminComponent ]
+      declarations: [NavbarAdminComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

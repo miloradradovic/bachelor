@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -24,11 +24,11 @@ export class RatingFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  submit() {
+  submit(): void {
     this.dialogRef.close({comment: this.form.value.commentInput, rating: this.form.value.pickedRating});
   }
 
-  cancel() {
+  cancel(): void {
     this.dialogRef.close();
   }
 }

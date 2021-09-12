@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RatingService} from '../../../services/rating.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -16,21 +16,22 @@ export class RatingRequestsDashboardComponent implements OnInit {
     private ratingService: RatingService,
     private snackBar: MatSnackBar,
     private spinnerService: NgxSpinnerService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getUnverifiedRatings();
   }
 
-  getUnverifiedRatings() {
+  getUnverifiedRatings(): void {
     this.ratingService.getUnverifiedRatings().subscribe(result => {
       this.ratings = result.responseObject;
     }, error => {
       this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
-    })
+    });
   }
 
-  decline($event: number) {
+  decline($event: number): void {
     this.spinnerService.show();
     this.ratingService.deleteRating($event).subscribe(result => {
       this.spinnerService.hide();
@@ -39,18 +40,18 @@ export class RatingRequestsDashboardComponent implements OnInit {
     }, error => {
       this.spinnerService.hide();
       this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
-    })
+    });
   }
 
-  verify($event: number) {
+  verify($event: number): void {
     this.spinnerService.show();
     this.ratingService.verifyRating($event).subscribe(result => {
-      this.spinnerService.hide()
+      this.spinnerService.hide();
       this.snackBar.open(result.message, 'Ok', {duration: 3000});
       this.getUnverifiedRatings();
     }, error => {
       this.spinnerService.hide();
       this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
-    })
+    });
   }
 }

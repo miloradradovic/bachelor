@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -23,23 +23,24 @@ export class InterestsDashboardComponent implements OnInit {
     private jobService: JobService,
     private interestService: InterestService,
     public dialog: MatDialog
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getInterestsByUser();
   }
 
-  getInterestsByUser() {
+  getInterestsByUser(): void {
     this.interestService.getInterestsForCurrentUser().subscribe(
       result => {
         this.interests = result.responseObject;
       }, error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  makeJobDeal($event: number) {
+  makeJobDeal($event: number): void {
     this.spinnerService.show();
     this.jobService.createJob($event).subscribe(
       result => {
@@ -50,10 +51,10 @@ export class InterestsDashboardComponent implements OnInit {
         this.spinnerService.hide();
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  handymanDetails($event: number) {
+  handymanDetails($event: number): void {
     const dialogRef = this.dialog.open(DetailedHandymanDialogComponent, {
       width: '60%',
       height: '80%',

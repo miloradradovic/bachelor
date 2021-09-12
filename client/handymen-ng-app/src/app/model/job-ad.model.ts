@@ -6,12 +6,13 @@ export class JobAdModel {
   public title: string;
   public description: string;
   public address: LocationModel;
-  public additionalJobAdInfo: AdditionalJobAdInfoModel
-  public dateWhen: Date
-  public trades: string[]
-  public pictures: string[]
+  public additionalJobAdInfo: AdditionalJobAdInfoModel;
+  public dateWhen: Date;
+  public trades: string[];
+  public pictures: string[];
 
-  constructor(id: number, title: string, description: string, address: LocationModel, additionalJobAdInfo: AdditionalJobAdInfoModel, dateWhen: Date, trades: string[], pictures: string[]) {
+  constructor(id: number, title: string, description: string, address: LocationModel, additionalJobAdInfo: AdditionalJobAdInfoModel,
+              dateWhen: Date, trades: string[], pictures: string[]) {
     this.id = id;
     this.title = title;
     this.description = description;

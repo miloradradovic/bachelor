@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthService} from '../../services/auth.service';
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  submit() {
+  submit(): void {
     const logIn: LogInData = this.form.value;
     this.spinnerService.show();
     this.logInService.logIn(logIn).subscribe(
@@ -68,9 +68,9 @@ export class LoginComponent implements OnInit {
         this.storageService.setStorageItem('user', JSON.stringify(loggedIn));
         this.spinnerService.hide();
         this.snackBar.open(result.message, 'Ok', {duration: 2000});
-        if(loggedIn.role === 'USER') {
+        if (loggedIn.role === 'USER') {
           this.router.navigate(['/user/handymen-dashboard-browse']);
-        } else if(loggedIn.role === 'HANDYMAN') {
+        } else if (loggedIn.role === 'HANDYMAN') {
           this.router.navigate(['/handyman/jobad-dashboard']);
         } else {
           this.router.navigate(['/admin/registration-requests']);
@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  createAccount() {
+  createAccount(): void {
     const dialogRef = this.dialog.open(RegisteringDecideComponent, {
       width: '30%'
     });

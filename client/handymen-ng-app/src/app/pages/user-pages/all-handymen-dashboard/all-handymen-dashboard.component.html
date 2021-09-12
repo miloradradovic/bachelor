@@ -3,42 +3,47 @@
   <form [formGroup]="form">
     <mat-form-field appearance="outline" style="width: 15%">
       <mat-label> Ime</mat-label>
-      <input (input)="onInputChange($event.target.valueOf())" matInput placeholder="Ime" [formControl]="form.controls.firstName">
+      <input (input)="onInputChange($event.target.valueOf())" [formControl]="form.controls.firstName" matInput
+             placeholder="Ime">
     </mat-form-field>
     <mat-form-field appearance="outline" style="width: 15%; margin-left: 1%">
       <mat-label> Prezime</mat-label>
-      <input (input)="onInputChange($event.target.valueOf())" matInput placeholder="Prezime" [formControl]="form.controls.lastName">
+      <input (input)="onInputChange($event.target.valueOf())" [formControl]="form.controls.lastName" matInput
+             placeholder="Prezime">
     </mat-form-field>
     <mat-form-field appearance="outline" style="width: 15%; margin-left: 1%">
       <mat-label> Adresa</mat-label>
-      <input (input)="onInputChange($event.target.valueOf())" matInput placeholder="Adresa" [formControl]="form.controls.address">
+      <input (input)="onInputChange($event.target.valueOf())" [formControl]="form.controls.address" matInput
+             placeholder="Adresa">
     </mat-form-field>
     <mat-form-field appearance="outline" style="width: 15%;margin-left: 1%">
       <mat-label>Usluge</mat-label>
-      <mat-select multiple [formControl]="form.controls.selectedTrades" (selectionChange)="selectionChange($event)">
+      <mat-select (selectionChange)="selectionChange($event)" [formControl]="form.controls.selectedTrades" multiple>
         <mat-option *ngFor="let trade of trades" [value]="trade.name">{{trade.name}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="outline" style="width:15%;margin-left: 1%">
       <mat-label>Prosecna ocena od:</mat-label>
-      <input (input)="onInputChange($event.target.valueOf())" min="0" max="5" type="number" matInput placeholder="From" [formControl]="form.controls.avgRatingFrom">
+      <input (input)="onInputChange($event.target.valueOf())" [formControl]="form.controls.avgRatingFrom" matInput max="5" min="0" placeholder="From"
+             type="number">
     </mat-form-field>
     <mat-form-field appearance="outline" style="width:15%;margin-left: 1%">
       <mat-label>Prosecna ocena do:</mat-label>
-      <input (input)="onInputChange($event.target.valueOf())" min="0" max="5" type="number" matInput placeholder="To" [formControl]="form.controls.avgRatingTo">
+      <input (input)="onInputChange($event.target.valueOf())" [formControl]="form.controls.avgRatingTo" matInput max="5" min="0" placeholder="To"
+             type="number">
     </mat-form-field>
   </form>
 </div>
 
 <div style="padding-top: 5%; width: 80%; padding-left: 10%">
-  <app-table [columnsToDisplay]="['Ime', 'Prezime', 'Email', 'Adresa', 'Handyman details']"
-             [columnsToIterate]="['firstName', 'lastName', 'email', 'address']"
-             [dataSource]="handymen" (HandymanDetails)="clickedRow($event)"></app-table>
+  <app-table (HandymanDetails)="clickedRow($event)"
+             [columnsToDisplay]="['Ime', 'Prezime', 'Email', 'Adresa', 'Handyman details']"
+             [columnsToIterate]="['firstName', 'lastName', 'email', 'address']" [dataSource]="handymen"></app-table>
 </div>
 
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
-  size="medium"
   color="#fff"
+  size="medium"
   type="ball-atom">
 </ngx-spinner>

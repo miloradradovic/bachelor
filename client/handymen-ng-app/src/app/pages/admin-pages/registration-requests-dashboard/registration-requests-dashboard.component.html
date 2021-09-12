@@ -1,22 +1,23 @@
 <div style="padding-left:3%;float: left;padding-top: 1%;width:60%">
 
-  <app-table (Click)="onRowClick($event)" [dataSource]="regReqs" [columnsToDisplay]="['Ime',
+  <app-table (Click)="onRowClick($event)" (Decline)="decline($event)" (Verify)="verify($event)"
+             [columnsToDisplay]="['Ime',
   'Prezime', 'Email ', 'Adresa', 'Verify', 'Decline']"
-             [columnsToIterate]="['firstName', 'lastName', 'email', 'address']"
-  (Verify)="verify($event)" (Decline)="decline($event)"></app-table>
+             [columnsToIterate]="['firstName', 'lastName', 'email', 'address']" [dataSource]="regReqs"></app-table>
 
 </div>
 
 <div [hidden]="this.regReqs.length === 0" style="padding-right: 3%;float: right;padding-top: 1%;width: 32%;">
 
-  <app-map [latitude]="currentLocation.latitude" [longitude]="currentLocation.longitude" [radius]="currentLocation.radius"
-  [showCircle]="true"></app-map>
+  <app-map [latitude]="currentLocation.latitude" [longitude]="currentLocation.longitude"
+           [radius]="currentLocation.radius"
+           [showCircle]="true"></app-map>
 
 </div>
 
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
-  size="medium"
   color="#fff"
+  size="medium"
   type="ball-atom">
 </ngx-spinner>

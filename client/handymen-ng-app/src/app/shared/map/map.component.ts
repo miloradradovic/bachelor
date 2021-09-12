@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, ViewChild, EventEmitter} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {AgmCircle, AgmMap, LatLngLiteral} from '@agm/core';
 import {LocationModel} from '../../model/location.model';
 
@@ -10,7 +10,7 @@ import {LocationModel} from '../../model/location.model';
 export class MapComponent implements OnInit {
 
   @ViewChild(AgmMap) agmMap: AgmMap;
-  @ViewChild(AgmCircle) agmCircle: AgmCircle
+  @ViewChild(AgmCircle) agmCircle: AgmCircle;
 
   @Input() latitude = 45.259452102126545;
   @Input() longitude = 19.848492145538334;
@@ -24,13 +24,14 @@ export class MapComponent implements OnInit {
   location = '';
 
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
 
-  dragEnd(coords: LatLngLiteral) {
+  dragEnd(coords: LatLngLiteral): void {
     this.latitude = coords.lat;
     this.longitude = coords.lng;
     // @ts-ignore
@@ -44,7 +45,7 @@ export class MapComponent implements OnInit {
     });
   }
 
-  radiusChanged($event: number) {
+  radiusChanged($event: number): void {
     this.radius = $event;
     this.RadiusChanged.emit(new LocationModel(this.latitude, this.longitude, this.location, this.radius));
   }

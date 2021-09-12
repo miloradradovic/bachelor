@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CreateInterestDialogComponent } from './create-interest-dialog.component';
+import {CreateInterestDialogComponent} from './create-interest-dialog.component';
 
 describe('CreateInterestDialogComponent', () => {
   let component: CreateInterestDialogComponent;
@@ -8,9 +8,9 @@ describe('CreateInterestDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateInterestDialogComponent ]
+      declarations: [CreateInterestDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

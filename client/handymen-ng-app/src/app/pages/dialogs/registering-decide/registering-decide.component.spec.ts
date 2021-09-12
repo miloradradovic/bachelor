@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RegisteringDecideComponent } from './registering-decide.component';
+import {RegisteringDecideComponent} from './registering-decide.component';
 
 describe('RegisteringDecideComponent', () => {
   let component: RegisteringDecideComponent;
@@ -8,9 +8,9 @@ describe('RegisteringDecideComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegisteringDecideComponent ]
+      declarations: [RegisteringDecideComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

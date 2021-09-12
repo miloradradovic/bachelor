@@ -11,7 +11,7 @@ export class LocationService {
 
   constructor(private http: HttpClient) { }
 
-  getLocation() : Observable<any> {
+  getLocation(): Observable<any> {
     return this.http.get('https://localhost:5001/api/locations/get-location', {headers: this.headers, responseType: 'json'});
   }
 }

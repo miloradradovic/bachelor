@@ -12,12 +12,12 @@ export class StorageService {
     return this.storageSub.asObservable();
   }
 
-  setStorageItem(key: string, data: any) {
+  setStorageItem(key: string, data: any): void {
     sessionStorage.setItem(key, data);
     this.storageSub.next();
   }
 
-  clearStorage() {
+  clearStorage(): void {
     sessionStorage.clear();
     this.storageSub.next();
   }

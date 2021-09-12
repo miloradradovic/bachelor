@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LocationModel} from '../../../model/location.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -16,10 +16,10 @@ export class RegisterUserComponent implements OnInit {
 
   currentLocation: LocationModel = new LocationModel(45.259452102126545, 19.848492145538334, 'Aleksandra Tisme 3, 21101 Novi Sad City, Serbia', 0);
   form: FormGroup;
-  private fb: FormBuilder;
   options = {
     fields: ['latitude', 'longitude', 'name']
   };
+  private fb: FormBuilder;
 
   constructor(
     fb: FormBuilder,
@@ -41,14 +41,14 @@ export class RegisterUserComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  dragEnd(locationModel: LocationModel) {
+  dragEnd(locationModel: LocationModel): void {
     this.currentLocation = locationModel;
     this.currentLocation.radius = 0;
     this.form.controls.address.setValue(locationModel.name);
 
   }
 
-  registerUser() {
+  registerUser(): void {
     this.spinnerService.show();
     const registrationData: RegisterDataModel = new RegisterDataModel(
       this.form.value.firstName,
@@ -71,7 +71,7 @@ export class RegisterUserComponent implements OnInit {
     );
   }
 
-  radiusChanged(currentLocation: LocationModel) {
+  radiusChanged(currentLocation: LocationModel): void {
     this.currentLocation = currentLocation;
   }
 

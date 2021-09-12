@@ -12,15 +12,15 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 export class SelectJobAdDialogComponent implements OnInit {
 
   form: FormGroup;
+  jobAds = [];
   private fb: FormBuilder;
-  jobAds = []
 
   constructor(
     fb: FormBuilder,
     private jobAdService: JobAdService,
     public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<SelectJobAdDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {handyTrades: []}
+    @Inject(MAT_DIALOG_DATA) public data: { handyTrades: [] }
   ) {
     this.fb = fb;
     this.form = this.fb.group({
@@ -32,21 +32,21 @@ export class SelectJobAdDialogComponent implements OnInit {
     this.getJobAds();
   }
 
-  getJobAds() {
+  getJobAds(): void {
     this.jobAdService.getJobAdsWithNoOfferByUser(this.data).subscribe(
       result => {
         this.jobAds = result.responseObject;
       }, error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  cancel() {
+  cancel(): void {
     this.dialogRef.close();
   }
 
-  finish() {
+  finish(): void {
     this.dialogRef.close(this.form.value.selectedJobAd);
   }
 }

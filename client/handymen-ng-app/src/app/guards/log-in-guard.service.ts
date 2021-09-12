@@ -10,7 +10,8 @@ export class LogInGuard implements CanActivate {
   constructor(
     public auth: AuthService,
     public router: Router
-  ) { }
+  ) {
+  }
 
   canActivate(): boolean {
     const role = this.auth.getRole();

@@ -1,12 +1,12 @@
 <div style="padding-left:20%;float: left;padding-top: 5%;width:60%">
-  <app-table (Verify)="verify($event)" (Decline)="decline($event)" [dataSource]="ratings" [columnsToDisplay]="['Ocena', 'Komentar',
-  'Datum', 'Verify', 'Decline']"
-             [columnsToIterate]="['rate', 'description', 'publishedDate']"></app-table>
+  <app-table (Decline)="decline($event)" (Verify)="verify($event)" [columnsToDisplay]="['Ocena', 'Komentar',
+  'Datum', 'Verify', 'Decline']" [columnsToIterate]="['rate', 'description', 'publishedDate']"
+             [dataSource]="ratings"></app-table>
 
 </div>
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
-  size="medium"
   color="#fff"
+  size="medium"
   type="ball-atom">
 </ngx-spinner>

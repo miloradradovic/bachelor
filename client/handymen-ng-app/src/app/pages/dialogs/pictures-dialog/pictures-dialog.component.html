@@ -1,5 +1,5 @@
 <div>
-  <div style="display: inline-block" *ngFor="let picture of pictures">
-    <img style="max-width:400px;max-height:200px;" [src] = picture alt="https://via.placeholder.com/200"/>
+  <div *ngFor="let picture of pictures" style="display: inline-block">
+    <img [src]=picture alt="https://via.placeholder.com/200" style="max-width:400px;max-height:200px;"/>
   </div>
 </div>

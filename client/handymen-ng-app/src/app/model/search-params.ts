@@ -7,7 +7,8 @@ export class SearchParams {
   public address: string;
   public handymen: [];
 
-  constructor(firstName: string, lastName: string, trades: string[], avgRatingFrom: number, avgRatingTo: number, address: string, handymen: []) {
+  constructor(firstName: string, lastName: string, trades: string[], avgRatingFrom: number,
+              avgRatingTo: number, address: string, handymen: []) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.trades = trades;

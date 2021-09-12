@@ -1,5 +1,5 @@
 export class LoggedInModel {
-  public id: number
+  public id: number;
   public email: string;
   public role: string;
   public token: string;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {JobAdService} from '../../../services/job-ad.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {PicturesDialogComponent} from '../../dialogs/pictures-dialog/pictures-dialog.component';
@@ -17,26 +17,27 @@ export class JobadDashboardComponent implements OnInit {
     private jobAdService: JobAdService,
     private snackBar: MatSnackBar,
     public dialog: MatDialog
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getJobAdsByUser();
   }
 
-  getJobAdsByUser() {
+  getJobAdsByUser(): void {
     this.jobAdService.getJobAdsByUser().subscribe(
       result => {
         this.jobAds = result.responseObject;
       }, error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  viewPics(pictures) {
+  viewPics(pictures): void {
     const dialogRef = this.dialog.open(PicturesDialogComponent, {
       width: '80%',
-      data: {pictures: pictures}
+      data: {pictures}
     });
   }
 

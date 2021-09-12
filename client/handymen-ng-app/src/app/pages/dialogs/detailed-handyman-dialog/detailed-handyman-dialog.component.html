@@ -7,9 +7,11 @@
     <p style="padding-top: 2%">Prosecna ocena: {{handymanAvgRating}}</p>
     <p style="padding-top: 2%">Usluge: {{handymanTrades}}</p>
 
-    <div [hidden] = 'commentsEmpty' style="width: 100%; float: left; padding-top: 7%">
+    <div [hidden]='commentsEmpty' style="width: 100%; float: left; padding-top: 7%">
       <div style="float:left; width:5%; margin-top: 10%">
-        <button [disabled]="commentIndex === 0" id="commentNavigateBefore" (click)="commentNavigateBefore()"><mat-icon>navigate_before</mat-icon></button>
+        <button (click)="commentNavigateBefore()" [disabled]="commentIndex === 0" id="commentNavigateBefore">
+          <mat-icon>navigate_before</mat-icon>
+        </button>
       </div>
       <div style="float: left; width: 40%; padding-top: 1%; font-size: small; padding-left: 10%; margin-right: 1%">
         <p id="commentDescription">Komentar: {{commentDescription}}</p>
@@ -19,22 +21,26 @@
         <br>
       </div>
       <div style=" float: left; width:5%; margin-top: 10%">
-        <button id="commentNavigateNext" [disabled]="commentIndex === comments.length - 1" (click)="commentNavigateNext()"><mat-icon>navigate_next</mat-icon></button>
+        <button (click)="commentNavigateNext()" [disabled]="commentIndex === comments.length - 1"
+                id="commentNavigateNext">
+          <mat-icon>navigate_next</mat-icon>
+        </button>
       </div>
     </div>
     <div style="padding-top: 30%">
-      <button [disabled]="!enableOffer" mat-raised-button color="primary" (click)="offerJob()">Ponudi posao</button>
-      <button style="margin-left: 5%" mat-raised-button color="primary" (click)="cancel()">Izadji</button>
+      <button (click)="offerJob()" [disabled]="!enableOffer" color="primary" mat-raised-button>Ponudi posao</button>
+      <button (click)="cancel()" color="primary" mat-raised-button style="margin-left: 5%">Izadji</button>
     </div>
   </div>
   <div style="float: right; padding-top: 0.5%; width: 50%; height: 10%">
-    <app-map [editable]="false" [latitude]="latitude" [longitude]="longitude" [radius]="radius" [draggable]="false" [showCircle]="true" >
+    <app-map [draggable]="false" [editable]="false" [latitude]="latitude" [longitude]="longitude" [radius]="radius"
+             [showCircle]="true">
     </app-map>
   </div>
 </div>
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
-  size="medium"
   color="#fff"
+  size="medium"
   type="ball-atom">
 </ngx-spinner>

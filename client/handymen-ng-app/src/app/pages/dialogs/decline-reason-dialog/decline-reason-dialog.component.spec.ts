@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DeclineReasonDialogComponent } from './decline-reason-dialog.component';
+import {DeclineReasonDialogComponent} from './decline-reason-dialog.component';
 
 describe('DeclineReasonDialogComponent', () => {
   let component: DeclineReasonDialogComponent;
@@ -8,9 +8,9 @@ describe('DeclineReasonDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DeclineReasonDialogComponent ]
+      declarations: [DeclineReasonDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

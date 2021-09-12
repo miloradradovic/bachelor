@@ -1,5 +1,5 @@
 export class InterestModel {
-  public id: number
+  public id: number;
   public jobAdId: number;
   public daysEstimated: number;
   public priceEstimated: number;

@@ -2,13 +2,13 @@
   [latitude]="latitude" [longitude]="longitude"
   [zoom]="zoom" id="map">
   <agm-marker
-    [latitude]="latitude" [longitude]="longitude"
-    [markerDraggable]="draggable" (dragEnd)="dragEnd($event.coords)"
+    (dragEnd)="dragEnd($event.coords)" [latitude]="latitude"
+    [longitude]="longitude" [markerDraggable]="draggable"
   ></agm-marker>
-  <agm-circle *ngIf="showCircle" [latitude]="latitude" [longitude]="longitude"
-              [radius]="radius"
+  <agm-circle (radiusChange)="radiusChanged($event)" *ngIf="showCircle" [editable]="editable"
               [fillColor]="'red'"
-              [editable]="editable"
-              (radiusChange)="radiusChanged($event)">
+              [latitude]="latitude"
+              [longitude]="longitude"
+              [radius]="radius">
   </agm-circle>
 </agm-map>

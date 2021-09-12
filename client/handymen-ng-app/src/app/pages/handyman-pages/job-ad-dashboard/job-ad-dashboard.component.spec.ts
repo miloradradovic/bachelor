@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { JobAdDashboardComponent } from './job-ad-dashboard.component';
+import {JobAdDashboardComponent} from './job-ad-dashboard.component';
 
 describe('JobAdDashboardComponent', () => {
   let component: JobAdDashboardComponent;
@@ -8,9 +8,9 @@ describe('JobAdDashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ JobAdDashboardComponent ]
+      declarations: [JobAdDashboardComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

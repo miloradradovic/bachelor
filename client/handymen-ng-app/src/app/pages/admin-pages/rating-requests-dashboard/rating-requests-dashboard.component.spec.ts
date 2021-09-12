@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RatingRequestsDashboardComponent } from './rating-requests-dashboard.component';
+import {RatingRequestsDashboardComponent} from './rating-requests-dashboard.component';
 
 describe('RatingRequestsDashboardComponent', () => {
   let component: RatingRequestsDashboardComponent;
@@ -8,9 +8,9 @@ describe('RatingRequestsDashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RatingRequestsDashboardComponent ]
+      declarations: [RatingRequestsDashboardComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

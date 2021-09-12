@@ -2,13 +2,15 @@
   <form [formGroup]="form">
     <mat-form-field>
       <mat-label for="username">Razlog:</mat-label>
-      <textarea matInput rows="5" id="description" name="description" placeholder="Razlog za odbijanje." [formControl]="form.controls.reason"></textarea>
+      <textarea [formControl]="form.controls.reason" id="description" matInput name="description" placeholder="Razlog za odbijanje."
+                rows="5"></textarea>
       <mat-error *ngIf="form.controls.reason.touched && form.controls.reason.errors?.required">
-        Ovo polje ne sme biti prazno!</mat-error >
+        Ovo polje ne sme biti prazno!
+      </mat-error>
     </mat-form-field>
   </form>
 </div>
 <div>
-  <button [disabled]="form.invalid" mat-raised-button color="primary" (click)="submit()">Posalji</button>
-  <button style="margin-left: 2%" mat-raised-button color="primary" (click)="cancel()">Izadji</button>
+  <button (click)="submit()" [disabled]="form.invalid" color="primary" mat-raised-button>Posalji</button>
+  <button (click)="cancel()" color="primary" mat-raised-button style="margin-left: 2%">Izadji</button>
 </div>

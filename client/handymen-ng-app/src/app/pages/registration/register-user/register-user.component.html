@@ -2,46 +2,56 @@
 
   <div style="float: left; width: 40%; padding-left: 20%;">
 
-    <form [formGroup]="form" (ngSubmit)="registerUser()">
+    <form (ngSubmit)="registerUser()" [formGroup]="form">
 
       <mat-form-field appearance="outline" style="display: block">
-        <mat-label> Email </mat-label>
-        <input [formControl]="form.controls.email" matInput id="email" name="email" placeholder="Email">
+        <mat-label> Email</mat-label>
+        <input [formControl]="form.controls.email" id="email" matInput name="email" placeholder="Email">
         <mat-error *ngIf="form.controls.email.touched && form.controls.email.errors?.required">
-          Ovo polje ne sme biti prazno!</mat-error >
+          Ovo polje ne sme biti prazno!
+        </mat-error>
         <mat-error *ngIf="form.controls.email.touched && form.controls.email.errors?.email">
-          Email nije validan!</mat-error >
+          Email nije validan!
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
-        <mat-label> Lozinka </mat-label>
-        <input type="password" [formControl]="form.controls.password" matInput id="password" name="password" placeholder="Lozinka">
+        <mat-label> Lozinka</mat-label>
+        <input [formControl]="form.controls.password" id="password" matInput name="password" placeholder="Lozinka"
+               type="password">
         <mat-error *ngIf="form.controls.password.touched && form.controls.password.errors?.required">
-          Ovo polje ne sme biti prazno!</mat-error >
+          Ovo polje ne sme biti prazno!
+        </mat-error>
         <mat-error *ngIf="form.controls.password.touched && form.controls.password.errors?.minLength">
-          Lozinka mora biti barem 8 karaktera duga!</mat-error >
+          Lozinka mora biti barem 8 karaktera duga!
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
-        <mat-label> Ime </mat-label>
-        <input [formControl]="form.controls.firstName" matInput id="firstName" name="firstName" placeholder="Ime">
+        <mat-label> Ime</mat-label>
+        <input [formControl]="form.controls.firstName" id="firstName" matInput name="firstName" placeholder="Ime">
         <mat-error *ngIf="form.controls.firstName.touched && form.controls.firstName.errors?.required">
-          Ovo polje ne sme biti prazno!</mat-error >
+          Ovo polje ne sme biti prazno!
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
-        <mat-label> Prezime </mat-label>
-        <input [formControl]="form.controls.lastName" matInput id="lastName" name="lastName" placeholder="Prezime">
+        <mat-label> Prezime</mat-label>
+        <input [formControl]="form.controls.lastName" id="lastName" matInput name="lastName" placeholder="Prezime">
         <mat-error *ngIf="form.controls.lastName.touched && form.controls.lastName.errors?.required">
-          Ovo polje ne sme biti prazno!</mat-error >
+          Ovo polje ne sme biti prazno!
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="display: block">
-        <mat-label> Adresa </mat-label>
-        <input [readonly]="true" [formControl]="form.controls.address" matInput id="address" name="address" placeholder="Address">
+        <mat-label> Adresa</mat-label>
+        <input [formControl]="form.controls.address" [readonly]="true" id="address" matInput name="address"
+               placeholder="Address">
       </mat-form-field>
 
-      <button id="saveButton" [disabled]="form.invalid" style="margin-top: 5%;float:right;background-color: green" mat-raised-button type="submit">Registruj se</button>
+      <button [disabled]="form.invalid" id="saveButton" mat-raised-button
+              style="margin-top: 5%;float:right;background-color: green" type="submit">Registruj se
+      </button>
 
     </form>
 
@@ -51,14 +61,14 @@
 
 <div style="padding-right: 3%;float: right;padding-top: 2%;width: 50%;">
 
-  <app-map (RadiusChanged)="radiusChanged($event)" (DragEnd)="dragEnd($event)" [draggable]="true" [showCircle]="false" >
+  <app-map (DragEnd)="dragEnd($event)" (RadiusChanged)="radiusChanged($event)" [draggable]="true" [showCircle]="false">
   </app-map>
 
 </div>
 
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
-  size="medium"
   color="#fff"
+  size="medium"
   type="ball-atom">
 </ngx-spinner>

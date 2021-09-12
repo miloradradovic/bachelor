@@ -25,10 +25,9 @@ export class CreateJobadFormComponent implements OnInit {
   secondForm: FormGroup;
   thirdForm: FormGroup;
   fourthForm: FormGroup;
-  private fb: FormBuilder;
-  trades = []
-  professions = []
-  categories = []
+  trades = [];
+  professions = [];
+  categories = [];
   currentLocation: LocationModel = new LocationModel(45.259452102126545, 19.848492145538334, 'Aleksandra Tisme 3, 21101 Novi Sad City, Serbia', 0);
   secondFormClicked = false;
   fillOutAdditionalData = false;
@@ -36,6 +35,7 @@ export class CreateJobadFormComponent implements OnInit {
   fiveDaysAhead: Date;
   pictures = [];
   @ViewChild('fileInput') fileInput: ElementRef;
+  private fb: FormBuilder;
 
   constructor(fb: FormBuilder,
               public router: Router,
@@ -63,7 +63,7 @@ export class CreateJobadFormComponent implements OnInit {
     this.fourthForm = this.fb.group({
       urgent: [null],
       maxPrice: [null]
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -78,16 +78,16 @@ export class CreateJobadFormComponent implements OnInit {
       }, error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
 
   }
 
-  dragEnd(locationModel: LocationModel) {
+  dragEnd(locationModel: LocationModel): void {
     this.currentLocation = locationModel;
     this.secondForm.controls.address.setValue(locationModel.name);
   }
 
-  selectionChange($event: MatSelectChange, type: string) {
+  selectionChange($event: MatSelectChange, type: string): void {
     if (type === 'category') {
       this.getProfessionsByCategory($event.value);
       this.trades = [];
@@ -97,7 +97,7 @@ export class CreateJobadFormComponent implements OnInit {
     }
   }
 
-  getCategories() {
+  getCategories(): void {
     this.categoryService.getCategories().subscribe(
       result => {
         this.categories = result.responseObject;
@@ -105,10 +105,10 @@ export class CreateJobadFormComponent implements OnInit {
       error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  getProfessionsByCategory(categoryId: number) {
+  getProfessionsByCategory(categoryId: number): void {
     this.professionService.getProfessionsByCategory(categoryId).subscribe(
       result => {
         this.professions = result.responseObject;
@@ -116,10 +116,10 @@ export class CreateJobadFormComponent implements OnInit {
       error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  getTradesByProfession(professionId: number) {
+  getTradesByProfession(professionId: number): void {
     this.tradeService.getTradesByProfession(professionId).subscribe(
       result => {
         this.trades = result.responseObject;
@@ -130,7 +130,7 @@ export class CreateJobadFormComponent implements OnInit {
     );
   }
 
-  clicked(type: string) {
+  clicked(type: string): void {
     if (type === 'firstFormNext') {
       this.secondFormClicked = true;
     } else if (type === 'secondFormBack') {
@@ -147,8 +147,7 @@ export class CreateJobadFormComponent implements OnInit {
     }
   }
 
-  createJobAd() {
-    console.log(this.fourthForm.value.urgent);
+  createJobAd(): void {
     this.spinnerService.show();
     let jobAd: JobAdModel;
     if (!this.fourthForm.value.maxPrice && !this.fourthForm.value.urgent) {
@@ -161,7 +160,7 @@ export class CreateJobadFormComponent implements OnInit {
         this.secondForm.value.date,
         this.thirdForm.value.selectedTrades,
         this.pictures
-      )
+      );
     } else {
       jobAd = new JobAdModel(
         0,
@@ -172,10 +171,9 @@ export class CreateJobadFormComponent implements OnInit {
         this.secondForm.value.date,
         this.thirdForm.value.selectedTrades,
         this.pictures
-      )
+      );
     }
 
-    console.log(jobAd);
 
     this.jobAdService.createJobAd(jobAd).subscribe(
       result => {
@@ -191,7 +189,7 @@ export class CreateJobadFormComponent implements OnInit {
 
   }
 
-  changedMatStep($event: StepperSelectionEvent) {
+  changedMatStep($event: StepperSelectionEvent): void {
     this.secondFormClicked = $event.selectedIndex === 1;
   }
 
@@ -216,12 +214,12 @@ export class CreateJobadFormComponent implements OnInit {
     this.pictures.push(picture);
   }
 
-  clickedPicture(picture: any) {
+  clickedPicture(picture: any): void {
     this.pictures.forEach((item, index) => {
-      if(item === picture) {
+      if (item === picture) {
         this.pictures.splice(index, 1);
         return;
       }
-    })
+    });
   }
 }

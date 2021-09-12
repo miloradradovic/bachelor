@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LocationModel} from '../../../model/location.model';
 import {HandymanService} from '../../../services/handyman.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {HandymanVerificationModel} from '../../../model/handyman-verification.model';
-import {RegisteringDecideComponent} from '../../dialogs/registering-decide/registering-decide.component';
 import {DeclineReasonDialogComponent} from '../../dialogs/decline-reason-dialog/decline-reason-dialog.component';
 import {NgxSpinnerService} from 'ngx-spinner';
 
@@ -24,23 +23,24 @@ export class RegistrationRequestsDashboardComponent implements OnInit {
     private handymanService: HandymanService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private spinnerService : NgxSpinnerService
-  ) { }
+    private spinnerService: NgxSpinnerService
+  ) {
+  }
 
   ngOnInit(): void {
     this.getRequests();
   }
 
-  getRequests() {
+  getRequests(): void {
     this.handymanService.getRequests().subscribe(
       result => {
         this.originalResult = result.responseObject;
-        let reqs = [];
+        const reqs = [];
         this.originalResult.forEach((item, index) => {
           if (index === 0) {
             this.currentLocation = new LocationModel(item.location.latitude, item.location.longitude, item.location.name, item.radius);
           }
-          let req = {
+          const req = {
             id: item.id,
             firstName: item.firstName,
             lastName: item.lastName,
@@ -48,24 +48,24 @@ export class RegistrationRequestsDashboardComponent implements OnInit {
             email: item.email
           };
           reqs.push(req);
-        })
+        });
         this.regReqs = reqs;
 
       }, error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  onRowClick($event: number) {
+  onRowClick($event: number): void {
     this.originalResult.forEach((item, index) => {
       if (item.id === $event) {
         this.currentLocation = new LocationModel(item.location.latitude, item.location.longitude, item.location.name, item.radius);
       }
-    })
+    });
   }
 
-  verify($event: number) {
+  verify($event: number): void {
     this.spinnerService.show();
     this.handymanService.verify(new HandymanVerificationModel($event, true, '')).subscribe(
       result => {
@@ -76,10 +76,10 @@ export class RegistrationRequestsDashboardComponent implements OnInit {
         this.spinnerService.hide();
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  decline($event: number) {
+  decline($event: number): void {
     const dialogRef = this.dialog.open(DeclineReasonDialogComponent, {
       width: '20%',
       height: '30%'
@@ -88,6 +88,7 @@ export class RegistrationRequestsDashboardComponent implements OnInit {
       if (result) {
         this.spinnerService.show();
         this.handymanService.verify(new HandymanVerificationModel($event, false, result)).subscribe(
+          // tslint:disable-next-line:no-shadowed-variable
           result => {
             this.spinnerService.hide();
             this.snackBar.open(result.message, 'Ok', {duration: 3000});
@@ -96,7 +97,7 @@ export class RegistrationRequestsDashboardComponent implements OnInit {
             this.spinnerService.hide();
             this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
           }
-        )
+        );
       }
     });
   }

@@ -1,11 +1,11 @@
-import {Component, Input, Output, EventEmitter, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent {
+export class TableComponent implements OnChanges{
 
   @Input() dataSource = [];
   @Input() columnsToDisplay = [];
@@ -27,22 +27,26 @@ export class TableComponent {
 
   ngOnChanges(changes: SimpleChanges): void {
     for (const propName in changes) {
-      if (changes.hasOwnProperty(propName)){
+      if (changes.hasOwnProperty(propName)) {
         let vary = this.get(propName);
         vary = changes[propName].currentValue;
       }
     }
   }
-  makeInterest(id: number){
+
+  makeInterest(id: number): void {
     this.MakeInterest.emit(id);
   }
-  clicked(id: number){
+
+  clicked(id: number): void {
     this.Click.emit(id);
   }
-  doubleClicked(id: number){
+
+  doubleClicked(id: number): void {
     this.DoubleClick.emit(id);
   }
-  get(element: string): string[]{
+
+  get(element: string): string[] {
     switch (element) {
       case 'dataSource':
         return this.dataSource;
@@ -53,31 +57,31 @@ export class TableComponent {
     }
   }
 
-  handymanDetails(id) {
+  handymanDetails(id): void {
     this.HandymanDetails.emit(id);
   }
 
-  makeJobDeal(id) {
+  makeJobDeal(id): void {
     this.MakeJobDeal.emit(id);
   }
 
-  finishJob(id) {
+  finishJob(id): void {
     this.FinishJob.emit(id);
   }
 
-  rateJob(id) {
+  rateJob(id): void {
     this.RateJob.emit(id);
   }
 
-  verify(id) {
+  verify(id): void {
     this.Verify.emit(id);
   }
 
-  decline(id) {
+  decline(id): void {
     this.Decline.emit(id);
   }
 
-  viewPics(pics) {
+  viewPics(pics): void {
     this.ViewPics.emit(pics);
   }
 }

@@ -9,6 +9,6 @@
   </form>
 </div>
 <div>
-  <button [disabled]="form.invalid" mat-raised-button color="primary" (click)="finish()">Posalji</button>
-  <button style="margin-left: 2%" mat-raised-button color="primary" (click)="cancel()">Izadji</button>
+  <button (click)="finish()" [disabled]="form.invalid" color="primary" mat-raised-button>Posalji</button>
+  <button (click)="cancel()" color="primary" mat-raised-button style="margin-left: 2%">Izadji</button>
 </div>

@@ -10,7 +10,8 @@ export class NavbarAdminComponent implements OnInit {
 
   @Output() logOut = new EventEmitter<void>();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
   ngOnInit(): void {
   }

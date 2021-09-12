@@ -1,15 +1,15 @@
 <h1 class="mat-display-1;" style="text-align: center;  margin-top: 1.5%;">Vasi poslovi</h1>
 
 <div style="padding-left:2%;float: left;padding-top: 5%;width:95%">
-  <app-table [dataSource]="jobs" [columnsToDisplay]="['Naslov', 'Ime majstora', 'Prezime majstora',
-  'Email majstora', 'Zavrsen', 'Finish job', 'Rate job']"
-             [columnsToIterate]="['title', 'handymanFirstName', 'handymanLastName',
-             'handymanEmail', 'finished']" (FinishJob)="finishJob($event)" (RateJob)="rateJob($event)"></app-table>
+  <app-table (FinishJob)="finishJob($event)" (RateJob)="rateJob($event)"
+             [columnsToDisplay]="['Naslov', 'Ime majstora', 'Prezime majstora',
+  'Email majstora', 'Zavrsen', 'Finish job', 'Rate job']" [columnsToIterate]="['title', 'handymanFirstName', 'handymanLastName',
+             'handymanEmail', 'finished']" [dataSource]="jobs"></app-table>
 
 </div>
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
-  size="medium"
   color="#fff"
+  size="medium"
   type="ball-atom">
 </ngx-spinner>

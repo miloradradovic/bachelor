@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using DataAccessLayer.repositories;
 using Model.dto;
 using Model.models;
-using Org.BouncyCastle.Crypto.Prng;
 
 namespace BusinessLogicLayer.services
 {
@@ -21,15 +20,13 @@ namespace BusinessLogicLayer.services
     {
 
         private readonly IJobAdRepository _jobAdRepository;
-        private readonly IPersonService _personService;
         private readonly ITradeService _tradeService;
         private readonly ILocationService _locationService;
 
-        public JobAdService(IJobAdRepository jobAdRepository, IPersonService personService, ITradeService tradeService, 
+        public JobAdService(IJobAdRepository jobAdRepository, ITradeService tradeService, 
             ILocationService locationService)
         {
             _jobAdRepository = jobAdRepository;
-            _personService = personService;
             _tradeService = tradeService;
             _locationService = locationService;
         }

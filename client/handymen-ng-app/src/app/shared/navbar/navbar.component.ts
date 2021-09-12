@@ -1,6 +1,5 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {StorageService} from '../../services/storage.service';
 import {AuthService} from '../../services/auth.service';
 
@@ -19,6 +18,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.storageService.watchStorage().subscribe(() => {
+      // tslint:disable-next-line:no-shadowed-variable
       const user = JSON.parse(sessionStorage.getItem('user'));
       if (user === null) {
         this.role = '';

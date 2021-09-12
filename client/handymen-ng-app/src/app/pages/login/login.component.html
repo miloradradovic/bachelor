@@ -3,39 +3,46 @@
 
 <div style="display: block; text-align: center; margin: 10%;">
   <br>
-  <form [formGroup]="form"  (ngSubmit)="submit()" style="display: inline-block; width: 100%">
+  <form (ngSubmit)="submit()" [formGroup]="form" style="display: inline-block; width: 100%">
     <div>
       <mat-form-field>
         <mat-label for="username">Email:</mat-label>
-        <input matInput id="email" name="email" placeholder="email" [formControl]="form.controls.email">
+        <input [formControl]="form.controls.email" id="email" matInput name="email" placeholder="email">
         <mat-error *ngIf="form.controls.email.touched && form.controls.email.errors?.required">
-          Ovo polje ne sme biti prazno!</mat-error >
-        <mat-error *ngIf="form.controls.email.errors?.email && form.controls.email.touched"> Email nije validan </mat-error>
+          Ovo polje ne sme biti prazno!
+        </mat-error>
+        <mat-error *ngIf="form.controls.email.errors?.email && form.controls.email.touched"> Email nije validan
+        </mat-error>
       </mat-form-field>
     </div>
 
     <div>
       <mat-form-field>
         <mat-label for="password">Lozinka:</mat-label>
-        <input matInput  type="password" id="password" name="password" placeholder="Lozinka" [formControl]="form.controls.password">
+        <input [formControl]="form.controls.password" id="password" matInput name="password" placeholder="Lozinka"
+               type="password">
         <mat-error *ngIf="form.controls.password.touched && form.controls.password.errors?.required">
-          Ovo polje ne sme biti prazno!</mat-error>
+          Ovo polje ne sme biti prazno!
+        </mat-error>
       </mat-form-field>
     </div>
 
     <div>
-      <button color="accent" mat-raised-button type="submit" id="sign-in-button" [disabled]="!form.valid">Uloguj se</button>
+      <button [disabled]="!form.valid" color="accent" id="sign-in-button" mat-raised-button type="submit">Uloguj se
+      </button>
     </div>
   </form>
   <div style="padding-top: 2%">
     <h6>
-      <button mat-stroked-button color="accent" (click)="createAccount()" class="accountButton">Nemas nalog? Registruj se!</button>
+      <button (click)="createAccount()" class="accountButton" color="accent" mat-stroked-button>Nemas nalog? Registruj
+        se!
+      </button>
     </h6>
   </div>
   <ngx-spinner
     bdColor="rgba(51,51,51,0.8)"
-    size="medium"
     color="#fff"
+    size="medium"
     type="ball-atom">
   </ngx-spinner>
 </div>
@@ -43,7 +50,7 @@
   <div>
     <div class="copyright">
       &copy;
-      {{data | date: 'yyyy'}}, Developed by <a href="assets/cv/Milorad's%20Resume.pdf" download>Come</a>
+      {{data | date: 'yyyy'}}, Developed by <a style="color: cadetblue" download href="assets/cv/Milorad's%20Resume.pdf">Come</a>
     </div>
   </div>
 </footer>

@@ -1,14 +1,15 @@
 <h1 class="mat-display-1;" style="text-align: center;  margin-top: 1.5%;">Oglasi za posao u Vasoj okolini</h1>
 
 <div style="padding-left:20%;float: left;padding-top: 5%;width:60%">
-  <app-table (ViewPics)="viewPics($event)" (MakeInterest)="makeInterest($event)" [dataSource]="jobAds" [columnsToDisplay]="['Naslov', 'Opis',
+  <app-table (MakeInterest)="makeInterest($event)" (ViewPics)="viewPics($event)" [columnsToDisplay]="['Naslov', 'Opis',
   'Adresa', 'Hitno', 'Budzet', 'Datum', 'Pictures', 'Make interest']"
-             [columnsToIterate]="['title', 'description', 'address', 'urgent', 'maxPrice', 'dateWhen']"></app-table>
+             [columnsToIterate]="['title', 'description', 'address', 'urgent', 'maxPrice', 'dateWhen']"
+             [dataSource]="jobAds"></app-table>
 
 </div>
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
-  size="medium"
   color="#fff"
+  size="medium"
   type="ball-atom">
 </ngx-spinner>

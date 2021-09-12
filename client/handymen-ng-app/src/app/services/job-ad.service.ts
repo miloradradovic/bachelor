@@ -12,7 +12,7 @@ export class JobAdService {
 
   constructor(private http: HttpClient) { }
 
-  createJobAd(jobAd: JobAdModel) : Observable<any> {
+  createJobAd(jobAd: JobAdModel): Observable<any> {
     return this.http.post('https://localhost:5001/api/job-ads/create-job-ad', jobAd, {headers: this.headers, responseType: 'json'});
   }
 
@@ -25,6 +25,6 @@ export class JobAdService {
   }
 
   getJobAdsWithNoOfferByUser(data: { handyTrades: [] }): Observable<any> {
-    return this.http.post('https://localhost:5001/api/job-ads/get-job-ads-by-user-no-offer', data, {headers: this.headers, responseType: 'json'})
+    return this.http.post('https://localhost:5001/api/job-ads/get-job-ads-by-user-no-offer', data, {headers: this.headers, responseType: 'json'});
   }
 }

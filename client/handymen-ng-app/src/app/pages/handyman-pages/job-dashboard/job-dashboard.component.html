@@ -1,15 +1,16 @@
 <h1 class="mat-display-1;" style="text-align: center;  margin-top: 1.5%;">Vasi poslovi</h1>
 
 <div style="padding-left:2%;float: left;padding-top: 5%;width:95%">
-  <app-table [dataSource]="jobs" [columnsToDisplay]="['Naslov', 'Ime majstora', 'Prezime majstora',
+  <app-table (FinishJob)="finishJob($event)" [columnsToDisplay]="['Naslov', 'Ime majstora', 'Prezime majstora',
   'Email majstora', 'Ime korisnika', 'Prezime korisnika', 'Email korisnika', 'Zavrseno', 'Finish job']"
              [columnsToIterate]="['title', 'handymanFirstName', 'handymanLastName',
-             'handymanEmail', 'userFirstName' , 'userLastName', 'userEmail', 'finished']" (FinishJob)="finishJob($event)"></app-table>
+             'handymanEmail', 'userFirstName' , 'userLastName', 'userEmail', 'finished']"
+             [dataSource]="jobs"></app-table>
 
 </div>
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
-  size="medium"
   color="#fff"
+  size="medium"
   type="ball-atom">
 </ngx-spinner>

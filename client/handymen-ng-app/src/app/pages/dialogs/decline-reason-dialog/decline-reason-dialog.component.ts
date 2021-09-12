@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
 
@@ -25,11 +25,11 @@ export class DeclineReasonDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  cancel() {
+  cancel(): void {
     this.dialogRef.close();
   }
 
-  submit() {
+  submit(): void {
     this.dialogRef.close(this.form.value.reason);
   }
 }

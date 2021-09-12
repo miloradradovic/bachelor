@@ -13,9 +13,10 @@ export class PicturesDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<PicturesDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {pictures: []},
+    @Inject(MAT_DIALOG_DATA) public data: { pictures: [] },
     private snackBar: MatSnackBar
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.pictures = this.data.pictures;

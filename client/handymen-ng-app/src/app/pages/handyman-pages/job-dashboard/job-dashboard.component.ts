@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {JobService} from '../../../services/job.service';
@@ -18,23 +18,24 @@ export class JobDashboardComponent implements OnInit {
     private spinnerService: NgxSpinnerService,
     private jobService: JobService,
     private snackBar: MatSnackBar
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getJobsForHandyman();
   }
 
-  getJobsForHandyman() {
+  getJobsForHandyman(): void {
     this.jobService.getJobsForHandyman().subscribe(
       result => {
         this.jobs = result.responseObject;
       }, error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  finishJob($event: number) {
+  finishJob($event: number): void {
     this.spinnerService.show();
     this.jobService.finishJob($event).subscribe(
       result => {
@@ -45,7 +46,7 @@ export class JobDashboardComponent implements OnInit {
         this.spinnerService.hide();
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
 }

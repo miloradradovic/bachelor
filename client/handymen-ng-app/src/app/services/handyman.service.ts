@@ -49,7 +49,8 @@ export class HandymanService {
   }
 
   getHandymenByProfession(profession): Observable<any> {
-    return this.http.get('https://localhost:5001/api/handymen/get-by-profession/' + profession, {headers: this.headers, responseType: 'json'});
+    return this.http.get('https://localhost:5001/api/handymen/get-by-profession/' + profession,
+      {headers: this.headers, responseType: 'json'});
   }
 
   filter(searchParams: SearchParams): Observable<any> {

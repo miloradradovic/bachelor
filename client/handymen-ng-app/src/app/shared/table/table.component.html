@@ -1,66 +1,80 @@
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="{{columnsToDisplay[i]}}" *ngFor="let column of columnsToIterate; let i = index">
-      <th mat-header-cell *matHeaderCellDef> {{columnsToDisplay[i]}} </th>
-      <td id="row{{element.id}}" mat-cell *matCellDef="let element" (click)="clicked(element.id)" (dblclick)="doubleClicked(element.id)"> {{column==='dateWhen' || column === 'publishedDate' ? (element[column] | date) : element[column]}} </td>
+  <table [dataSource]="dataSource" mat-table>
+    <ng-container *ngFor="let column of columnsToIterate; let i = index" matColumnDef="{{columnsToDisplay[i]}}">
+      <th *matHeaderCellDef mat-header-cell> {{columnsToDisplay[i]}} </th>
+      <td (click)="clicked(element.id)" (dblclick)="doubleClicked(element.id)" *matCellDef="let element" id="row{{element.id}}"
+          mat-cell> {{column === 'dateWhen' || column === 'publishedDate' ? (element[column] | date) : element[column]}} </td>
     </ng-container>
 
     <ng-container matColumnDef="Make interest">
-      <th mat-header-cell *matHeaderCellDef> Interesovanje </th>
-      <td mat-cell *matCellDef="let element">  <button mat-raised-button color="primary" (click)="makeInterest(element.id)">Iskazi interesovanje</button>
+      <th *matHeaderCellDef mat-header-cell> Interesovanje</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="makeInterest(element.id)" color="primary" mat-raised-button>Iskazi interesovanje</button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="Handyman details">
-      <th mat-header-cell *matHeaderCellDef> Detalji o majstoru</th>
-      <td mat-cell *matCellDef="let element">  <button mat-raised-button color="primary" (click)="handymanDetails(element.id)">Detalji</button>
+      <th *matHeaderCellDef mat-header-cell> Detalji o majstoru</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="handymanDetails(element.id)" color="primary" mat-raised-button>Detalji</button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="Handyman details interest">
-      <th mat-header-cell *matHeaderCellDef> Detalji o majstoru </th>
-      <td mat-cell *matCellDef="let element">  <button mat-raised-button color="primary" (click)="handymanDetails(element.handymanId)">Detalji</button>
+      <th *matHeaderCellDef mat-header-cell> Detalji o majstoru</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="handymanDetails(element.handymanId)" color="primary" mat-raised-button>Detalji</button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="Make a job deal">
-      <th mat-header-cell *matHeaderCellDef> Dogovori posao </th>
-      <td mat-cell *matCellDef="let element">  <button mat-raised-button color="primary" (click)="makeJobDeal(element.id)">Dogovori</button>
+      <th *matHeaderCellDef mat-header-cell> Dogovori posao</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="makeJobDeal(element.id)" color="primary" mat-raised-button>Dogovori</button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="Finish job">
-      <th mat-header-cell *matHeaderCellDef> Zavrsi posao </th>
-      <td mat-cell *matCellDef="let element">  <button [disabled]="element.finished === 'Da'" mat-raised-button color="primary" (click)="finishJob(element.id)">Zavrsi</button>
+      <th *matHeaderCellDef mat-header-cell> Zavrsi posao</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="finishJob(element.id)" [disabled]="element.finished === 'Da'" color="primary"
+                mat-raised-button>Zavrsi
+        </button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="Rate job">
-      <th mat-header-cell *matHeaderCellDef> Ocena posla </th>
-      <td mat-cell *matCellDef="let element">  <button [disabled]="element.finished === 'Ne' || element.rated" mat-raised-button color="primary" (click)="rateJob(element.id)">Oceni</button>
+      <th *matHeaderCellDef mat-header-cell> Ocena posla</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="rateJob(element.id)" [disabled]="element.finished === 'Ne' || element.rated" color="primary"
+                mat-raised-button>Oceni
+        </button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="Verify">
-      <th mat-header-cell *matHeaderCellDef> Verifikacija </th>
-      <td mat-cell *matCellDef="let element">  <button mat-raised-button color="primary" (click)="verify(element.id)">Verifikuj</button>
+      <th *matHeaderCellDef mat-header-cell> Verifikacija</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="verify(element.id)" color="primary" mat-raised-button>Verifikuj</button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="Decline">
-      <th mat-header-cell *matHeaderCellDef> Odbijanje </th>
-      <td mat-cell *matCellDef="let element">  <button mat-raised-button color="primary" (click)="decline(element.id)">Odbij</button>
+      <th *matHeaderCellDef mat-header-cell> Odbijanje</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="decline(element.id)" color="primary" mat-raised-button>Odbij</button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="Pictures">
-      <th mat-header-cell *matHeaderCellDef> Slike </th>
-      <td mat-cell *matCellDef="let element">  <button mat-raised-button color="primary" (click)="viewPics(element.pictures)">Vidi slike</button>
+      <th *matHeaderCellDef mat-header-cell> Slike</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="viewPics(element.pictures)" color="primary" mat-raised-button>Vidi slike</button>
       </td>
     </ng-container>
 
-    <tr  mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    <tr *matHeaderRowDef="columnsToDisplay" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: columnsToDisplay;" mat-row></tr>
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>

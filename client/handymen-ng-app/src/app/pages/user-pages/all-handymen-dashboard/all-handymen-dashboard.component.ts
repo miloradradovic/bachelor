@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -6,7 +6,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {TradeService} from '../../../services/trade.service';
 import {HandymanService} from '../../../services/handyman.service';
 import {MatDialog} from '@angular/material/dialog';
-import {CategoryService} from '../../../services/category.service';
 import {MatSelectChange} from '@angular/material/select';
 import {SearchParams} from '../../../model/search-params';
 import {DetailedHandymanDialogComponent} from '../../dialogs/detailed-handyman-dialog/detailed-handyman-dialog.component';
@@ -19,9 +18,9 @@ import {DetailedHandymanDialogComponent} from '../../dialogs/detailed-handyman-d
 export class AllHandymenDashboardComponent implements OnInit {
 
   form: FormGroup;
+  trades = [];
+  handymen = [];
   private fb: FormBuilder;
-  trades = []
-  handymen = []
 
   constructor(
     fb: FormBuilder,
@@ -48,7 +47,7 @@ export class AllHandymenDashboardComponent implements OnInit {
     this.getTrades();
   }
 
-  getTrades() {
+  getTrades(): void {
     this.tradeService.getTrades().subscribe(
       result => {
         this.trades = result.responseObject;
@@ -56,10 +55,10 @@ export class AllHandymenDashboardComponent implements OnInit {
       error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  getHandymen() {
+  getHandymen(): void {
     this.handymanService.getAllHandymen().subscribe(
       result => {
         this.handymen = result.responseObject;
@@ -67,19 +66,19 @@ export class AllHandymenDashboardComponent implements OnInit {
       error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  selectionChange($event: MatSelectChange) {
+  selectionChange($event: MatSelectChange): void {
     this.search();
   }
 
-  onInputChange(object: Object) {
+  onInputChange(object): void {
     this.search();
   }
 
-  search() {
-    let searchParams: SearchParams = new SearchParams(
+  search(): void {
+    const searchParams: SearchParams = new SearchParams(
       this.form.value.firstName,
       this.form.value.lastName,
       this.form.value.selectedTrades,
@@ -87,17 +86,17 @@ export class AllHandymenDashboardComponent implements OnInit {
       this.form.value.avgRatingTo,
       this.form.value.address,
       []
-    )
+    );
     this.handymanService.search(searchParams).subscribe(
       result => {
         this.handymen = result.responseObject;
       }, error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  clickedRow($event: number) {
+  clickedRow($event: number): void {
     const dialogRef = this.dialog.open(DetailedHandymanDialogComponent, {
       width: '60%',
       height: '80%',

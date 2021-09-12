@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LocationModel} from '../../../model/location.model';
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {TradeService} from '../../../services/trade.service';
-import {HandymanService} from '../../../services/handyman.service';
 import {ProfessionService} from '../../../services/profession.service';
 import {CategoryService} from '../../../services/category.service';
 import {AuthService} from '../../../services/auth.service';
-import {MatSelectChange} from '@angular/material/select';
 import {ProfileDataModel} from '../../../model/profile-data.model';
 import {UserService} from '../../../services/user.service';
 
@@ -21,9 +19,9 @@ import {UserService} from '../../../services/user.service';
 export class UserProfileComponent implements OnInit {
 
   form: FormGroup;
-  private fb: FormBuilder;
   currentLocation: LocationModel = new LocationModel(45.259452102126545, 19.848492145538334, 'Aleksandra Tisme 3, 21101 Novi Sad City, Serbia', 0);
   currentId = 0;
+  private fb: FormBuilder;
 
   constructor(
     fb: FormBuilder,
@@ -49,7 +47,7 @@ export class UserProfileComponent implements OnInit {
     this.getCurrentUser();
   }
 
-  getCurrentUser() {
+  getCurrentUser(): void {
     this.userService.getCurrentUser().subscribe(
       result => {
         this.form.controls.email.setValue(result.responseObject.email);
@@ -62,15 +60,15 @@ export class UserProfileComponent implements OnInit {
       }, error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  dragEnd(locationModel: LocationModel) {
+  dragEnd(locationModel: LocationModel): void {
     this.currentLocation = locationModel;
     this.form.controls.address.setValue(locationModel.name);
   }
 
-  editProfile() {
+  editProfile(): void {
     this.spinnerService.show();
     const profileData: ProfileDataModel = new ProfileDataModel(
       this.currentId,
@@ -79,7 +77,7 @@ export class UserProfileComponent implements OnInit {
       this.form.value.email,
       this.currentLocation,
       []
-    )
+    );
     this.userService.editProfile(profileData).subscribe(
       result => {
         this.spinnerService.hide();
@@ -90,7 +88,7 @@ export class UserProfileComponent implements OnInit {
         this.spinnerService.hide();
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
 }

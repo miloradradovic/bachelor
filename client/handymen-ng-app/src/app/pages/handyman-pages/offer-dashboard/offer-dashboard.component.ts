@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {JobAdService} from '../../../services/job-ad.service';
@@ -27,13 +27,14 @@ export class OfferDashboardComponent implements OnInit {
     public dialog: MatDialog,
     private interestService: InterestService,
     private offerService: OfferService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getOffers();
   }
 
-  getOffers() {
+  getOffers(): void {
     this.offerService.getOffersByHandyman().subscribe(
       result => {
         this.jobAds = result.responseObject;
@@ -41,10 +42,10 @@ export class OfferDashboardComponent implements OnInit {
         this.spinnerService.hide();
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  makeInterest($event: number) {
+  makeInterest($event: number): void {
 
     const dialogRef = this.dialog.open(CreateInterestDialogComponent, {
       width: '30%'
@@ -52,8 +53,9 @@ export class OfferDashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.spinnerService.show();
-        let interest: InterestModel = new InterestModel(0, $event, result.days, result.price);
+        const interest: InterestModel = new InterestModel(0, $event, result.days, result.price);
         this.interestService.createInterest(interest).subscribe(
+          // tslint:disable-next-line:no-shadowed-variable
           result => {
             this.spinnerService.hide();
             this.snackBar.open(result.message, 'Ok', {duration: 3000});
@@ -62,16 +64,16 @@ export class OfferDashboardComponent implements OnInit {
             this.spinnerService.hide();
             this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
           }
-        )
+        );
       }
     });
 
   }
 
-  viewPics(pictures) {
+  viewPics(pictures): void {
     const dialogRef = this.dialog.open(PicturesDialogComponent, {
       width: '80%',
-      data: {pictures: pictures}
+      data: {pictures}
     });
   }
 

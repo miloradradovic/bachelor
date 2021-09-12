@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -16,7 +16,7 @@ import {CategoryService} from '../../../services/category.service';
 
 interface Node {
   name: string;
-  children?: Node[]
+  children?: Node[];
 }
 
 /** Flat node with expandable and level information */
@@ -34,11 +34,12 @@ interface ExampleFlatNode {
 })
 export class HandymenDashboardComponent implements OnInit {
 
+  // tslint:disable-next-line:variable-name
   private _transformer = (node: Node, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
-      level: level,
+      level,
     };
   }
 
@@ -52,8 +53,8 @@ export class HandymenDashboardComponent implements OnInit {
 
   form: FormGroup;
   private fb: FormBuilder;
-  trades = []
-  handymen: [] = []
+  trades = [];
+  handymen: [] = [];
   ogHandymen: [] = [];
   handymanProfession = '';
 
@@ -83,17 +84,18 @@ export class HandymenDashboardComponent implements OnInit {
     this.getCategoriesWithProfessions();
   }
 
-  getCategoriesWithProfessions() {
+  getCategoriesWithProfessions(): void {
     this.categoryService.getCategoriesWithProfessions().subscribe(
       result => {
-        let treeData = [];
+        const treeData = [];
         result.responseObject.forEach((item, index) => {
-          let node = {name: item.name, children: []};
+          const node = {name: item.name, children: []};
+          // tslint:disable-next-line:no-shadowed-variable
           item.professions.forEach((item, index) => {
-            node.children.push({name: item, children: [], selected: false})
-          })
+            node.children.push({name: item, children: [], selected: false});
+          });
           treeData.push(node);
-        })
+        });
         this.handymanProfession = treeData[0].children[0].name;
         this.getHandymenByProfession(this.handymanProfession);
         this.getTradesByProfession(this.handymanProfession);
@@ -101,19 +103,19 @@ export class HandymenDashboardComponent implements OnInit {
       }, error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  selectionChange($event: MatSelectChange) {
+  selectionChange($event: MatSelectChange): void {
     this.filter();
   }
 
-  onInputChange(object: Object) {
+  onInputChange(object): void {
     this.filter();
   }
 
-  filter() {
-    let searchParams: SearchParams = new SearchParams(
+  filter(): void {
+    const searchParams: SearchParams = new SearchParams(
       this.form.value.firstName,
       this.form.value.lastName,
       this.form.value.selectedTrades,
@@ -121,8 +123,9 @@ export class HandymenDashboardComponent implements OnInit {
       this.form.value.avgRatingTo,
       this.form.value.address,
       this.ogHandymen
-    )
-    if (searchParams.firstName === '' && searchParams.address === '' && searchParams.trades.length === 0 && searchParams.avgRatingTo === 5 && searchParams.avgRatingFrom === 0 && searchParams.lastName === '') {
+    );
+    if (searchParams.firstName === '' && searchParams.address === '' && searchParams.trades.length === 0 &&
+      searchParams.avgRatingTo === 5 && searchParams.avgRatingFrom === 0 && searchParams.lastName === '') {
       this.getHandymenByProfession(this.handymanProfession);
       return;
     }
@@ -132,10 +135,10 @@ export class HandymenDashboardComponent implements OnInit {
       }, error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  clickedRow($event: number) {
+  clickedRow($event: number): void {
     const dialogRef = this.dialog.open(DetailedHandymanDialogComponent, {
       width: '60%',
       height: '80%',
@@ -143,7 +146,7 @@ export class HandymenDashboardComponent implements OnInit {
     });
   }
 
-  getTradesByProfession(profession: string) {
+  getTradesByProfession(profession: string): void {
     this.handymanProfession = profession;
     this.tradeService.getTradesByProfessionName(profession).subscribe(
       result => {
@@ -156,7 +159,7 @@ export class HandymenDashboardComponent implements OnInit {
     );
   }
 
-  private getHandymenByProfession(profession) {
+  private getHandymenByProfession(profession): void {
     this.form.controls.firstName.setValue('');
     this.form.controls.lastName.setValue('');
     this.form.controls.selectedTrades.setValue([]);
@@ -171,6 +174,6 @@ export class HandymenDashboardComponent implements OnInit {
       }, error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 }

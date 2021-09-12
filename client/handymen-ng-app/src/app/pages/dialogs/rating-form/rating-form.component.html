@@ -2,19 +2,21 @@
 <form [formGroup]="form">
   <div class="cont">
     <div class="stars">
-      <ngx-star-rating [formControl]="form.controls.pickedRating" [id]="'rating3'" ></ngx-star-rating >
+      <ngx-star-rating [formControl]="form.controls.pickedRating" [id]="'rating3'"></ngx-star-rating>
     </div>
     <div style="padding-top: 2%">
       <mat-form-field>
         <mat-label for="commentInput">Komentar:</mat-label>
-        <textarea matInput id="commentInput" name="commentInput" placeholder="Komentar" [formControl]="form.controls.commentInput"></textarea>
+        <textarea [formControl]="form.controls.commentInput" id="commentInput" matInput name="commentInput"
+                  placeholder="Komentar"></textarea>
         <mat-error *ngIf="form.controls.commentInput.touched && form.controls.commentInput.errors?.required">
-          Ovo polje ne sme biti prazno!</mat-error >
+          Ovo polje ne sme biti prazno!
+        </mat-error>
       </mat-form-field>
     </div>
   </div>
 </form>
 <div mat-dialog-actions>
-  <button [disabled]="form.invalid" mat-button (click)="submit()">Posalji</button>
-  <button mat-button (click)="cancel()">Izadji</button>
+  <button (click)="submit()" [disabled]="form.invalid" mat-button>Posalji</button>
+  <button (click)="cancel()" mat-button>Izadji</button>
 </div>

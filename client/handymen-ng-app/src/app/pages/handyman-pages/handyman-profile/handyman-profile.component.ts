@@ -9,7 +9,6 @@ import {HandymanService} from '../../../services/handyman.service';
 import {ProfessionService} from '../../../services/profession.service';
 import {CategoryService} from '../../../services/category.service';
 import {MatSelectChange} from '@angular/material/select';
-import {RegisterDataModel} from '../../../model/register-data.model';
 import {ProfileDataModel} from '../../../model/profile-data.model';
 import {AuthService} from '../../../services/auth.service';
 
@@ -21,15 +20,15 @@ import {AuthService} from '../../../services/auth.service';
 export class HandymanProfileComponent implements OnInit {
 
   form: FormGroup;
-  private fb: FormBuilder;
-  trades = []
-  professions = []
-  categories = []
+  trades = [];
+  professions = [];
+  categories = [];
   currentLocation: LocationModel = new LocationModel(45.259452102126545, 19.848492145538334, 'Aleksandra Tisme 3, 21101 Novi Sad City, Serbia', 0);
   currentProfession = null;
   currentCategory = null;
   currentTrades = [];
   currentId = 0;
+  private fb: FormBuilder;
 
   constructor(
     fb: FormBuilder,
@@ -60,7 +59,7 @@ export class HandymanProfileComponent implements OnInit {
     this.getCategories();
   }
 
-  selectionChange($event: MatSelectChange, type: string) {
+  selectionChange($event: MatSelectChange, type: string): void {
     if (type === 'category') {
       this.getProfessionsByCategory($event.value);
       this.trades = [];
@@ -70,7 +69,7 @@ export class HandymanProfileComponent implements OnInit {
     }
   }
 
-  getCurrentHandyman() {
+  getCurrentHandyman(): void {
     this.handymanService.getCurrentHandyman().subscribe(
       result => {
         this.form.controls.email.setValue(result.responseObject.email);
@@ -85,10 +84,10 @@ export class HandymanProfileComponent implements OnInit {
       }, error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  getCategories() {
+  getCategories(): void {
     this.categoryService.getCategories().subscribe(
       result => {
         this.categories = result.responseObject;
@@ -96,10 +95,10 @@ export class HandymanProfileComponent implements OnInit {
       error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  getProfessionsByCategory(categoryId: number) {
+  getProfessionsByCategory(categoryId: number): void {
     this.professionService.getProfessionsByCategory(categoryId).subscribe(
       result => {
         this.professions = result.responseObject;
@@ -107,10 +106,10 @@ export class HandymanProfileComponent implements OnInit {
       error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 
-  getTradesByProfession(professionId: number) {
+  getTradesByProfession(professionId: number): void {
     this.tradeService.getTradesByProfession(professionId).subscribe(
       result => {
         this.trades = result.responseObject;
@@ -122,16 +121,16 @@ export class HandymanProfileComponent implements OnInit {
     );
   }
 
-  dragEnd(locationModel: LocationModel) {
+  dragEnd(locationModel: LocationModel): void {
     this.currentLocation = locationModel;
     this.form.controls.address.setValue(locationModel.name);
   }
 
-  radiusChanged(locationModel: LocationModel) {
-    this.currentLocation = locationModel
+  radiusChanged(locationModel: LocationModel): void {
+    this.currentLocation = locationModel;
   }
 
-  editProfile() {
+  editProfile(): void {
     let selectedTrades = [];
     if (this.form.value.selectedTrades === []) {
       selectedTrades = this.currentTrades;
@@ -146,7 +145,7 @@ export class HandymanProfileComponent implements OnInit {
       this.form.value.email,
       this.currentLocation,
       selectedTrades
-    )
+    );
     this.handymanService.editProfile(profileData).subscribe(
       result => {
         this.spinnerService.hide();
@@ -157,6 +156,6 @@ export class HandymanProfileComponent implements OnInit {
         this.spinnerService.hide();
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
       }
-    )
+    );
   }
 }
