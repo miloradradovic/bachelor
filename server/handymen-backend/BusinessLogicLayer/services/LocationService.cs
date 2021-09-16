@@ -28,12 +28,9 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetByUser(User user)
         {
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljena lokacija za korisnika.",
-                ResponseObject = user.Address.ToLocationDTO(),
-                Status = 200
-            };
+            ApiResponse response = new ApiResponse();
+            response.GotLocation(user.Address, "Uspesno dobavljena lokacija za korisnika.", 200);
+            return response;
         }
 
         public List<Location> GetLocationsByName(string name)

@@ -31,62 +31,44 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse DeleteRating(int ratingId)
         {
+            ApiResponse response = new ApiResponse();
             Rating found = _ratingRepository.GetById(ratingId);
             if (found == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Rejting sa tim id nije pronadjen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Rejting sa tim id nije pronadjen.", 400);
+                return response;
             }
 
             Job foundJob = _jobService.GetById(found.RatedJob.Id);
             if (foundJob == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Posao sa tim id nije pronadjen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Posao sa tim id nije pronadjen.", 400);
+                return response;
             }
             
             HandyMan foundHandyman = _personService.GetHandymanById(foundJob.HandyMan.Id);
 
             if (foundHandyman == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Majstor sa tim id nije pronadjen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Majstor sa tim id nije pronadjen.", 400);
+                return response;
             }
 
             foundHandyman.Ratings.Remove(found);
             _personService.UpdateHandyman(foundHandyman);
             _ratingRepository.Delete(ratingId);
-            return new ApiResponse()
-            {
-                Message = "Uspesno obrisan rejting.",
-                ResponseObject = found.ToRatingDTO(foundJob.Id),
-                Status = 200
-            };
+            response.DeletedRating(found, foundJob.Id, "Uspesno obrisan rejting.", 200);
+            return response;
         }
 
         public ApiResponse VerifyRating(int ratingId)
         {
+            ApiResponse response = new ApiResponse();
             Rating found = _ratingRepository.GetById(ratingId);
             if (found == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Rejting sa tim id nije pronadjen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Rejting sa tim id nije pronadjen.", 400);
+                return response;
             }
 
             found.Verified = true;
@@ -94,92 +76,58 @@ namespace BusinessLogicLayer.services
             Job foundJob = _jobService.GetById(found.RatedJob.Id);
             if (foundJob == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Posao sa tim id nije pronadjen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Posao sa tim id nije pronadjen.", 400);
+                return response;
             }
             
             HandyMan foundHandyman = _personService.GetHandymanById(foundJob.HandyMan.Id);
 
             if (foundHandyman == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Majstor sa tim id nije pronadjen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Majstor sa tim id nije pronadjen.", 400);
+                return response;
             }
 
             Rating updated = _ratingRepository.Update(found);
             if (updated == null)
             {
-                return new ApiResponse()
-                {
-                    Message =
-                        "Nesto se desilo sa bazom podataka prilikom verifikovanja ocene. Molimo pokusajte ponovo kasnije.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Nesto se desilo sa bazom podataka prilikom verifikovanja ocene. Molimo pokusajte ponovo kasnije.", 400);
+                return response;
             }
             foundHandyman.CalculateAverageRate();
             _personService.UpdateHandyman(foundHandyman);
-            return new ApiResponse()
-            {
-                Message = "Uspesno verifikovana ocena.",
-                ResponseObject = updated.ToRatingDTO(foundJob.Id),
-                Status = 200
-            };
-            
+            response.VerifiedRating(updated, foundJob.Id, "Uspesno verifikovana ocena.", 200);
+            return response;
         }
 
         public ApiResponse CreateRating(Rating toCreate, int jobId)
         {
-            
+            ApiResponse response = new ApiResponse();
             Job foundJob = _jobService.GetById(jobId);
             if (foundJob == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Posao sa tim id nije pronadjen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Posao sa tim id nije pronadjen.", 400);
+                return response;
             }
 
             if (_ratingRepository.GetByJob(foundJob.Id) != null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Vec ste ocenili majstora za ovaj posao.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Vec ste ocenili majstora za ovaj posao.", 400);
+                return response;
             }
 
             if (!foundJob.Finished)
             {
-                return new ApiResponse()
-                {
-                    Message = "Posao nije zavrsen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Posao nije zavrsen.", 400);
+                return response;
             }
             
             HandyMan found = _personService.GetHandymanById(foundJob.HandyMan.Id);
 
             if (found == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Majstor sa tim id nije pronadjen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Majstor sa tim id nije pronadjen.", 400);
+                return response;
             }
 
             toCreate.RatedJob = foundJob;
@@ -188,58 +136,30 @@ namespace BusinessLogicLayer.services
             
             if (created == null)
             {
-                return new ApiResponse()
-                {
-                    Message =
-                        "Nesto se desilo sa bazom podataka prilikom kreiranja ocene. Molimo pokusajte ponovo kasnije.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Nesto se desilo sa bazom podataka prilikom kreiranja ocene. Molimo pokusajte ponovo kasnije.", 400);
+                return response;
             }
             
             found.Ratings.Add(created);
-            //found.CalculateAverageRate();
             HandyMan updated = _personService.UpdateHandyman(found);
 
             if (updated == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Nesto se desilo sa bazom prilikom azuriranja podataka o majstoru. Molimo pokusajte ponovo kasnije.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Nesto se desilo sa bazom prilikom azuriranja podataka o majstoru. Molimo pokusajte ponovo kasnije.", 400);
+                return response;
             }
 
-            return new ApiResponse()
-            {
-                Message = "Uspesno kreirana nova ocena. Bice prikazana nakon sto je nas administrator tim odobri.",
-                ResponseObject = created.ToRatingDTO(jobId),
-                Status = 201
-            };
+            response.CreatedRating(created, jobId,
+                "Uspesno kreirana nova ocena. Bice prikazana nakon sto je nas administrator tim odobri.", 201);
+            return response;
         }
 
         public ApiResponse GetRatings(bool verified)
         {
+            ApiResponse response = new ApiResponse();
             List<Rating> ratings = _ratingRepository.GetRatings(verified);
-            List<RatingDTO> dtos = new List<RatingDTO>();
-            foreach (Rating rating in ratings)
-            {
-                dtos.Add(new RatingDTO()
-                {
-                    Description = rating.Description,
-                    Id = rating.Id,
-                    Rate = rating.Rate,
-                    PublishedDate = rating.PublishedDate
-                });
-            }
-
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljeni neverifikovani rejtinzi.",
-                ResponseObject = dtos,
-                Status = 200
-            };
+            response.GotRatings(ratings, "Uspesno dobavljeni neverifikovani rejtinzi.", 200);
+            return response;
         }
     }
 }

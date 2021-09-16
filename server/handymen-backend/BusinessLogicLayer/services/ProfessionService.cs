@@ -34,30 +34,16 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetProfessionsByCategory(int categoryId)
         {
+            ApiResponse response = new ApiResponse();
             Category category = _categoryService.GetById(categoryId);
             if (category == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Kategorija sa tim id nije pronadjena.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Kategorija sa tim id nije pronadjena.", 400);
+                return response;
             }
 
-            List<ProfessionDTO> dtos = new List<ProfessionDTO>();
-
-            foreach (Profession profession in category.Professions)
-            {
-                dtos.Add(profession.ToProfessionDTO());
-            }
-
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljene profesije za kategoriju.",
-                ResponseObject = dtos,
-                Status = 200
-            };
+            response.GotProfessions(category.Professions, "Uspesno dobavljene profesije za kategoriju.", 200);
+            return response;
         }
 
         public Profession GetById(int id)

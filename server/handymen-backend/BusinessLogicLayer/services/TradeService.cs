@@ -48,29 +48,16 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetAll()
         {
+            ApiResponse response = new ApiResponse();
             List<Trade> trades = _tradeRepository.GetAll();
             if (trades == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Nesto se desilo sa bazom podataka prilikom dobavljanja usluga. Molimo pokusajte ponovo kasnije.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Nesto se desilo sa bazom podataka prilikom dobavljanja usluga. Molimo pokusajte ponovo kasnije.", 400);
+                return response;
             }
 
-            List<TradeDTO> tradeDtos = new List<TradeDTO>();
-            foreach (Trade trade in trades)
-            {
-                tradeDtos.Add(trade.ToTradeDTO());
-            }
-
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljene sve usluge.",
-                ResponseObject = tradeDtos,
-                Status = 200
-            };
+            response.GotTrades(trades, "Uspesno dobavljene sve usluge.", 200);
+            return response;
         }
 
         public void UpdateTrades(HandyMan updatedHandyman)
@@ -93,94 +80,61 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetTradesByProfession(int professionId)
         {
+            ApiResponse response = new ApiResponse();
             Profession profession = _professionService.GetById(professionId);
             if (profession == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Profesija sa tim id nije pronadjena.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Profesija sa tim id nije pronadjena.", 400);
+                return response;
             }
-
-            List<TradeDTO> dtos = new List<TradeDTO>();
-            foreach (Trade trade in profession.Trades)
-            {
-                dtos.Add(trade.ToTradeDTO());
-            }
-
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljene usluge za profesiju.",
-                ResponseObject = dtos,
-                Status = 200
-            };
+            
+            response.GotTrades(profession.Trades, "Uspesno dobavljene usluge za profesiju.", 200);
+            return response;
         }
 
         public ApiResponse GetTradesByProfessionName(string professionName)
         {
+            ApiResponse response = new ApiResponse();
             Profession profession = _professionService.GetByName(professionName);
             if (profession == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Profesija sa tim imenom nije pronadjena.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Profesija sa tim imenom nije pronadjena.", 400);
+                return response;
             }
-
-            List<TradeDTO> dtos = new List<TradeDTO>();
-            foreach (Trade trade in profession.Trades)
-            {
-                dtos.Add(trade.ToTradeDTO());
-            }
-
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljene usluge za profesiju.",
-                ResponseObject = dtos,
-                Status = 200
-            };
+            
+            response.GotTrades(profession.Trades, "Uspesno dobavljene usluge za profesiju.", 200);
+            return response;
         }
 
         public ApiResponse GetCategoryAndProfessionByCurrentHandyman(HandyMan handyMan)
         {
+            ApiResponse response = new ApiResponse();
             List<Trade> trades = handyMan.Trades;
             List<Category> categories = _categoryService.GetAll();
             List<Profession> professions = _professionService.GetProfessions();
-            ProfessionDTO professionDto = new ProfessionDTO();
-            CategoryDTO categoryDto = new CategoryDTO();
 
+            Profession prof = new Profession();
             foreach (Profession profession in professions)
             {
                 if (CheckTrades(profession.Trades, handyMan.Trades))
                 {
-                    professionDto = profession.ToProfessionDTO();
+                    prof = profession;
                     break;
                 }
             }
 
+            Category cat = new Category();
             foreach (Category category in categories)
             {
-                if (CheckProfession(category.Professions, professionDto))
+                if (CheckProfession(category.Professions, prof.ToProfessionDTO()))
                 {
-                    categoryDto = category.ToCategoryDTO();
+                    cat = category;
+                    break;
                 }
             }
 
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljena kategorija i profesija za majstora.",
-                ResponseObject = new HandymanCategoryProfessionDTO()
-                {
-                    CategoryDto = categoryDto,
-                    ProfessionDto = professionDto
-                }
-            };
-
-
+            response.GotCategoryProfession(prof, cat, "Uspesno dobavljena kategorija i profesija za majstora.", 200);
+            return response;
         }
 
         private bool CheckProfession(List<Profession> professions, ProfessionDTO professionDto)

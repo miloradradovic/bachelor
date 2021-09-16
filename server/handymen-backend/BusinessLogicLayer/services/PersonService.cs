@@ -104,12 +104,9 @@ namespace BusinessLogicLayer.services
         {
             if (GetByEmail(toRegister.Email) != null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Uneti email je zauzet.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                ApiResponse response = new ApiResponse();
+                response.SetError("Uneti email je zauzet.", 400);
+                return response;
             }
             return _handymanService.Register(toRegister, trades);
         }
@@ -118,12 +115,9 @@ namespace BusinessLogicLayer.services
         {
             if (GetByEmail(toRegister.Email) != null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Uneti email je zauzet.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                ApiResponse response = new ApiResponse();
+                response.SetError("Uneti email je zauzet.", 400);
+                return response;
             }   
             return _userService.RegisterUser(toRegister);
         }
@@ -143,12 +137,9 @@ namespace BusinessLogicLayer.services
             Person foundByEmail = GetByEmail(toCreate.Email);
             if (foundByEmail != null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Uneti email je zauzet.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                ApiResponse response = new ApiResponse();
+                response.SetError("Uneti email je zauzet.", 400);
+                return response;
             }
 
             return _administratorService.Create(toCreate);
@@ -186,15 +177,12 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetHandymanByIdApiResponse(int handymanId)
         {
+            ApiResponse response = new ApiResponse();
             HandyMan found = _handymanService.GetById(handymanId);
             if (found == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Majstor sa tim id nije pronadjen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Majstor sa tim id nije pronadjen.", 400);
+                return response;
             }
 
             List<Rating> ratings = new List<Rating>();
@@ -209,12 +197,8 @@ namespace BusinessLogicLayer.services
 
             found.Ratings = ratings;
 
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljen majstor.",
-                ResponseObject = found.ToDetailedHandymanDTO(),
-                Status = 200
-            };
+            response.GotDetailedHandyman(found, "Uspesno dobavljen majstor.", 200);
+            return response;
         }
 
         public ApiResponse EditProfile(Person person, List<string> trades, string type)
@@ -225,12 +209,9 @@ namespace BusinessLogicLayer.services
                 Person byEmail = GetByEmail(person.Email);
                 if (byEmail != null)
                 {
-                    return new ApiResponse()
-                    {
-                        Message = "Uneti email je zauzet.",
-                        ResponseObject = null,
-                        Status = 400
-                    };
+                    ApiResponse response = new ApiResponse();
+                    response.SetError("Uneti email je zauzet.", 400);
+                    return response;
                 }
             }
 

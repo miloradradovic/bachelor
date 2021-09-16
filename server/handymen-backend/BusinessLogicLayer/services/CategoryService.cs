@@ -26,19 +26,10 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetCategories()
         {
+            ApiResponse response = new ApiResponse();
             List<Category> categories = _categoryRepository.GetCategories();
-            List<CategoryDTO> dtos = new List<CategoryDTO>();
-            foreach (Category category in categories)
-            {
-                dtos.Add(category.ToCategoryDTO());
-            }
-
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljene sve kategorije.",
-                ResponseObject = dtos,
-                Status = 200
-            };
+            response.GotCategories(categories, "Uspesno dobavljene sve kategorije.", 200);
+            return response;
         }
 
         public Category GetById(int id)
@@ -53,19 +44,10 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetCategoriesWithProfessions()
         {
+            ApiResponse response = new ApiResponse();
             List<Category> categories = GetAll();
-            List<CategoryDTO> dtos = new List<CategoryDTO>();
-            foreach (Category category in categories)
-            {
-                dtos.Add(category.ToCategoryDTO());
-            }
-
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljene kategorije sa profesijama.",
-                ResponseObject = dtos,
-                Status = 200
-            };
+            response.GotCategories(categories, "Uspesno dobavljene kategorije sa profesijama.", 200);
+            return response;
         }
     }
 }

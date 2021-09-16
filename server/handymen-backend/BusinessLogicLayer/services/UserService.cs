@@ -45,7 +45,7 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse RegisterUser(User request)
         {
-            
+            ApiResponse response = new ApiResponse();
             request.Password = BC.HashPassword(request.Password);
 
             Location foundLocation =
@@ -60,12 +60,8 @@ namespace BusinessLogicLayer.services
 
             if (created == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Nesto se desilo sa bazom podataka prilikom registracije. Molimo pokusajte ponovo kasnije.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Nesto se desilo sa bazom podataka prilikom registracije. Molimo pokusajte ponovo kasnije.", 400);
+                return response;
             }
             
             _mailService.SendEmail(new MailRequest()
@@ -74,49 +70,35 @@ namespace BusinessLogicLayer.services
                 Subject = "Verifikacija naloga",
                 ToEmail = created.Email
             });
-            
-            return new ApiResponse()
-            {
-                Message = "Zahtev za registraciju je uspesno kreiran. Na Vas email poslali smo Vam verifikacioni link.",
-                ResponseObject = created.ToDtoWithoutLists(),
-                Status = 201
-            };
+
+            response.RegisteredUser(created,
+                "Zahtev za registraciju je uspesno kreiran. Na Vas email poslali smo Vam verifikacioni link.", 201);
+            return response;
         }
 
         public ApiResponse VerifyUser(string encrypted)
         {
+            ApiResponse response = new ApiResponse();
             int decryptedId;
             bool canParse = int.TryParse(_cryptingService.Decrypt(encrypted), out decryptedId);
             if (!canParse)
             {
-                return new ApiResponse()
-                {
-                    Message = "Nesto nije u redu sa kriptovanim id. Molimo pokusajte ponovo.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Nesto nije u redu sa kriptovanim id. Molimo pokusajte ponovo.", 400);
+                return response;
             }
             
             User toVerify = _userRepository.GetById(decryptedId);
 
             if (toVerify == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Vas nalog nije pronadjen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Vas nalog nije pronadjen.", 400);
+                return response;
             }
 
             if (toVerify.Verified)
             {
-                return new ApiResponse()
-                {
-                    Message = "Vec ste verifikovali nalog.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Vec ste verifikovali nalog.", 400);
+                return response;
             }
 
             toVerify.Verified = true;
@@ -124,22 +106,12 @@ namespace BusinessLogicLayer.services
 
             if (updated == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Nesto se desilo sa bazom podataka prilikom azuriranja Vaseg naloga. Molimo pokusajte ponovo kasnije.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Nesto se desilo sa bazom podataka prilikom azuriranja Vaseg naloga. Molimo pokusajte ponovo kasnije.", 400);
+                return response;
             }
 
-            return new ApiResponse()
-            {
-                Message = "Uspesno ste verifikovali nalog. Sada mozete da se ulogujete!",
-                ResponseObject = updated.ToDtoWithoutLists(),
-                Status = 200
-            };
-
-
+            response.VerifiedUser(updated, "Uspesno ste verifikovali nalog. Sada mozete da se ulogujete!", 200);
+            return response;
         }
 
         public User GetByEmail(string email)
@@ -149,6 +121,7 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse EditProfile(User toUpdate)
         {
+            ApiResponse response = new ApiResponse();
             User foundUser = GetById(toUpdate.Id);
             Location foundLocation = _locationService.GetByLatAndLng(toUpdate.Address.Latitude, toUpdate.Address.Longitude);
             if (foundLocation != null)
@@ -162,20 +135,13 @@ namespace BusinessLogicLayer.services
             User updated = _userRepository.Update(foundUser);
             if (updated == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Nesto se desilo sa bazom podataka prilikom azuriranja Vaseg profila. Molimo pokusajte ponovo kasnije.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Nesto se desilo sa bazom podataka prilikom azuriranja Vaseg profila. Molimo pokusajte ponovo kasnije.", 400);
+                return response;
             }
 
-            return new ApiResponse()
-            {
-                Message = "Uspesno azuriran profil. Molimo da se ulogujete ponovo da bi promene imale efekat.",
-                ResponseObject = updated.ToProfileDataDTO(),
-                Status = 200
-            };
+            response.UpdatedUserProfile(updated,
+                "Uspesno azuriran profil. Molimo da se ulogujete ponovo da bi promene imale efekat.", 200);
+            return response;
         }
     }
 }

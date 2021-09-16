@@ -39,26 +39,19 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse Create(Administrator toCreate)
         {
+            ApiResponse response = new ApiResponse();
             toCreate.Verified = true;
             toCreate.Password = BC.HashPassword(toCreate.Password);
             Administrator created = _administratorRepository.Create(toCreate);
             if (created == null)
             {
-                return new ApiResponse()
-                {
-                    Message =
-                        "Nesto se desilo sa bazom podataka prilikom kreiranja administratora. Molimo pokusajte ponovo kasnije.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Nesto se desilo sa bazom podataka prilikom kreiranja administratora. " +
+                                  "Molimo pokusajte ponovo kasnije.", 400);
+                return response;
             }
-
-            return new ApiResponse()
-            {
-                Message = "Uspesno kreiran administrator.",
-                ResponseObject = created.ToDto(),
-                Status = 201
-            };
+            
+            response.CreatedAdministrator(created, "Uspesno kreiran administrator.", 201);
+            return response;
         }
     }
 }

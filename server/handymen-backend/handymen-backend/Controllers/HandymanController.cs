@@ -93,12 +93,9 @@ namespace handymen_backend.Controllers
         public IActionResult GetCurrentHandyman()
         {
             HandyMan current = (HandyMan) HttpContext.Items["LoggedIn"];
-            return Ok(new ApiResponse()
-            {
-                Message = "Uspesno dobavljen trenutno ulogovani majstor.",
-                ResponseObject = current.ToProfileDataDTO(),
-                Status = 200
-            });
+            ApiResponse response = new ApiResponse();
+            response.UpdatedHandymanProfile(current, "Uspesno dobavljen trenutno ulogovani majstor.", 200);
+            return Ok(response);
         }
 
         [HttpPut("edit-profile")]

@@ -32,27 +32,20 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse MakeInterest(Interest interest, int jobAdId, HandyMan handyMan)
         {
+            ApiResponse response = new ApiResponse();
             interest.HandyMan = handyMan;
             JobAd found = _jobAdService.GetById(jobAdId);
 
             if (found == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Posao sa tim id nije pronadjen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Posao sa tim id nije pronadjen.", 400);
+                return response;
             }
 
             if (_interestRepository.GetByJobAdAndHandymanId(found.Id, handyMan.Id) != null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Vec ste iskazali interesovanje za ovaj oglas.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Vec ste iskazali interesovanje za ovaj oglas.", 400);
+                return response;
             }
             
             interest.JobAd = found;
@@ -61,12 +54,8 @@ namespace BusinessLogicLayer.services
 
             if (saved == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Nesto se desilo sa bazom podataka prilikom kreiranja interesa. Molimo pokusajte ponovo kasnije.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Nesto se desilo sa bazom podataka prilikom kreiranja interesa. Molimo pokusajte ponovo kasnije.", 400);
+                return response;
             }
             
             _mailService.SendEmail(new MailRequest()
@@ -77,13 +66,10 @@ namespace BusinessLogicLayer.services
                 ToEmail = found.Owner.Email
             });
 
-            return new ApiResponse()
-            {
-                Message =
-                    "Uspesno ste iskazali interesovanje za ovaj oglas. Proveravajte email da biste ispratili da vlasnik oglasa zeli da radi sa Vama.",
-                ResponseObject = saved.ToInterestDTO(),
-                Status = 201
-            };
+            response.CreatedInterest(saved,
+                "Uspesno ste iskazali interesovanje za ovaj oglas. Proveravajte email da biste ispratili da vlasnik oglasa zeli da radi sa Vama.",
+                201);
+            return response;
         }
 
         public Interest GetById(int id)
@@ -103,7 +89,7 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetByUser(User user)
         {
-            List<InterestDashboardDTO> result = new List<InterestDashboardDTO>();
+            ApiResponse response = new ApiResponse();
             
             foreach (JobAd jobAd in user.JobAds)
             {
@@ -111,17 +97,13 @@ namespace BusinessLogicLayer.services
                 List<Interest> interests = _interestRepository.GetByJobAd(fullJobAd.Id);
                 foreach (Interest interest in interests)
                 {
-                    result.Add(interest.ToInterestDashboardDTO(fullJobAd.ToJobAdDashboardDTO()));
+                    response.GotInterestDashboard(interest, fullJobAd, interests.IndexOf(interest));
                 }
-                
             }
 
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljeni interesi za korisnika.",
-                ResponseObject = result,
-                Status = 200
-            };
+            response.Message = "Uspesno dobavljeni interesi za korisnika.";
+            response.Status = 200;
+            return response;
         }
 
         public Interest GetByJobAdAndHandyman(int jobAd, int handyman)

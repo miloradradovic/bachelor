@@ -49,12 +49,9 @@ namespace handymen_backend.Controllers
         public IActionResult GetCurrentUser()
         {
             User current = (User) HttpContext.Items["LoggedIn"];
-            return Ok(new ApiResponse()
-            {
-                Message = "Uspesno dobavljen trenutno ulogovani korisnik.",
-                ResponseObject = current.ToProfileDataDTO(),
-                Status = 200
-            });
+            ApiResponse response = new ApiResponse();
+            response.UpdatedUserProfile(current, "Uspesno dobavljen trenutno ulogovani korisnik.", 200);
+            return Ok(response);
         }
 
         [HttpPut("edit-profile")]

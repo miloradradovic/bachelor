@@ -44,22 +44,19 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetByProfessionName(string professionName)
         {
+            ApiResponse response = new ApiResponse();
             List<HandyMan> handymen = _handymanRepository.GetAllVerified();
-            List<HandymanDashboardDTO> handymanDashboardDtos = new List<HandymanDashboardDTO>();
+            List<HandyMan> result = new List<HandyMan>();
             foreach (HandyMan handy in handymen)
             {
                 if (FindProfessionByTrade(handy.Trades[0], professionName) == professionName)
                 {
-                    handymanDashboardDtos.Add(handy.ToDahboardDTO());
+                    result.Add(handy);
                 }
             }
 
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljeni majstori po profesiji.",
-                ResponseObject = handymanDashboardDtos,
-                Status = 200
-            };
+            response.GotHandymenDashboard(result, "Uspesno dobavljeni majstori po profesiji.", 200);
+            return response;
         }
 
         private string FindProfessionByTrade(Trade trade, string professionName)
@@ -93,7 +90,7 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse Register(HandyMan request, List<string> trades)
         {
-
+            ApiResponse response = new ApiResponse();
             Location foundLocation =
                 _locationService.GetByLatAndLng(request.Address.Latitude, request.Address.Longitude);
             if (foundLocation != null)
@@ -106,12 +103,8 @@ namespace BusinessLogicLayer.services
                 Trade found = _tradeService.GetByName(trade);
                 if (found == null)
                 {
-                    return new ApiResponse()
-                    {
-                        Message = "Neko od imena usluga nije validno.",
-                        ResponseObject = null,
-                        Status = 400
-                    };
+                    response.SetError("Neko od imena usluga nije validno.", 400);
+                    return response;
                 }
 
                 try
@@ -131,34 +124,25 @@ namespace BusinessLogicLayer.services
 
             if (saved == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Nesto se desilo sa bazom podataka prilikom registracije. Molimo pokusajte ponovo kasnije.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Nesto se desilo sa bazom podataka prilikom registracije. " +
+                                  "Molimo pokusajte ponovo kasnije.", 400);
+                return response;
             }
-            
-            return new ApiResponse()
-            {
-                Message =
-                    "Uspesno kreiran zahtev za registraciju. Poslacemo Vam email kada administrator verifikuje vas zahtev.",
-                ResponseObject = saved.ToDtoWithTrades(),
-                Status = 201
-            };
+
+            response.RegisteredHandyman(saved,
+                "Uspesno kreiran zahtev za registraciju. Poslacemo Vam email kada administrator verifikuje vas zahtev.",
+                201);
+            return response;
         }
 
         public ApiResponse VerifyHandyman(HandymanVerificationData handymanVerificationData)
         {
+            ApiResponse response = new ApiResponse();
             HandyMan found = _handymanRepository.GetById(handymanVerificationData.Id, false);
             if (found == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Majstor sa tim id nije pronadjen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Majstor sa tim id nije pronadjen.", 400);
+                return response;
             }
 
             if (handymanVerificationData.Verify) // if verified
@@ -167,13 +151,8 @@ namespace BusinessLogicLayer.services
                 HandyMan updated = _handymanRepository.Update(found);
                 if (updated == null)
                 {
-                    return new ApiResponse()
-                    {
-                        Message =
-                            "Nesto se desilo sa bazom podataka prilikom verifikacije zahteva za registraciju. Molimo pokusajte ponovo kasnije.",
-                        ResponseObject = null,
-                        Status = 400
-                    };
+                    response.SetError("Nesto se desilo sa bazom podataka prilikom verifikacije zahteva za registraciju. Molimo pokusajte ponovo kasnije.", 400);
+                    return response;
                 }
                 _mailService.SendEmail(new MailRequest()
                 {
@@ -182,24 +161,15 @@ namespace BusinessLogicLayer.services
                     ToEmail = updated.Email
                 });
 
-                return new ApiResponse()
-                {
-                    Message = "Uspesno verifikovan nalog majstora.",
-                    ResponseObject = updated.ToDtoWithoutLists(),
-                    Status = 200
-                };
+                response.VerifiedHandyman(updated, "Uspesno verifikovan nalog majstora.", 200);
+                return response;
             }
             // if request has been denied, then delete it
             bool deleted = _handymanRepository.Delete(found);
             if (!deleted)
             {
-                return new ApiResponse()
-                {
-                    Message =
-                        "Nesto se desilo sa bazom podataka prilikom brisanja zahteva za registraciju. Molimo pokusajte ponovo kasnije.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Nesto se desilo sa bazom podataka prilikom brisanja zahteva za registraciju. Molimo pokusajte ponovo kasnije.", 400);
+                return response;
             }
             
             _mailService.SendEmail(new MailRequest()
@@ -209,12 +179,8 @@ namespace BusinessLogicLayer.services
                 ToEmail = found.Email
             });
 
-            return new ApiResponse()
-            {
-                Message = "Uspesno obrisan zahtev za registraciju.",
-                ResponseObject = found.ToDtoWithoutLists(),
-                Status = 200
-            };
+            response.VerifiedHandyman(found, "Uspesno obrisan zahtev za registraciju.", 200);
+            return response;
         }
 
         public HandyMan Update(HandyMan toUpdate)
@@ -224,24 +190,15 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetAll()
         {
+            ApiResponse response = new ApiResponse();
             List<HandyMan> result = _handymanRepository.GetAllVerified();
-            List<HandymanDashboardDTO> handymanDashboardDtos = new List<HandymanDashboardDTO>();
-
-            foreach (HandyMan handyman in result)
-            {
-                handymanDashboardDtos.Add(handyman.ToDahboardDTO());
-            }
-
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljeni svi majstori za prikaz.",
-                ResponseObject = handymanDashboardDtos,
-                Status = 200
-            };
+            response.GotHandymenDashboard(result, "Uspesno dobavljeni svi majstori za prikaz.", 200);
+            return response;
         }
 
         public ApiResponse Search(SearchParams searchParams)
         {
+            ApiResponse response = new ApiResponse();
             bool searchByFirstName = false;
             if (searchParams.FirstName != null)
             {
@@ -291,23 +248,13 @@ namespace BusinessLogicLayer.services
                 
 
             }
-            List<HandymanDashboardDTO> handymanDashboardDtos = new List<HandymanDashboardDTO>();
-            foreach (HandyMan handyMan in result)
-            {
-                handymanDashboardDtos.Add(handyMan.ToDahboardDTO());
-            }
-
-            return new ApiResponse()
-            {
-                Message = "Uspesno odradjena pretraga.",
-                ResponseObject = handymanDashboardDtos,
-                Status = 200
-            };
-
+            response.GotHandymenDashboard(result, "Uspesno odradjena pretraga.", 200);
+            return response;
         }
 
         public ApiResponse Filter(SearchParams searchParams)
         {
+            ApiResponse response = new ApiResponse();
             bool filterByFirstName = false;
             if (searchParams.FirstName != null)
             {
@@ -384,21 +331,9 @@ namespace BusinessLogicLayer.services
 
             List<HandyMan> result =
                 FilterByTradesAndAverageAndAddress(handymen, searchParams, filterByTrades, filterByAddress);
-
-            List<HandymanDashboardDTO> dtos = new List<HandymanDashboardDTO>();
-
-            foreach (HandyMan filtered in result)
-            {
-                dtos.Add(filtered.ToDahboardDTO());
-            }
-
-            return new ApiResponse()
-            {
-                Message = "Uspesno filtrirani majstori.",
-                ResponseObject = dtos,
-                Status = 200
-            };
-
+            
+            response.GotHandymenDashboard(result, "Uspesno filtrirani majstori.", 200);
+            return response;
         }
 
         private List<HandyMan> FilterByTradesAndAverageAndAddress(List<HandyMan> list, SearchParams searchParams, bool searchByTrades, bool searchByAddress)
@@ -502,6 +437,7 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse EditProfile(HandyMan toUpdate, List<string> tradesStrings)
         {
+            ApiResponse response = new ApiResponse();
             HandyMan found = GetById(toUpdate.Id);
             List<Trade> trades = new List<Trade>();
             foreach (string trade in tradesStrings)
@@ -523,37 +459,21 @@ namespace BusinessLogicLayer.services
             HandyMan updated = Update(found);
             if (updated == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Doslo je do greske prilikom izmene profila.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Doslo je do greske prilikom izmene profila.", 400);
+                return response;
             }
 
-            return new ApiResponse()
-            {
-                Message = "Uspesno izmenjen profil. Molimo da se ulogujete ponovo da bi promena imala efekat.",
-                ResponseObject = updated.ToProfileDataDTO(),
-                Status = 200
-            };
+            response.UpdatedHandymanProfile(updated,
+                "Uspesno izmenjen profil. Molimo da se ulogujete ponovo da bi promena imala efekat.", 200);
+            return response;
         }
 
         public ApiResponse GetUnverifiedHandymen()
         {
+            ApiResponse response = new ApiResponse();
             List<HandyMan> handyMen = _handymanRepository.GetAllUnverified();
-            List<RegistrationRequestDataDTO> result = new List<RegistrationRequestDataDTO>();
-            foreach (HandyMan handyman in handyMen)
-            {
-                result.Add(handyman.ToRegistrationRequestDataDTO());
-            }
-
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljeni svi neverifikovani majstori.",
-                ResponseObject = result,
-                Status = 200
-            };
+            response.GotRegistrationRequests(handyMen, "Uspesno dobavljeni svi neverifikovani majstori.", 200);
+            return response;
         }
     }
 }

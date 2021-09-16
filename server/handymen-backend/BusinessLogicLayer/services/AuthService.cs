@@ -29,26 +29,18 @@ namespace BusinessLogicLayer.services
         
         public ApiResponse LogIn(LoginData loginData)
         {
+            ApiResponse response = new ApiResponse();
             Person toLogIn = _personService.GetByEmailAndPassword(loginData.Email, loginData.Password);
 
             if (toLogIn == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Kombinacija emaila i lozinke nije ispravna.",
-                    ResponseObject = null,
-                    Status = 401
-                };
+                response.SetError("Kombinacija emaila i lozinke nije ispravna.", 401);
+                return response;
             }
 
             string token = GenerateJwtToken(toLogIn);
-
-            return new ApiResponse()
-            {
-                Message = "Uspesno ste se ulogovali.",
-                ResponseObject = token,
-                Status = 200
-            };
+            response.LoggedIn(token, "Uspesno ste se ulogovali.", 200);
+            return response;
         }
 
         private string GenerateJwtToken(Person toLogIn)

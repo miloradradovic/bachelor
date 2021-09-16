@@ -36,16 +36,13 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse MakeOffer(int handymanId, int jobAdId)
         {
+            ApiResponse response = new ApiResponse();
             HandyMan foundHandyman = _handymanService.GetById(handymanId);
             JobAd foundJobAd = _jobAdService.GetById(jobAdId);
             if (foundHandyman == null || foundJobAd == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Majstor ili oglas sa tim id nije pronadjen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Majstor ili oglas sa tim id nije pronadjen.", 400);
+                return response;
             }
             Offer created = _offerRepository.Create(new Offer()
             {
@@ -59,17 +56,9 @@ namespace BusinessLogicLayer.services
                 Subject = "Nova ponuda za posao",
                 ToEmail = foundHandyman.Email
             });
-            
-            return new ApiResponse()
-            {
-                Message = "Uspesno kreirana ponuda.",
-                ResponseObject = new OfferDTO()
-                {
-                    HandyMan = handymanId,
-                    Id = created.Id,
-                    JobAd = jobAdId
-                }
-            };
+
+            response.CreatedOffer(created, "Uspesno kreirana ponuda.", 200);
+            return response;
         }
 
         public bool DeleteOffers(int jobAdId)
@@ -80,22 +69,19 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetOffersByHandyman(HandyMan handyMan)
         {
+            ApiResponse response = new ApiResponse();
             List<Offer> offers = _offerRepository.GetOffersByHandyman(handyMan.Id);
-            List<JobAdDashboardDTO> dtos = new List<JobAdDashboardDTO>();
+            List<JobAd> result = new List<JobAd>();
             foreach (Offer offer in offers)
             {
                 if (_interestService.GetByJobAdAndHandyman(offer.JobAd.Id, handyMan.Id) == null)
                 {
-                    dtos.Add(_jobAdService.GetById(offer.JobAd.Id).ToJobAdDashboardDTO());
+                    result.Add(_jobAdService.GetById(offer.JobAd.Id));
                 }
             }
-
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljene sve ponude.",
-                ResponseObject = dtos,
-                Status = 200
-            };
+            
+            response.GotJobAdDashboard(result, "Uspesno dobavljene sve ponude.", 200);
+            return response;
         }
     }
 }

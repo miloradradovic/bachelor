@@ -4,7 +4,7 @@
     <mat-icon [ngStyle]="{'color':'white'}">home</mat-icon>
   </a>
   <span style="padding-left: 2%">eKnjigaZuteStrane</span>
-  <span class="example-spacer" style="padding-left:2%"> </span>
+  <span class="example-spacer" style="padding-left:10%"> </span>
 
   <button [matMenuTriggerFor]="jobadmenu" id="jobadmenu" mat-button style="width: 15%">Oglasi za posao</button>
   <mat-menu #jobadmenu="matMenu">
@@ -17,7 +17,7 @@
       </button>
     </a>
   </mat-menu>
-  <button [matMenuTriggerFor]="handymenu" id="handymenu" mat-button style="width: 15%">Majstori</button>
+  <button [matMenuTriggerFor]="handymenu" id="handymenu" mat-button style="width: 10%;margin-left: 5%">Majstori</button>
   <mat-menu #handymenu="matMenu">
     <a routerLink="/" style="margin-left: 5%;">
       <button color="primary" mat-flat-button style="width: 90%;margin-bottom: 5%">Pretraga</button>
@@ -26,10 +26,10 @@
       <button color="primary" id="id" mat-flat-button style="width: 90%;margin-bottom: 5%">Svi majstori</button>
     </a>
   </mat-menu>
-  <a routerLink="/user/interests-dashboard" style="padding-left: 1%">
+  <a routerLink="/user/interests-dashboard" style="margin-left: 5%">
     <button color="primary" mat-flat-button style="width: 20%;margin-bottom: 5%">Interesi</button>
   </a>
-  <a routerLink="/user/jobs-dashboard" style="padding-left: 1%">
+  <a routerLink="/user/jobs-dashboard" style="margin-left: 5%">
     <button color="primary" mat-flat-button style="width: 20%;margin-bottom: 5%">Poslovi</button>
   </a>
   <span style="width: 80%"></span>

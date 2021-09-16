@@ -32,15 +32,12 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse CreateJob(int interest)
         {
+            ApiResponse response = new ApiResponse();
             Interest found = _interestService.GetById(interest);
             if (found == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Interes sa tim id nije pronadjen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Interes sa tim id nije pronadjen.", 400);
+                return response;
             }
             
             Job saved = _jobRepository.Create(new Job()
@@ -53,12 +50,8 @@ namespace BusinessLogicLayer.services
 
             if (saved == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Nesto se desilo sa bazom podataka prilikom kreiranja posla. Molimo pokusajte ponovo kasnije.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Nesto se desilo sa bazom podataka prilikom kreiranja posla. Molimo pokusajte ponovo kasnije.", 400);
+                return response;
             }
 
             bool deleted = _interestService.DeleteRemainingInterests(saved.JobAd.Id);
@@ -66,13 +59,8 @@ namespace BusinessLogicLayer.services
 
             if (!deleted || !deleted2)
             {
-                return new ApiResponse()
-                {
-                    Message =
-                        "Nesto se desilo sa bazom podataka prilikom brisanja ponuda i interesa za posao. Molimo pokusajte ponovo kasnije.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Nesto se desilo sa bazom podataka prilikom brisanja ponuda i interesa za posao. Molimo pokusajte ponovo kasnije.", 400);
+                return response;
             }
 
             List<HandyMan> handyMen = _interestService.GetRemainingHandymen(found.Id, saved.HandyMan.Id);
@@ -100,27 +88,19 @@ namespace BusinessLogicLayer.services
                 ToEmail = saved.HandyMan.Email
             });
 
-            return new ApiResponse()
-            {
-                Message = "Uspesno kreiran posao.",
-                ResponseObject = saved.ToJobDTO(),
-                Status = 201
-            };
-
+            response.CreatedJob(saved, "Uspesno kreiran posao.", 201);
+            return response;
         }
 
         public ApiResponse FinishJob(int jobId)
         {
+            ApiResponse response = new ApiResponse();
             Job found = _jobRepository.GetById(jobId);
 
             if (found == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Posao sa tim id nije pronadjen.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Posao sa tim id nije pronadjen.", 400);
+                return response;
             }
 
             found.Finished = true;
@@ -128,20 +108,12 @@ namespace BusinessLogicLayer.services
 
             if (updated == null)
             {
-                return new ApiResponse()
-                {
-                    Message = "Nesto se desilo sa bazom podataka prilikom azuriranja statusa posla. Molimo pokusajte ponovo kasnije.",
-                    ResponseObject = null,
-                    Status = 400
-                };
+                response.SetError("Nesto se desilo sa bazom podataka prilikom azuriranja statusa posla. Molimo pokusajte ponovo kasnije.", 400);
+                return response;
             }
 
-            return new ApiResponse()
-            {
-                Message = "Uspesno azuriran status posla.",
-                ResponseObject = updated.ToJobDTO(),
-                Status = 200
-            };
+            response.FinishedJob(updated, "Uspesno azuriran status posla.", 200);
+            return response;
         }
 
         public Job GetById(int jobId)
@@ -151,36 +123,31 @@ namespace BusinessLogicLayer.services
 
         public ApiResponse GetByUser(User user)
         {
+            ApiResponse response = new ApiResponse();
             List<Job> jobs = _jobRepository.GetByUser(user.Id);
-            List<JobDashboardDTO> jobAdDashboardDtos = new List<JobDashboardDTO>();
             foreach (Job job in jobs)
             {
-                jobAdDashboardDtos.Add(job.ToJobDashboardDTO(_jobRepository.CheckIfRated(job)));
+                response.GotJobDashboard(job, _jobRepository.CheckIfRated(job), jobs.IndexOf(job));
             }
 
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljeni poslovi za korisnika.",
-                ResponseObject = jobAdDashboardDtos,
-                Status = 200
-            };
+            response.Message = "Uspesno dobavljeni poslovi za korisnika.";
+            response.Status = 200;
+            return response;
         }
 
         public ApiResponse GetByHandyman(HandyMan handyMan)
         {
+            ApiResponse response = new ApiResponse();
             List<Job> jobs = _jobRepository.GetByHandyman(handyMan.Id);
             List<JobDashboardDTO> jobAdDashboardDtos = new List<JobDashboardDTO>();
             foreach (Job job in jobs)
             {
-                jobAdDashboardDtos.Add(job.ToJobDashboardDTO(_jobRepository.CheckIfRated(job)));
+                response.GotJobDashboard(job, _jobRepository.CheckIfRated(job), jobs.IndexOf(job));
             }
 
-            return new ApiResponse()
-            {
-                Message = "Uspesno dobavljeni poslovi za majstora.",
-                ResponseObject = jobAdDashboardDtos,
-                Status = 200
-            };
+            response.Message = "Uspesno dobavljeni poslovi za majstora.";
+            response.Status = 200;
+            return response;
         }
     }
 }
