@@ -49,7 +49,7 @@ export class HandymanProfileComponent implements OnInit {
       address: ['Aleksandra Tisme 3, 21101 Novi Sad City, Serbia', [Validators.required]],
       category: [null],
       profession: [null],
-      selectedTrades: [[]],
+      selectedTrades: [[], [Validators.required]],
       averageRate: [null, Validators.required]
     });
   }
@@ -59,13 +59,23 @@ export class HandymanProfileComponent implements OnInit {
     this.getCategories();
   }
 
+  getCurrentHandymanCategoryAndProfession(): void {
+    this.tradeService.getCurrentHandymanCategoryAndProfession().subscribe(result => {
+      const category = result.responseObject.categoryDto.id;
+      this.form.controls.category.setValue(category);
+      this.getProfessionsByCategory(category, result.responseObject.professionDto.id);
+    }, error => {
+
+    });
+  }
+
   selectionChange($event: MatSelectChange, type: string): void {
     if (type === 'category') {
-      this.getProfessionsByCategory($event.value);
+      this.getProfessionsByCategory($event.value, -1);
       this.trades = [];
     }
     if (type === 'profession') {
-      this.getTradesByProfession($event.value);
+      this.getTradesByProfession($event.value, -1);
     }
   }
 
@@ -91,6 +101,7 @@ export class HandymanProfileComponent implements OnInit {
     this.categoryService.getCategories().subscribe(
       result => {
         this.categories = result.responseObject;
+        this.getCurrentHandymanCategoryAndProfession();
       },
       error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
@@ -98,10 +109,14 @@ export class HandymanProfileComponent implements OnInit {
     );
   }
 
-  getProfessionsByCategory(categoryId: number): void {
+  getProfessionsByCategory(categoryId: number, professionId: number): void {
     this.professionService.getProfessionsByCategory(categoryId).subscribe(
       result => {
         this.professions = result.responseObject;
+        if (professionId !== -1) {
+          this.form.controls.profession.setValue(professionId);
+          this.getTradesByProfession(professionId, 0);
+        }
       },
       error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
@@ -109,11 +124,13 @@ export class HandymanProfileComponent implements OnInit {
     );
   }
 
-  getTradesByProfession(professionId: number): void {
+  getTradesByProfession(professionId: number, initial: number): void {
     this.tradeService.getTradesByProfession(professionId).subscribe(
       result => {
         this.trades = result.responseObject;
-        this.form.controls.selectedTrades.setValue(this.currentTrades);
+        if (initial !== -1) {
+          this.form.controls.selectedTrades.setValue(this.currentTrades);
+        }
       },
       error => {
         this.snackBar.open(error.error.message, 'Ok', {duration: 3000});
