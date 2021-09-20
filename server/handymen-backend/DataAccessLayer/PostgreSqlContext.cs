@@ -32,27 +32,12 @@ namespace DataAccessLayer
             builder.Entity<Administrator>()
                 .Property(x => x.Id)
                 .UseHiLo("person_seq");
-                //.HasDefaultValueSql("NEXT VALUE FOR postgres.public.person_seq");
-                //.HasDefaultValueSql("NEXT VALUE FOR postgres.public.person_seq");
             builder.Entity<User>()
                 .Property(x => x.Id)
                 .UseHiLo("person_seq");
-                //.HasDefaultValueSql("NEXT VALUE FOR postgres.public.person_seq");
-            //.HasDefaultValueSql("NEXT VALUE FOR postgres.public.person_seq");
             builder.Entity<HandyMan>()
                 .Property(x => x.Id)
                 .UseHiLo("person_seq");
-                //.HasDefaultValueSql("NEXT VALUE FOR postgres.public.person_seq");
-            //.HasDefaultValueSql("NEXT VALUE FOR postgres.public.person_seq");
-            /*
-            builder.ForSqlServerHasSequence<int>("DBSequence")
-                .StartsAt(1000).IncrementsBy(2);
-            builder.Entity<Category>()
-                .Property(x => x.CategoryID)
-                .HasDefaultValueSql("NEXT VALUE FOR DBSequence");
-                */
-            //builder.Entity<Person>().ToTable("People");
-            //builder.Entity<User>().ToTable("Users");
         }  
   
         public override int SaveChanges()  

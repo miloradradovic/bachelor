@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "handymen-backend", "handymen-backend\handymen-backend.csproj", "{6A727A76-A842-4DF2-A5D1-7F7E526DE074}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APILayer", "APILayer\APILayer.csproj", "{6A727A76-A842-4DF2-A5D1-7F7E526DE074}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{AB5C0420-750E-4E81-BA23-741BE072DD84}"
 EndProject

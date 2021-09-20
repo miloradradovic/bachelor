@@ -18,12 +18,12 @@ namespace BusinessLogicLayer.services
         public Person GetById(int id);
         public HandyMan UpdateHandyman(HandyMan toUpdate);
         public ApiResponse GetAllHandymen();
-        public ApiResponse SearchHandymen(SearchParams searchParams);
+        public ApiResponse SearchHandymen(SearchFilterParams searchParams);
         public ApiResponse GetHandymanByIdApiResponse(int handymanId);
         public ApiResponse EditProfile(Person person, List<string> trades, string type);
         public ApiResponse GetUnverifiedHandymen();
         public ApiResponse GetHandymenByProfessionName(string professionName);
-        public ApiResponse FilterHandymen(SearchParams searchParams);
+        public ApiResponse FilterHandymen(SearchFilterParams searchParams);
 
     }
     
@@ -165,12 +165,12 @@ namespace BusinessLogicLayer.services
             return _handymanService.GetAll();
         }
 
-        public ApiResponse SearchHandymen(SearchParams searchParams)
+        public ApiResponse SearchHandymen(SearchFilterParams searchParams)
         {
             return _handymanService.Search(searchParams);
         }
 
-        public ApiResponse FilterHandymen(SearchParams searchParams)
+        public ApiResponse FilterHandymen(SearchFilterParams searchParams)
         {
             return _handymanService.Filter(searchParams);
         }

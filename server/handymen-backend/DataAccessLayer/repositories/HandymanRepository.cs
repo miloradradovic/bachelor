@@ -17,7 +17,7 @@ namespace DataAccessLayer.repositories
         public HandyMan Update(HandyMan toUpdate);
         public bool Delete(HandyMan toDelete);
         public List<HandyMan> GetAll();
-        public List<HandyMan> Search(SearchParams searchParams, bool searchByFirstName, bool searchByLastName);
+        public List<HandyMan> Search(SearchFilterParams searchParams, bool searchByFirstName, bool searchByLastName);
         public Rating GetDetailedRatingProfile(int ratingId);
         public List<HandyMan> GetAllUnverified();
         public List<HandyMan> GetAllVerified();
@@ -124,7 +124,7 @@ namespace DataAccessLayer.repositories
             return result;
         }
 
-        public List<HandyMan> Search(SearchParams searchParams, bool searchByFirstName, bool searchByLastName)
+        public List<HandyMan> Search(SearchFilterParams searchParams, bool searchByFirstName, bool searchByLastName)
         {
             List<HandyMan> result = GetAllVerified();
 

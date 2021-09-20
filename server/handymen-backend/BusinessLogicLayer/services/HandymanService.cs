@@ -17,8 +17,8 @@ namespace BusinessLogicLayer.services
         public ApiResponse VerifyHandyman(HandymanVerificationData handymanVerificationData);
         public HandyMan Update(HandyMan toUpdate);
         public ApiResponse GetAll();
-        public ApiResponse Search(SearchParams searchParams);
-        public ApiResponse Filter(SearchParams searchParams);
+        public ApiResponse Search(SearchFilterParams searchParams);
+        public ApiResponse Filter(SearchFilterParams searchParams);
         public Rating GetDetailedRatingProfile(int ratingId);
         public ApiResponse EditProfile(HandyMan toUpdate, List<string> trades);
         public ApiResponse GetUnverifiedHandymen();
@@ -196,7 +196,7 @@ namespace BusinessLogicLayer.services
             return response;
         }
 
-        public ApiResponse Search(SearchParams searchParams)
+        public ApiResponse Search(SearchFilterParams searchParams)
         {
             ApiResponse response = new ApiResponse();
             bool searchByFirstName = false;
@@ -252,7 +252,7 @@ namespace BusinessLogicLayer.services
             return response;
         }
 
-        public ApiResponse Filter(SearchParams searchParams)
+        public ApiResponse Filter(SearchFilterParams searchParams)
         {
             ApiResponse response = new ApiResponse();
             bool filterByFirstName = false;
@@ -336,7 +336,7 @@ namespace BusinessLogicLayer.services
             return response;
         }
 
-        private List<HandyMan> FilterByTradesAndAverageAndAddress(List<HandyMan> list, SearchParams searchParams, bool searchByTrades, bool searchByAddress)
+        private List<HandyMan> FilterByTradesAndAverageAndAddress(List<HandyMan> list, SearchFilterParams searchParams, bool searchByTrades, bool searchByAddress)
         {
             List<HandyMan> result = new List<HandyMan>();
             
