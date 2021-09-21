@@ -92,7 +92,8 @@ namespace BusinessLogicLayer.services
 
             foreach (JobAd ad in jobAds)
             {
-                if (CheckTrades(handyMan.Trades, ad.Trades) && DetermineCircle(handyMan.Address, handyMan.Radius, ad.Address)
+                if (CheckTrades(handyMan.Trades, ad.Trades) && 
+                    DetermineCircle(handyMan.Address, handyMan.Radius, ad.Address)
                 && !InterestExists(ad.Id, handyMan.Id) && !ExistsJob(ad.Id, handyMan.Id))
                 {
                     result.Add(ad);
